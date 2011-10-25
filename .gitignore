@@ -1,5 +1,6 @@
 syntax: glob
 *.elc
-emacs-places
 ac-comphist.dat
 auto-save-list
+emacs-places
+tramp

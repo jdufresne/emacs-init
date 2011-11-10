@@ -72,40 +72,6 @@
 (setq whitespace-style '(empty trailing))
 (add-hook 'before-save-hook 'whitespace-cleanup)
 
-;; Auto-insert
-(setq auto-insert-context
-	  '(("filename" . (lambda ()
-			    (file-name-sans-extension
-			     (file-name-nondirectory buffer-file-name))))))
-
-(defun auto-insert-render ()
-  (save-excursion
-	(dolist (context-var auto-insert-context)
-	  (point-min)
-	  (let ((name (car context-var))
-			(value (funcall (cdr context-var))))
-		(perform-replace (concat "{{ " name " }}") value nil nil nil)))))
-
-
-(auto-insert-mode t)
-(setq auto-insert-directory "~/.emacs.d/templates/")
-(setq auto-insert-query nil)
-(define-auto-insert "\\.php$" "template.php")
-(define-auto-insert "\\.php$" 'auto-insert-render t)
-
-
-(defun double-quote ()
-  (interactive)
-  (if (use-region-p)
-	  (let ((beginning (region-beginning))
-			(end (1+ (region-end))))
-		(goto-char beginning)
-		(insert "“")
-		(goto-char end)
-		(insert "”"))
-	(insert "“”")
-	(backward-char)))
-
 
 ;; Load from external files
 (add-to-list 'load-path "~/.emacs.d/")
@@ -119,9 +85,6 @@
 
 (require 'flymake-javascript)
 (require 'flymake-csslint)
-
-(require 'json-tidy)
-
 
 
 ;; libs

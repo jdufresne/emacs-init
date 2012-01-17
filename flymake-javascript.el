@@ -7,13 +7,14 @@
    'flymake-get-javascript-cmdline))
 
 (defun flymake-get-javascript-cmdline (source base-dir)
-  (list "js" (list "-s" "-C" (concat base-dir source))))
+  (list "jshint" (list (concat base-dir source))))
 
 (push '("\\.js$" flymake-javascript-init)
 	  flymake-allowed-file-name-masks)
 (push '("\\.json$" flymake-javascript-init)
 	  flymake-allowed-file-name-masks)
-(push '("^\\(.+\\):\\([0-9]+\\): \\(.+\\):$" 1 2 nil 3)
+
+(push '("^\\(.+\\): line \\([0-9]+\\), col \\([0-9]+\\), \\(.+\\)$" 1 2 3 4)
 	  flymake-err-line-patterns)
 
 (add-hook 'js-mode-hook

@@ -4,8 +4,8 @@
 
 ;; Basic config
 (setq inhibit-splash-screen t)
-(setq frame-title-format '(buffer-file-name "%f" ("%b")))
-(set-frame-font "Inconsolata 12")
+(setq frame-title-format '(buffer-file-name "%f" "%b"))
+(setq default-frame-alist '((font . "Inconsolata 12")))
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (set-scroll-bar-mode 'right)
@@ -17,7 +17,7 @@
 (setq save-place-file "~/.emacs.d/emacs-places")
 (setq-default save-place t)
 (setq-default require-final-newline t)
-(global-auto-complete-mode -1)
+(blink-cursor-mode t)
 
 
 ;; Fix copy-paste
@@ -68,7 +68,12 @@
 (add-hook 'php-mode-hook
 		  (lambda () (flymake-mode t)))
 
-(require 'whitespace)
+(add-hook 'sql-interactive-mode-hook
+		  (lambda () (linum-mode 0)))
+
+(add-hook 'shell-mode-hook
+		  (lambda () (linum-mode 0)))
+
 (setq whitespace-style '(empty trailing))
 (add-hook 'before-save-hook 'whitespace-cleanup)
 
@@ -78,7 +83,6 @@
 
 ;; Handle in external files
 (require 'keys)
-(require 'sudo)
 (require 'smart-lines)
 (require 'unfill)
 (require 'project)
@@ -88,14 +92,40 @@
 
 
 ;; libs
-(autoload 'php-mode "php-mode" "PHP editing mode" t nil)
 (require 'smarttabs)
-(require 'saveplace)
 
 (require 'undo-tree)
 (global-undo-tree-mode)
 
-
 (require 'hl-tags-mode)
 (add-hook 'sgml-mode-hook (lambda () (hl-tags-mode 1)))
 (add-hook 'nxml-mode-hook (lambda () (hl-tags-mode 1)))
+
+(require 'browse-kill-ring)
+(browse-kill-ring-default-keybindings)
+
+(require 'grep-a-lot)
+(grep-a-lot-setup-keys)
+
+
+(defun bounds-of-region-or-thing (thing)
+  (if (use-region-p)
+	  (cons (region-beginning) (region-end))
+	(bounds-of-thing-at-point thing)))
+
+(defun -safe-indent-region-rigidly (count)
+  (let ((bounds (bounds-of-region-or-thing 'line)))
+	(indent-rigidly (car bounds) (cdr bounds) count)))
+
+(defun indent-rigidly-tab-width ()
+  (interactive)
+  (-safe-indent-region-rigidly tab-width))
+
+(defun dedent-rigidly-tab-width ()
+  (interactive)
+  (-safe-indent-region-rigidly (- tab-width)))
+
+(global-set-key (kbd "C-<tab>") 'indent-rigidly-tab-width)
+(global-set-key (kbd "C-<iso-lefttab>") 'indent-rigidly-tab-width)
+(global-set-key (kbd "C-S-<tab>") 'dedent-rigidly-tab-width)
+(global-set-key (kbd "C-S-<iso-lefttab>") 'dedent-rigidly-tab-width)

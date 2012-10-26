@@ -113,13 +113,13 @@
 	  (cons (region-beginning) (region-end))
 	(bounds-of-thing-at-point thing)))
 
-(defun -safe-indent-region-rigidly (count)
+(defun -indent-region-rigidly (count)
   (let ((bounds (bounds-of-region-or-thing 'line)))
 	(indent-rigidly (car bounds) (cdr bounds) count)))
 
 (defun indent-rigidly-tab-width ()
   (interactive)
-  (-safe-indent-region-rigidly tab-width))
+  (-indent-region-rigidly tab-width))
 
 (defun dedent-rigidly-tab-width ()
   (interactive)

@@ -9,5 +9,6 @@
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
 
+(windmove-default-keybindings)
 
 (provide 'keys)

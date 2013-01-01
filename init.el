@@ -3,27 +3,31 @@
 
 
 ;; Basic config
+(menu-bar-mode 0)
+(tool-bar-mode 0)
 (setq inhibit-splash-screen t)
 (setq frame-title-format '(buffer-file-name "%f" "%b"))
 (setq default-frame-alist '((font . "Inconsolata 12")))
-(menu-bar-mode 0)
-(tool-bar-mode 0)
 (set-scroll-bar-mode 'right)
 (prefer-coding-system 'utf-8)
 (defalias 'yes-or-no-p 'y-or-n-p)
-(setq make-backup-files nil)
+(add-to-list 'backup-directory-alist '("^.*$" . "~/.local/share/emacs"))
 (setq-default truncate-lines t)
 (setq next-line-add-newlines nil)
-(setq save-place-file "~/.emacs.d/emacs-places")
+(require 'saveplace)
 (setq-default save-place t)
+(setq save-place-file "~/.cache/emacs/places")
 (setq-default require-final-newline t)
 (blink-cursor-mode t)
-
+;(setq-default indent-tabs-mode nil)
 
 ;; Fix copy-paste
 (setq x-select-enable-clipboard t)
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
+;; Enable functions
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
 
 ;; Global minor modes
 (global-linum-mode t)
@@ -33,14 +37,12 @@
 (set-face-background 'hl-line "#ffffe0")
 (delete-selection-mode t)
 (global-auto-revert-mode t)
+(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
 
-
-;; Enable functions
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-
-
+;; Show in the current window
 (add-to-list 'same-window-buffer-names "*grep*")
+(add-to-list 'same-window-regexps "\\*grep\\*<[[:digit:]]+>")
 (add-to-list 'same-window-buffer-names "*SQL*")
 
 
@@ -51,39 +53,32 @@
 (require 'cc-mode)
 (defconst erez-c-style
   '((c-basic-offset . 4)
-	(c-offsets-alist . ((arglist-close . 0)
-						(substatement-open . 0)
-						(case-label . +)))))
+    (c-offsets-alist . ((arglist-close . 0)
+                        (substatement-open . 0)
+                        (case-label . +)))))
 
 (c-add-style "erez" erez-c-style)
 (setq c-default-style "erez")
 
 ;; Hooks
-(add-hook 'text-mode-hook
-		  (lambda () (flyspell-mode)))
-
-(add-hook 'c-mode-common-hook
-		  (lambda () (subword-mode t)))
-
-(add-hook 'php-mode-hook
-		  (lambda () (flymake-mode t)))
-
-(add-hook 'sql-interactive-mode-hook
-		  (lambda () (linum-mode 0)))
-
-(add-hook 'shell-mode-hook
-		  (lambda () (linum-mode 0)))
-
+(add-hook 'text-mode-hook (lambda () (flyspell-mode)))
+(add-hook 'c-mode-common-hook (lambda () (subword-mode t)))
+(add-hook 'php-mode-hook (lambda () (flymake-mode t)))
 (setq whitespace-style '(empty trailing))
 (add-hook 'before-save-hook 'whitespace-cleanup)
 
+;; Turn off linum-mode for these modes
+(add-hook 'sql-interactive-mode-hook (lambda () (linum-mode 0)))
+(add-hook 'shell-mode-hook (lambda () (linum-mode 0)))
 
 ;; Load from external files
 (add-to-list 'load-path "~/.emacs.d/")
 
 ;; Handle in external files
-(require 'keys)
+(require 'current-buffer)
+(require 'region-rigidly)
 (require 'smart-lines)
+(require 'keys)
 (require 'unfill)
 (require 'project)
 
@@ -107,25 +102,4 @@
 (require 'grep-a-lot)
 (grep-a-lot-setup-keys)
 
-
-(defun bounds-of-region-or-thing (thing)
-  (if (use-region-p)
-	  (cons (region-beginning) (region-end))
-	(bounds-of-thing-at-point thing)))
-
-(defun -indent-region-rigidly (count)
-  (let ((bounds (bounds-of-region-or-thing 'line)))
-	(indent-rigidly (car bounds) (cdr bounds) count)))
-
-(defun indent-rigidly-tab-width ()
-  (interactive)
-  (-indent-region-rigidly tab-width))
-
-(defun dedent-rigidly-tab-width ()
-  (interactive)
-  (-safe-indent-region-rigidly (- tab-width)))
-
-(global-set-key (kbd "C-<tab>") 'indent-rigidly-tab-width)
-(global-set-key (kbd "C-<iso-lefttab>") 'indent-rigidly-tab-width)
-(global-set-key (kbd "C-S-<tab>") 'dedent-rigidly-tab-width)
-(global-set-key (kbd "C-S-<iso-lefttab>") 'dedent-rigidly-tab-width)
+(require 'php-mode)

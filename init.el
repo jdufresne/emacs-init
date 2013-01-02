@@ -56,7 +56,6 @@
     (c-offsets-alist . ((arglist-close . 0)
                         (substatement-open . 0)
                         (case-label . +)))))
-
 (c-add-style "erez" erez-c-style)
 (setq c-default-style "erez")
 
@@ -103,3 +102,5 @@
 (grep-a-lot-setup-keys)
 
 (require 'php-mode)
+(setq php-mode-coding-style nil)
+(setq php-mode-warn-if-mumamo-off nil)

@@ -20,6 +20,7 @@
 (setq-default require-final-newline t)
 (blink-cursor-mode t)
 ;(setq-default indent-tabs-mode nil)
+(setq next-screen-context-lines 4)
 
 ;; Fix copy-paste
 (setq x-select-enable-clipboard t)

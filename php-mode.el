@@ -11,7 +11,7 @@
 (defconst php-mode-version-number "1.9"
   "PHP Mode version number.")
 
-(defconst php-mode-modified "2012-12-20"
+(defconst php-mode-modified "2013-01-09"
   "PHP Mode build date.")
 
 ;;; License
@@ -917,7 +917,15 @@ searching the PHP website."
        "LOCK_UN"
        "HTML_SPECIALCHARS"
        "ENT_COMPAT"
+       "ENT_QUOTES"
        "ENT_NOQUOTES"
+       "ENT_IGNORE"
+       "ENT_SUBSTITUTE"
+       "ENT_DISALLOWED"
+       "ENT_HTML401"
+       "ENT_XML1"
+       "ENT_XHTML"
+       "ENT_HTML5"
        "INFO_CREDITS"
        "INFO_MODULES"
        "INFO_VARIABLES"

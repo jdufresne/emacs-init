@@ -1,7 +1,7 @@
 ;;; Keys
 
 (global-set-key (kbd "C-m") 'newline-and-indent)
-(global-set-key (kbd "C-x C-g") 'grep)
+(global-set-key (kbd "C-c C-g") 'grep)
 (global-set-key (kbd "<f11>") 'shell)
 (global-set-key (kbd "<f12>") 'sql-mysql)
 

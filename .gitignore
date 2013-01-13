@@ -2,6 +2,18 @@ syntax: glob
 *.elc
 ac-comphist.dat
 auto-save-list
-emacs-places
-tramp
 session.*
+
+# autotools
+INSTALL
+Makefile
+Makefile.in
+aclocal.m4
+autom4te.cache
+config.log
+config.status
+configure
+elc-stamp
+elisp-comp
+install-sh
+missing

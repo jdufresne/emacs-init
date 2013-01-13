@@ -1,0 +1,5 @@
+AC_INIT([emacs-init], [0.1])
+AM_INIT_AUTOMAKE([foreign])
+AM_PATH_LISPDIR
+AC_CONFIG_FILES([Makefile])
+AC_OUTPUT

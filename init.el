@@ -37,6 +37,9 @@
 (global-hl-line-mode t)
 (set-face-background 'hl-line "#ffffe0")
 (delete-selection-mode t)
+
+;; Auto revert mode
+(require 'autorevert)
 (global-auto-revert-mode t)
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
@@ -49,7 +52,6 @@
 
 ;; Style
 (setq-default tab-width 4)
-(setq nxml-child-indent 4)
 
 (require 'cc-mode)
 (defconst erez-c-style
@@ -60,10 +62,15 @@
 (c-add-style "erez" erez-c-style)
 (setq c-default-style "erez")
 
+(require 'nxml-mode)
+(setq nxml-child-indent 4)
+
 ;; Hooks
 (add-hook 'text-mode-hook (lambda () (flyspell-mode)))
 (add-hook 'c-mode-common-hook (lambda () (subword-mode t)))
 (add-hook 'php-mode-hook (lambda () (flymake-mode t)))
+
+(require 'whitespace)
 (setq whitespace-style '(empty trailing))
 (add-hook 'before-save-hook 'whitespace-cleanup)
 

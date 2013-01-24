@@ -68,7 +68,6 @@
 ;; Hooks
 (add-hook 'text-mode-hook (lambda () (flyspell-mode)))
 (add-hook 'c-mode-common-hook (lambda () (subword-mode t)))
-(add-hook 'php-mode-hook (lambda () (flymake-mode t)))
 
 (require 'whitespace)
 (setq whitespace-style '(empty trailing))
@@ -89,22 +88,37 @@
 (require 'unfill)
 (require 'project)
 
-(require 'flymake-javascript)
-(require 'flymake-csslint)
-
 
 ;; libs
-(require 'smarttabs)
+(eval-and-compile
+  (require 'package)
 
-(require 'undo-tree)
-(global-undo-tree-mode)
+  (defun require-packages (&rest packages)
+	(mapc (lambda (package)
+			(when (not (package-installed-p package))
+			  (package-install package)))
+		  packages))
 
-(require 'hl-tags-mode)
-(add-hook 'sgml-mode-hook (lambda () (hl-tags-mode 1)))
-(add-hook 'nxml-mode-hook (lambda () (hl-tags-mode 1)))
+
+  (package-initialize)
+  (add-to-list 'package-archives
+			   '("marmalade" . "http://marmalade-repo.org/packages/"))
+  (add-to-list 'package-archives
+			   '("melpa" . "http://melpa.milkbox.net/packages/"))
+  (package-refresh-contents)
+
+  (require-packages 'browse-kill-ring
+					'flycheck
+					'grep-a-lot
+					'php-mode
+					'smart-tabs-mode
+					'undo-tree))
 
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
+
+(require 'flycheck)
+(add-hook 'find-file-hook 'flycheck-mode)
 
 (require 'grep-a-lot)
 (grep-a-lot-setup-keys)
@@ -112,3 +126,12 @@
 (require 'php-mode)
 (setq php-mode-coding-style nil)
 (setq php-mode-warn-if-mumamo-off nil)
+
+(require 'smart-tabs-mode)
+(smart-tabs-insinuate 'c 'javascript 'nxml)
+
+(require 'undo-tree)
+(global-undo-tree-mode)
+
+(provide 'init)
+;;; init.el ends here

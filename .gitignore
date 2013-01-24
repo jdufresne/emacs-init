@@ -1,7 +1,8 @@
 syntax: glob
 *.elc
 ac-comphist.dat
-auto-save-list
+auto-save-list/
+elpa/
 session.*
 
 # autotools
@@ -9,7 +10,7 @@ INSTALL
 Makefile
 Makefile.in
 aclocal.m4
-autom4te.cache
+autom4te.cache/
 config.log
 config.status
 configure

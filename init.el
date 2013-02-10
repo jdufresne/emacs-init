@@ -169,7 +169,7 @@
 
   (defun require-packages (&rest packages)
     (dolist (package packages)
-      (when (not (package-installed-p package))
+      (unless (package-installed-p package)
         (package-install package))))
 
   (package-initialize)
@@ -177,7 +177,7 @@
                '("marmalade" . "http://marmalade-repo.org/packages/"))
   (add-to-list 'package-archives
                '("melpa" . "http://melpa.milkbox.net/packages/"))
-  (when (not (file-exists-p package-user-dir))
+  (unless (file-exists-p package-user-dir)
     (package-refresh-contents))
 
   (require-packages 'browse-kill-ring

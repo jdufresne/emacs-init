@@ -47,7 +47,7 @@
 
 ;; Highlight line mode
 (global-hl-line-mode t)
-(set-face-background 'hl-line "#ffffe0")
+(set-face-background 'hl-line "light cyan")
 
 ;; Line number mode
 (global-linum-mode t)
@@ -198,6 +198,10 @@
 (browse-kill-ring-default-keybindings)
 
 (require 'flycheck)
+(setq flycheck-highlighting-mode 'lines)
+(set-face-attribute 'flycheck-error-face nil :background "light pink")
+(set-face-attribute 'flycheck-warning-face nil :background "light yellow")
+
 (add-hook 'find-file-hook 'flycheck-mode)
 
 (require 'grep-a-lot)

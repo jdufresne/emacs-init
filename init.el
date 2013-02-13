@@ -16,7 +16,9 @@
 (set-scroll-bar-mode 'right)
 (prefer-coding-system 'utf-8)
 (defalias 'yes-or-no-p 'y-or-n-p)
-(add-to-list 'backup-directory-alist '("^.*$" . "~/.local/share/emacs"))
+(let ((backup-directory "~/.local/share/emacs"))
+  (make-directory backup-directory t)
+  (add-to-list 'backup-directory-alist '("^.*$" . backup-directory)))
 (setq-default truncate-lines t)
 (setq next-line-add-newlines nil)
 (setq-default require-final-newline t)
@@ -58,7 +60,9 @@
 ;; Save place mode
 (require 'saveplace)
 (setq-default save-place t)
-(setq save-place-file "~/.cache/emacs/saved-places")
+(let ((save-place-directory "~/.cache/emacs"))
+  (make-directory save-place-directory t)
+  (setq save-place-file (concat save-place-directory "/saved-places")))
 
 ;; Whitespace mode
 (require 'whitespace)

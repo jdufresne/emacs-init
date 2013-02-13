@@ -47,7 +47,7 @@
 
 ;; Highlight line mode
 (global-hl-line-mode t)
-(set-face-attribute 'hl-line :background "light cyan")
+(set-face-background 'hl-line "light cyan")
 
 ;; Line number mode
 (global-linum-mode t)
@@ -199,8 +199,8 @@
 
 (require 'flycheck)
 (setq flycheck-highlighting-mode 'lines)
-(set-face-attribute 'flycheck-error-face nil :background "light pink")
-(set-face-attribute 'flycheck-warning-face nil :background "light goldenrod")
+(set-face-background 'flycheck-error-face "light pink")
+(set-face-background 'flycheck-warning-face "light goldenrod")
 
 (add-hook 'find-file-hook 'flycheck-mode)
 

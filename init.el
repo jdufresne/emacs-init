@@ -18,7 +18,7 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (let ((backup-directory "~/.local/share/emacs"))
   (make-directory backup-directory t)
-  (add-to-list 'backup-directory-alist (cons "^.*$" backup-directory)))
+  (add-to-list 'backup-directory-alist `("^.*$" . ,backup-directory)))
 (setq-default truncate-lines t)
 (setq next-line-add-newlines nil)
 (setq-default require-final-newline t)

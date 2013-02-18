@@ -173,6 +173,16 @@
 (global-set-key (kbd "M-Q") 'unfill-paragraph)
 (global-set-key (kbd "C-M-Q") 'unfill-region)
 
+;; Easily open files as root
+(require 'tramp)
+(defun find-file-root ()
+  "Open a file as the root user."
+  (interactive)
+  (let ((file-name (read-file-name "Find file [root]: ")))
+    (find-file (concat "/sudo:root@localhost:" file-name))))
+
+(global-set-key (kbd "C-x C-r") 'find-file-root)
+
 ;; libs
 (eval-and-compile
   (require 'package)
@@ -206,7 +216,10 @@
 (set-face-background 'flycheck-error-face "light pink")
 (set-face-background 'flycheck-warning-face "light goldenrod")
 
-(add-hook 'find-file-hook 'flycheck-mode)
+(add-hook 'find-file-hook
+          (lambda ()
+            (unless (tramp-tramp-file-p (buffer-file-name))
+              (flycheck-mode))))
 
 (require 'grep-a-lot)
 (grep-a-lot-setup-keys)

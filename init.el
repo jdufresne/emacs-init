@@ -74,6 +74,14 @@
 (add-to-list 'same-window-regexps "\\*grep\\*<[[:digit:]]+>")
 (add-to-list 'same-window-buffer-names "*SQL*")
 
+(defadvice split-window-right (after rebalance-windows activate)
+  "Balance windows after splitting horizontally."
+  (balance-windows))
+
+(defadvice split-window-below (after rebalance-windows activate)
+  "Balance windows after splitting vertically."
+  (balance-windows))
+
 ;; Style
 (setq-default tab-width 4)
 

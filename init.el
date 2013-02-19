@@ -183,13 +183,25 @@
 
 ;; Easily open files as root
 (require 'tramp)
+
+(defvar file-name-root-history nil
+  "History list of file names entered in the minibuffer as root.")
+
 (defun find-file-root ()
   "Open a file as the root user."
   (interactive)
-  (let ((file-name (read-file-name "Find file [root]: ")))
-    (find-file (concat "/sudo:root@localhost:" file-name))))
+  (let* ((file-name-history file-name-root-history)
+         (file-name (or (buffer-file-name) default-directory))
+         (tramp (and (tramp-tramp-file-p file-name)
+                     (tramp-dissect-file-name file-name)))
+         (default (if tramp (tramp-file-name-localname tramp) file-name))
+         (directory (file-name-directory default))
+         (file-name (read-file-name "Find file [root]: " directory default)))
+    (when file-name
+      (find-file (concat "/sudo:root@localhost:" (expand-file-name file-name)))
+      (setq file-name-root-history file-name-history))))
 
-(global-set-key (kbd "C-x C-r") 'find-file-root)
+(global-set-key (kbd "C-x C-g") 'find-file-root)
 
 ;; libs
 (eval-and-compile

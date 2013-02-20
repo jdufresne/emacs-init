@@ -109,7 +109,6 @@
 (global-set-key (kbd "M-j") (lambda () (interactive (join-line -1))))
 
 ;; Keys to enter common modes
-(global-set-key (kbd "C-c C-g") 'grep)
 (global-set-key (kbd "<f11>") 'shell)
 (global-set-key (kbd "<f12>") 'sql-mysql)
 
@@ -140,13 +139,12 @@
   "Rename visited file of current buffer to NEW-FILE-NAME."
   (interactive "FNew name: ")
   (let ((name (buffer-name))
-        (file-name (buffer-file-name))
         (new-name (file-name-nondirectory new-file-name)))
-    (if (not (and file-name (file-exists-p file-name)))
+    (if (not (and buffer-file-name (file-exists-p buffer-file-name)))
         (error "Buffer '%s' is not visiting a file!" name)
       (if (get-buffer new-name)
           (error "A buffer named '%s' already exists!" new-name)
-        (rename-file file-name new-file-name 1)
+        (rename-file buffer-file-name new-file-name 1)
         (rename-buffer new-name)
         (set-visited-file-name new-file-name)
         (set-buffer-modified-p nil)
@@ -155,7 +153,7 @@
 (defun delete-current-buffer-file ()
   "Delete visted file of current buffer."
   (interactive)
-  (let ((file-name (buffer-file-name)))
+  (let ((file-name buffer-file-name))
     (if (not (and file-name (file-exists-p file-name)))
         (kill-buffer)
       (when (yes-or-no-p "Are you sure you want to remove this file? ")
@@ -191,7 +189,7 @@
   "Open a file as the root user."
   (interactive)
   (let* ((file-name-history file-name-root-history)
-         (file-name (or (buffer-file-name) default-directory))
+         (file-name (or buffer-file-name default-directory))
          (tramp (and (tramp-tramp-file-p file-name)
                      (tramp-dissect-file-name file-name)))
          (default (if tramp (tramp-file-name-localname tramp) file-name))
@@ -201,7 +199,18 @@
       (find-file (concat "/sudo:root@localhost:" (expand-file-name file-name)))
       (setq file-name-root-history file-name-history))))
 
-(global-set-key (kbd "C-x C-g") 'find-file-root)
+(global-set-key (kbd "C-S-x C-S-f") 'find-file-root)
+
+;; A more convenient grep
+(defun rgrep-project (regexp)
+  "Recursively grep for REGEXP in the project root directory."
+  (interactive "sSearch for: ")
+  (grep-compute-defaults)
+  (rgrep regexp "*" (if vc-mode
+						(vc-call root default-directory)
+					  default-directory)))
+
+(global-set-key (kbd "C-c C-g") 'rgrep-project)
 
 ;; libs
 (eval-and-compile

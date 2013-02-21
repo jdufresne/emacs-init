@@ -38,6 +38,7 @@
 (blink-cursor-mode t)
 ;(setq-default indent-tabs-mode nil)
 (setq next-screen-context-lines 4)
+(setq sentence-end-double-space nil)
 
 ;; Enable ido mode
 (require 'ido)
@@ -228,8 +229,8 @@
   (interactive "sSearch for: ")
   (grep-compute-defaults)
   (rgrep regexp "*" (if vc-mode
-						(vc-call root default-directory)
-					  default-directory)))
+                        (vc-call root default-directory)
+                      default-directory)))
 
 (global-set-key (kbd "C-c C-g") 'rgrep-project)
 
@@ -257,7 +258,7 @@
                     'php-mode
                     'smart-tabs-mode
                     'undo-tree
-					'vlf))
+                    'vlf))
 
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
@@ -270,7 +271,7 @@
 (add-hook 'find-file-hook
           (lambda ()
             (unless (or (tramp-tramp-file-p buffer-file-name)
-						(> (buffer-size) large-file-warning-threshold))
+                        (> (buffer-size) large-file-warning-threshold))
               (flycheck-mode))))
 
 (require 'grep-a-lot)
@@ -288,11 +289,11 @@
 
 (require 'vlf)
 (add-hook 'find-file-hook
-		  (lambda ()
-			(when (> (buffer-size) large-file-warning-threshold)
-			  (vlf-mode)
-			  (buffer-disable-undo)
-			  (linum-mode 0)
-			  (undo-tree-mode 0))))
+          (lambda ()
+            (when (> (buffer-size) large-file-warning-threshold)
+              (vlf-mode)
+              (buffer-disable-undo)
+              (linum-mode 0)
+              (undo-tree-mode 0))))
 
 ;;; init.el ends here

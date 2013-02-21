@@ -26,10 +26,9 @@
 ;(setq-default indent-tabs-mode nil)
 (setq next-screen-context-lines 4)
 
-;; ido mode
+;; Enable ido mode
 (require 'ido)
 (ido-mode 1)
-(defalias 'ibuffer-find-file 'ido-find-file)
 
 ;; Fix copy-paste
 (setq x-select-enable-clipboard t)
@@ -73,6 +72,10 @@
 (require 'whitespace)
 (setq whitespace-style '(empty trailing))
 (add-hook 'before-save-hook 'whitespace-cleanup)
+
+;; Fix ibuffer to use ido-find-file
+(require 'ibuffer)
+(define-key ibuffer-mode-map (kbd "C-x C-f") 'ido-find-file)
 
 ;; Show in the current window
 (add-to-list 'same-window-buffer-names "*grep*")

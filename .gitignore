@@ -1,12 +1,17 @@
 syntax: glob
-*.elc
-ac-comphist.dat
+
+# ignore entire directories produced by emacs
 auto-save-list/
 elpa/
-session.*
 url/
 
-# autotools
+# ignore files produced by emacs
+*.elc
+ac-comphist.dat
+session.*
+tramp
+
+# ignore files produced by autotools
 INSTALL
 Makefile
 Makefile.in

@@ -233,17 +233,6 @@
 
 (global-set-key (kbd "C-c C-g") 'rgrep-project)
 
-;; Speed up viewing large files
-(defun large-file-hook ()
-  "When the buffer is large turn off slow features."
-  (when (> (buffer-size) large-file-warning-threshold)
-	(fundamental-mode)
-	(setq buffer-read-only t)
-	(buffer-disable-undo)
-	(linum-mode 0)))
-
-(add-hook 'find-file-hook 'large-file-hook)
-
 ;; libs
 (eval-and-compile
   (require 'package)
@@ -267,7 +256,8 @@
                     'grep-a-lot
                     'php-mode
                     'smart-tabs-mode
-                    'undo-tree))
+                    'undo-tree
+					'vlf))
 
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
@@ -295,5 +285,14 @@
 
 (require 'undo-tree)
 (global-undo-tree-mode)
+
+(require 'vlf)
+(add-hook 'find-file-hook
+		  (lambda ()
+			(when (> (buffer-size) large-file-warning-threshold)
+			  (vlf-mode)
+			  (buffer-disable-undo)
+			  (linum-mode 0)
+			  (undo-tree-mode 0))))
 
 ;;; init.el ends here

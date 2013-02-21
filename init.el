@@ -26,6 +26,11 @@
 ;(setq-default indent-tabs-mode nil)
 (setq next-screen-context-lines 4)
 
+;; ido mode
+(require 'ido)
+(ido-mode 1)
+(defalias 'ibuffer-find-file 'ido-find-file)
+
 ;; Fix copy-paste
 (setq x-select-enable-clipboard t)
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)

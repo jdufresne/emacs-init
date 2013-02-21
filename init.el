@@ -220,6 +220,17 @@
 
 (global-set-key (kbd "C-c C-g") 'rgrep-project)
 
+;; Speed up viewing large files
+(defun large-file-hook ()
+  "When the buffer is large turn off slow features."
+  (when (> (buffer-size) large-file-warning-threshold)
+	(fundamental-mode)
+	(setq buffer-read-only t)
+	(buffer-disable-undo)
+	(linum-mode 0)))
+
+(add-hook 'find-file-hook 'large-file-hook)
+
 ;; libs
 (eval-and-compile
   (require 'package)
@@ -255,7 +266,8 @@
 
 (add-hook 'find-file-hook
           (lambda ()
-            (unless (tramp-tramp-file-p (buffer-file-name))
+            (unless (or (tramp-tramp-file-p buffer-file-name)
+						(> (buffer-size) large-file-warning-threshold))
               (flycheck-mode))))
 
 (require 'grep-a-lot)

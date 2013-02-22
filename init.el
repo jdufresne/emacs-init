@@ -39,6 +39,7 @@
 ;(setq-default indent-tabs-mode nil)
 (setq next-screen-context-lines 4)
 (setq sentence-end-double-space nil)
+(setq grep-find-use-xargs 'exec)
 
 ;; Enable ido mode
 (require 'ido)
@@ -123,6 +124,8 @@
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
 
+;; Insert a tab
+(global-set-key (kbd "<backtab>") (lambda () (interactive) (insert "\t")))
 ;; Auto-indent
 (global-set-key (kbd "RET") 'newline-and-indent)
 ;; Always kill the current buffer without asking

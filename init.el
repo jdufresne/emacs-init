@@ -237,31 +237,42 @@
 
 (global-set-key (kbd "C-c C-g") 'rgrep-project)
 
-;; libs
-(eval-and-compile
-  (require 'package)
+;; Speed up large files such as SQL backups
+(add-hook 'find-file-hook
+          (lambda ()
+            (when (> (buffer-size) large-file-warning-threshold)
+              (fundamental-mode)
+              (setq buffer-read-only t)
+              (buffer-disable-undo)
+              (linum-mode 0))))
 
-  (defun require-packages (&rest packages)
-    (mapc (lambda (package)
-            (unless (package-installed-p package)
-              (package-install package)))
-          packages))
+;; libs
+(require 'package)
+(eval-and-compile
+  (defun require-packages (packages)
+    "Install each package in PACKAGES unless already installed."
+    (when packages
+      (let ((package (car packages)))
+        (unless (package-installed-p package)
+          (package-install package)))
+      (require-packages (cdr packages))))
 
   (package-initialize)
   (add-to-list 'package-archives
                '("marmalade" . "http://marmalade-repo.org/packages/"))
   (add-to-list 'package-archives
-               '("melpa" . "http://melpa.milkbox.net/packages/"))
+               '("melpa" . "http://melpa.milkbox.net/packages/")))
+
+(eval-when-compile
   (unless (file-exists-p package-user-dir)
     (package-refresh-contents))
 
-  (require-packages 'browse-kill-ring
-                    'flycheck
-                    'grep-a-lot
-                    'php-mode
-                    'smart-tabs-mode
-                    'undo-tree
-                    'vlf))
+  (require-packages '(browse-kill-ring
+                      flycheck
+                      grep-a-lot
+                      php-mode
+                      smart-tabs-mode
+                      undo-tree)))
 
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
@@ -289,14 +300,5 @@
 
 (require 'undo-tree)
 (global-undo-tree-mode)
-
-(require 'vlf)
-(add-hook 'find-file-hook
-          (lambda ()
-            (when (> (buffer-size) large-file-warning-threshold)
-              (vlf-mode)
-              (buffer-disable-undo)
-              (linum-mode 0)
-              (undo-tree-mode 0))))
 
 ;;; init.el ends here

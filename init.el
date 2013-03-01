@@ -41,6 +41,10 @@
 (setq sentence-end-double-space nil)
 (setq grep-find-use-xargs 'exec)
 
+(eval-and-compile
+  (add-to-list 'load-path "~/.emacs.d/"))
+(require 'project)
+
 ;; Enable ido mode
 (require 'ido)
 (ido-mode 1)
@@ -225,17 +229,6 @@
       (setq file-name-root-history file-name-history))))
 
 (global-set-key (kbd "C-S-x C-S-f") 'find-file-root)
-
-;; A more convenient grep
-(defun rgrep-project (regexp)
-  "Recursively grep for REGEXP in the project root directory."
-  (interactive "sSearch for: ")
-  (grep-compute-defaults)
-  (rgrep regexp "*" (if vc-mode
-                        (vc-call root default-directory)
-                      default-directory)))
-
-(global-set-key (kbd "C-c C-g") 'rgrep-project)
 
 ;; Speed up large files such as SQL backups
 (add-hook 'find-file-hook

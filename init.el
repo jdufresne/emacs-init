@@ -36,7 +36,7 @@
 (setq next-line-add-newlines nil)
 (setq-default require-final-newline t)
 (blink-cursor-mode t)
-;(setq-default indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 (setq next-screen-context-lines 4)
 (setq sentence-end-double-space nil)
 (setq grep-find-use-xargs 'exec)
@@ -63,6 +63,15 @@
 (delete-selection-mode t)
 (add-hook 'find-file-hook (lambda () (subword-mode t)))
 (add-hook 'text-mode-hook (lambda () (flyspell-mode)))
+
+;; Fix indentation
+(defun infer-indentation ()
+  "Infer whether to use tabs or spaces for indentation."
+  (if (> (how-many "^\t" (point-min) (point-max))
+         (how-many "^  " (point-min) (point-max)))
+      (setq indent-tabs-mode t)
+    (setq indent-tabs-mode nil)))
+(add-hook 'find-file-hook 'infer-indentation)
 
 ;; Auto revert mode
 (require 'autorevert)
@@ -211,22 +220,14 @@
 ;; Easily open files as root
 (require 'tramp)
 
-(defvar file-name-root-history nil
-  "History list of file names entered in the minibuffer as root.")
-
-(defun find-file-root ()
+(defun find-file-root()
   "Open a file as the root user."
   (interactive)
-  (let* ((file-name-history file-name-root-history)
-         (file-name (or buffer-file-name default-directory))
-         (tramp (and (tramp-tramp-file-p file-name)
-                     (tramp-dissect-file-name file-name)))
-         (default (if tramp (tramp-file-name-localname tramp) file-name))
-         (directory (file-name-directory default))
-         (file-name (read-file-name "Find file [root]: " directory default)))
-    (when file-name
-      (find-file (concat "/sudo:root@localhost:" (expand-file-name file-name)))
-      (setq file-name-root-history file-name-history))))
+  (if buffer-file-name
+      (let ((p (point)))
+        (find-alternate-file (concat "/sudo::" buffer-file-name))
+        (goto-char p))
+    (error "Buffer %s is not visiting a file" (buffer-name))))
 
 (global-set-key (kbd "C-S-x C-S-f") 'find-file-root)
 

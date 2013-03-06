@@ -40,6 +40,7 @@
 (setq next-screen-context-lines 4)
 (setq sentence-end-double-space nil)
 (setq grep-find-use-xargs 'exec)
+(setq initial-scratch-message nil)
 
 (eval-and-compile
   (add-to-list 'load-path "~/.emacs.d/"))

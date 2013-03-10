@@ -82,7 +82,6 @@
 
 ;; Highlight line mode
 (global-hl-line-mode t)
-(set-face-background 'hl-line "light cyan")
 
 ;; Line number mode
 (global-linum-mode t)
@@ -266,6 +265,7 @@
                       flycheck
                       grep-a-lot
                       php-mode
+                      rainbow-mode
                       smart-tabs-mode
                       undo-tree)))
 
@@ -289,6 +289,9 @@
 (require 'php-mode)
 (setq php-mode-coding-style nil)
 (setq php-mode-warn-if-mumamo-off nil)
+
+(require 'rainbow-mode)
+(add-hook 'css-mode-hook (lambda () (rainbow-mode)))
 
 (require 'smart-tabs-mode)
 (smart-tabs-insinuate 'c 'javascript 'nxml)

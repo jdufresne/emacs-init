@@ -25,8 +25,8 @@
 (setq inhibit-splash-screen t)
 (menu-bar-mode 0)
 (tool-bar-mode 0)
+(setq initial-scratch-message nil)
 (setq default-frame-alist '((font . "Inconsolata-12")))
-(set-scroll-bar-mode 'right)
 (prefer-coding-system 'utf-8)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (let ((backup-directory "~/.local/share/emacs"))
@@ -40,7 +40,6 @@
 (setq next-screen-context-lines 4)
 (setq sentence-end-double-space nil)
 (setq grep-find-use-xargs 'exec)
-(setq initial-scratch-message nil)
 
 (eval-and-compile
   (add-to-list 'load-path "~/.emacs.d/"))
@@ -62,17 +61,16 @@
 (setq column-number-mode t)
 (show-paren-mode t)
 (delete-selection-mode t)
-(add-hook 'find-file-hook (lambda () (subword-mode t)))
-(add-hook 'text-mode-hook (lambda () (flyspell-mode)))
-
-;; Fix indentation
-(defun infer-indentation ()
-  "Infer whether to use tabs or spaces for indentation."
-  (if (> (how-many "^\t" (point-min) (point-max))
-         (how-many "^  " (point-min) (point-max)))
-      (setq indent-tabs-mode t)
-    (setq indent-tabs-mode nil)))
-(add-hook 'find-file-hook 'infer-indentation)
+(add-hook 'text-mode-hook
+          (lambda ()
+            (flyspell-mode)
+            (auto-fill-mode)))
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (subword-mode t)
+            (when (> (how-many "^\t" (point-min) (point-max))
+                     (how-many "^  " (point-min) (point-max)))
+              (setq indent-tabs-mode t))))
 
 ;; Auto revert mode
 (require 'autorevert)

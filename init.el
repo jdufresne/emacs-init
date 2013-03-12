@@ -26,7 +26,7 @@
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (setq initial-scratch-message nil)
-(setq default-frame-alist '((font . "Inconsolata-12")))
+(setq default-frame-alist '((font . "Inconsolata Medium 12")))
 (prefer-coding-system 'utf-8)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (let ((backup-directory "~/.local/share/emacs"))
@@ -35,7 +35,6 @@
 (setq-default truncate-lines t)
 (setq next-line-add-newlines nil)
 (setq-default require-final-newline t)
-(blink-cursor-mode t)
 (setq-default indent-tabs-mode nil)
 (setq next-screen-context-lines 4)
 (setq sentence-end-double-space nil)
@@ -141,8 +140,6 @@
 (global-set-key (kbd "RET") 'newline-and-indent)
 ;; Always kill the current buffer without asking
 (global-set-key (kbd "C-x k") (lambda () (interactive) (kill-buffer)))
-;; Collapse lines
-(global-set-key (kbd "M-j") (lambda () (interactive (join-line -1))))
 
 ;; Keys to enter common modes
 (global-set-key (kbd "<f11>") 'shell)

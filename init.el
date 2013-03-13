@@ -28,15 +28,11 @@
 (setq initial-scratch-message nil)
 (setq default-frame-alist '((font . "Inconsolata Medium 12")))
 (prefer-coding-system 'utf-8)
-(defalias 'yes-or-no-p 'y-or-n-p)
-(let ((backup-directory "~/.local/share/emacs"))
-  (make-directory backup-directory t)
-  (add-to-list 'backup-directory-alist `("^.*$" . ,backup-directory)))
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
 (setq-default truncate-lines t)
 (setq next-line-add-newlines nil)
 (setq-default require-final-newline t)
-(setq-default indent-tabs-mode nil)
-(setq next-screen-context-lines 4)
 (setq sentence-end-double-space nil)
 (setq grep-find-use-xargs 'exec)
 
@@ -44,13 +40,12 @@
   (add-to-list 'load-path "~/.emacs.d/"))
 (require 'project)
 
+;; Remove annoying prompts
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 ;; Enable ido mode
 (require 'ido)
 (ido-mode 1)
-
-;; Fix copy-paste
-(setq x-select-enable-clipboard t)
-(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
 ;; Enable functions
 (put 'downcase-region 'disabled nil)
@@ -75,7 +70,6 @@
 (require 'autorevert)
 (global-auto-revert-mode t)
 (setq global-auto-revert-non-file-buffers t)
-(setq auto-revert-verbose nil)
 
 ;; Highlight line mode
 (global-hl-line-mode t)
@@ -89,9 +83,6 @@
 ;; Save place mode
 (require 'saveplace)
 (setq-default save-place t)
-(let ((save-place-directory "~/.cache/emacs"))
-  (make-directory save-place-directory t)
-  (setq save-place-file (concat save-place-directory "/saved-places")))
 
 ;; Whitespace mode
 (require 'whitespace)
@@ -103,21 +94,10 @@
 (define-key ibuffer-mode-map (kbd "C-x C-f") 'ido-find-file)
 
 ;; Show in the current window
-(add-to-list 'same-window-buffer-names "*grep*")
-(add-to-list 'same-window-regexps "\\*grep\\*<[[:digit:]]+>")
+(add-to-list 'same-window-regexps "\\*grep\\*\\(?:<[[:digit:]]+>\\)?")
 (add-to-list 'same-window-buffer-names "*SQL*")
 
-(defadvice split-window-right (after rebalance-windows activate)
-  "Balance windows after splitting horizontally."
-  (balance-windows))
-
-(defadvice split-window-below (after rebalance-windows activate)
-  "Balance windows after splitting vertically."
-  (balance-windows))
-
 ;; Style
-(setq-default tab-width 4)
-
 (require 'cc-mode)
 (defconst erez-c-style '((c-basic-offset . 4)
                          (c-offsets-alist . ((arglist-close . 0)
@@ -183,19 +163,7 @@
         (set-buffer-modified-p nil)
         (message "File '%s' successfully renamed to '%s'" name new-name)))))
 
-(defun delete-current-buffer-file ()
-  "Delete visted file of current buffer."
-  (interactive)
-  (let ((file-name buffer-file-name))
-    (if (not (and file-name (file-exists-p file-name)))
-        (kill-buffer)
-      (when (yes-or-no-p "Are you sure you want to remove this file? ")
-        (kill-buffer)
-        (delete-file file-name)
-        (message "File '%s' successfully removed" file-name)))))
-
 (global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
-(global-set-key (kbd "C-x C-k") 'delete-current-buffer-file)
 
 (defun unfill-paragraph ()
   "Unfill paragraph at or after point."
@@ -240,19 +208,16 @@
 (eval-and-compile
   (defun require-packages (packages)
     "Install each package in PACKAGES unless already installed."
-    (when packages
-      (let ((package (car packages)))
-        (unless (package-installed-p package)
-          (package-install package)))
-      (require-packages (cdr packages))))
+    (dolist (package packages)
+      (unless (package-installed-p package)
+        (package-install package))))
 
   (package-initialize)
   (add-to-list 'package-archives
                '("marmalade" . "http://marmalade-repo.org/packages/"))
   (add-to-list 'package-archives
-               '("melpa" . "http://melpa.milkbox.net/packages/")))
+               '("melpa" . "http://melpa.milkbox.net/packages/"))
 
-(eval-when-compile
   (unless (file-exists-p package-user-dir)
     (package-refresh-contents))
 
@@ -272,12 +237,11 @@
 (setq flycheck-highlighting-mode 'lines)
 (set-face-background 'flycheck-error-face "light pink")
 (set-face-background 'flycheck-warning-face "light goldenrod")
-
 (add-hook 'find-file-hook
           (lambda ()
             (unless (or (tramp-tramp-file-p buffer-file-name)
                         (> (buffer-size) large-file-warning-threshold))
-              (flycheck-mode))))
+              (flycheck-mode 1))))
 
 (require 'grep-a-lot)
 (grep-a-lot-setup-keys)

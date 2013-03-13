@@ -262,6 +262,7 @@
                       php-mode
                       rainbow-mode
                       smart-tabs-mode
+                      solarized-theme
                       undo-tree)))
 
 (require 'browse-kill-ring)
@@ -290,6 +291,11 @@
 
 (require 'smart-tabs-mode)
 (smart-tabs-insinuate 'c 'javascript 'nxml)
+
+;; Load the solarized theme with slight adjustments
+(load-theme 'solarized-light t)
+(set-face-background 'default "#ffffff")
+(set-face-foreground 'default "#1a1a1a")
 
 (require 'undo-tree)
 (global-undo-tree-mode)

@@ -27,7 +27,6 @@
 (tool-bar-mode 0)
 (setq initial-scratch-message nil)
 (setq default-frame-alist '((font . "Inconsolata Medium 12")))
-(prefer-coding-system 'utf-8)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default truncate-lines t)
@@ -86,8 +85,12 @@
 
 ;; Whitespace mode
 (require 'whitespace)
+(prefer-coding-system 'utf-8)
 (setq whitespace-style '(empty trailing))
-(add-hook 'before-save-hook 'whitespace-cleanup)
+(add-hook 'before-save-hook
+          (lambda ()
+            (set-buffer-file-coding-system 'utf-8)
+            (whitespace-cleanup)))
 
 ;; Fix ibuffer to use ido-find-file
 (require 'ibuffer)

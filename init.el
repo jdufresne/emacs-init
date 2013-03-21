@@ -39,9 +39,6 @@
   (add-to-list 'load-path "~/.emacs.d/"))
 (require 'project)
 
-;; Remove annoying prompts
-(defalias 'yes-or-no-p 'y-or-n-p)
-
 ;; Enable ido mode
 (require 'ido)
 (ido-mode 1)
@@ -69,6 +66,7 @@
 (require 'autorevert)
 (global-auto-revert-mode t)
 (setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
 
 ;; Highlight line mode
 (global-hl-line-mode t)
@@ -122,7 +120,7 @@
 ;; Auto-indent
 (global-set-key (kbd "RET") 'newline-and-indent)
 ;; Always kill the current buffer without asking
-(global-set-key (kbd "C-x k") (lambda () (interactive) (kill-buffer)))
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
 
 ;; Keys to enter common modes
 (global-set-key (kbd "<f11>") 'shell)

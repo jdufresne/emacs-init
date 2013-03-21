@@ -42,6 +42,10 @@
 ;; Enable ido mode
 (require 'ido)
 (ido-mode 1)
+(setq ido-create-new-buffer 'never)
+(setq ido-enable-flex-matching t)
+(setq ido-enable-last-directory-history t)
+(setq ido-use-virtual-buffers t)
 
 ;; Enable functions
 (put 'downcase-region 'disabled nil)

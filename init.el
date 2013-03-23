@@ -125,6 +125,8 @@
 (global-set-key (kbd "RET") 'newline-and-indent)
 ;; Always kill the current buffer without asking
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
+;; Always use ibuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; Keys to enter common modes
 (global-set-key (kbd "<f11>") 'shell)
@@ -240,8 +242,6 @@
 
 (require 'flycheck)
 (setq flycheck-highlighting-mode 'lines)
-(set-face-background 'flycheck-error-face "light pink")
-(set-face-background 'flycheck-warning-face "light goldenrod")
 (add-hook 'find-file-hook
           (lambda ()
             (unless (or (tramp-tramp-file-p buffer-file-name)
@@ -265,5 +265,7 @@
 (global-undo-tree-mode)
 
 (load-theme 'zenburn t)
+(set-face-background 'flycheck-error-face "light pink")
+(set-face-background 'flycheck-warning-face "light goldenrod")
 
 ;;; init.el ends here

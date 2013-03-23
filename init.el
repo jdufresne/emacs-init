@@ -232,8 +232,8 @@
                       php-mode
                       rainbow-mode
                       smart-tabs-mode
-                      solarized-theme
-                      undo-tree)))
+                      undo-tree
+                      zenburn-theme)))
 
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
@@ -261,12 +261,9 @@
 (require 'smart-tabs-mode)
 (smart-tabs-insinuate 'c 'javascript 'nxml)
 
-;; Load the solarized theme with slight adjustments
-(load-theme 'solarized-light t)
-(set-face-background 'default "#ffffff")
-(set-face-foreground 'default "#1a1a1a")
-
 (require 'undo-tree)
 (global-undo-tree-mode)
+
+(load-theme 'zenburn t)
 
 ;;; init.el ends here

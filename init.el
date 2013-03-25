@@ -35,6 +35,8 @@
 (setq sentence-end-double-space nil)
 (setq grep-find-use-xargs 'exec)
 
+(add-hook 'after-make-frame-functions 'raise-frame)
+
 (eval-and-compile
   (add-to-list 'load-path "~/.emacs.d/"))
 (require 'project)

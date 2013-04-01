@@ -236,8 +236,7 @@
                       php-mode
                       rainbow-mode
                       smart-tabs-mode
-                      undo-tree
-                      zenburn-theme)))
+                      undo-tree)))
 
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
@@ -265,9 +264,5 @@
 
 (require 'undo-tree)
 (global-undo-tree-mode)
-
-(load-theme 'zenburn t)
-(set-face-background 'flycheck-error-face "light pink")
-(set-face-background 'flycheck-warning-face "light goldenrod")
 
 ;;; init.el ends here

@@ -55,7 +55,9 @@
 
 ;; Global minor modes
 (setq column-number-mode t)
-(show-paren-mode t)
+(show-paren-mode 1)
+(electric-indent-mode 1)
+(electric-pair-mode 1)
 (delete-selection-mode t)
 (add-hook 'text-mode-hook
           (lambda ()
@@ -124,7 +126,6 @@
 ;; Insert a tab
 (global-set-key (kbd "<backtab>") (lambda () (interactive) (insert "\t")))
 ;; Auto-indent
-(global-set-key (kbd "RET") 'newline-and-indent)
 ;; Always kill the current buffer without asking
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 ;; Always use ibuffer

@@ -35,17 +35,17 @@
 (setq sentence-end-double-space nil)
 (setq grep-find-use-xargs 'exec)
 
-;; Set the frame title to the abbreviated path of the file, not just
-;; the filename.
-(setq frame-title-format
-      '((:eval (if buffer-file-name
-                   (abbreviate-file-name buffer-file-name)
-                 "%b"))))
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            ;; Set the frame title to the abbreviated path of the
+            ;; visited file.
+            (setq frame-title-format
+                  '(:eval (if buffer-file-name
+                              (abbreviate-file-name buffer-file-name)
+                            "%b")))
+            (raise-frame frame)))
 
-(add-hook 'after-make-frame-functions 'raise-frame)
-
-(eval-and-compile
-  (add-to-list 'load-path "~/.emacs.d/"))
+(eval-and-compile (add-to-list 'load-path "~/.emacs.d/"))
 (require 'project)
 
 ;; Enable ido mode

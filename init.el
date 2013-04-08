@@ -165,23 +165,6 @@
 (global-set-key (kbd "<end>") 'smart-end-of-line)
 (global-set-key (kbd "C-e") 'smart-end-of-line)
 
-(defun rename-current-buffer-file (new-file-name)
-  "Rename visited file of current buffer to NEW-FILE-NAME."
-  (interactive "FNew name: ")
-  (let ((name (buffer-name))
-        (new-name (file-name-nondirectory new-file-name)))
-    (if (not (and buffer-file-name (file-exists-p buffer-file-name)))
-        (error "Buffer '%s' is not visiting a file!" name)
-      (if (get-buffer new-name)
-          (error "A buffer named '%s' already exists!" new-name)
-        (rename-file buffer-file-name new-file-name 1)
-        (rename-buffer new-name)
-        (set-visited-file-name new-file-name)
-        (set-buffer-modified-p nil)
-        (message "File '%s' successfully renamed to '%s'" name new-name)))))
-
-(global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
-
 (defun unfill-paragraph ()
   "Unfill paragraph at or after point."
   (interactive)

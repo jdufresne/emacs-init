@@ -87,9 +87,6 @@
 
 ;; Line number mode
 (global-linum-mode t)
-;; Except these modes
-(add-hook 'sql-interactive-mode-hook (lambda () (linum-mode 0)))
-(add-hook 'shell-mode-hook (lambda () (linum-mode 0)))
 
 ;; Save place mode
 (require 'saveplace)
@@ -139,8 +136,11 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; Keys to enter common modes
-(global-set-key (kbd "<f11>") 'shell)
 (global-set-key (kbd "<f12>") 'sql-mysql)
+(add-hook 'sql-interactive-mode-hook
+          (lambda ()
+            (linum-mode 0)
+            (cd (expand-file-name "~/"))))
 
 (defun smart-beginning-of-line ()
   "Move point to first non-whitespace or beginning of the line."

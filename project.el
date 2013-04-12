@@ -7,9 +7,13 @@
 
 ;;; Code:
 
+(require 'grep)
+
 (defvar project-root-files
   '(".hg")
   "Project files that mark the root of a project.")
+
+(add-to-list 'grep-find-ignored-files "TAGS")
 
 (defun project-rgrep (regexp)
   "Recursively grep for REGEXP in the project root directory."
@@ -17,18 +21,20 @@
   (grep-compute-defaults)
   (rgrep regexp "*" (or (project-root) default-directory)))
 
-(defun project-compile-tags-table (root)
+(defun project-compile-and-visit-tags-table ()
   "Compile TAGS file at the project ROOT directory."
-  (compile (format "ctags -e -R --languages=PHP -o %s %s"
-                   (concat root "TAGS") root)))
-
-(defun project-visit-tags-table ()
-  "Tell tags commands to use tags table at the project root."
   (interactive)
   (let ((root (project-root)))
     (when root
-      (project-compile-tags-table root)
-      (visit-tags-table (concat root "TAGS")))))
+      (add-hook 'compilation-finish-functions 'project-visit-tags-table)
+      (compile (format "ctags -e -R --languages=PHP -o %s %s"
+                       (concat root "TAGS") root)))))
+
+(defun project-visit-tags-table (buffer string)
+  "Tell tags commands to use tags table at the project root."
+  (if (string= string "finished\n")
+      (visit-tags-table (concat (project-root) "TAGS")))
+  (remove-hook 'compilation-finish-functions 'project-visit-tags-table))
 
 (defun project-root ()
   "Return the root directory of the project."

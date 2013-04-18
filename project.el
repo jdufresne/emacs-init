@@ -9,11 +9,11 @@
 
 (require 'grep)
 
+(add-to-list 'grep-find-ignored-files "TAGS")
+
 (defvar project-root-files
   '(".hg")
   "Project files that mark the root of a project.")
-
-(add-to-list 'grep-find-ignored-files "TAGS")
 
 (defun project-rgrep (regexp)
   "Recursively grep for REGEXP in the project root directory."
@@ -32,8 +32,8 @@
 
 (defun project-visit-tags-table (buffer string)
   "Tell tags commands to use tags table at the project root."
-  (if (string= string "finished\n")
-      (visit-tags-table (concat (project-root) "TAGS")))
+  (when (string= string "finished\n")
+    (visit-tags-table (concat (project-root) "TAGS")))
   (remove-hook 'compilation-finish-functions 'project-visit-tags-table))
 
 (defun project-root ()

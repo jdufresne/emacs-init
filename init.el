@@ -33,6 +33,7 @@
 (setq next-line-add-newlines nil)
 (setq-default require-final-newline t)
 (setq sentence-end-double-space nil)
+(setq kill-do-not-save-duplicates t)
 (setq grep-find-use-xargs 'exec)
 
 (add-hook 'after-make-frame-functions

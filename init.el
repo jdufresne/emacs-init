@@ -224,6 +224,7 @@
 
   (require-packages '(browse-kill-ring
                       flycheck
+                      geben
                       grep-a-lot
                       php-mode
                       rainbow-mode
@@ -240,6 +241,8 @@
             (unless (or (tramp-tramp-file-p buffer-file-name)
                         (> (buffer-size) large-file-warning-threshold))
               (flycheck-mode 1))))
+
+(require 'geben)
 
 (require 'grep-a-lot)
 (grep-a-lot-setup-keys)

@@ -204,6 +204,7 @@
               (buffer-disable-undo)
               (linum-mode 0))))
 
+
 ;; libs
 (require 'package)
 (eval-and-compile
@@ -213,15 +214,12 @@
       (unless (package-installed-p package)
         (package-install package))))
 
-  (package-initialize)
   (add-to-list 'package-archives
                '("marmalade" . "http://marmalade-repo.org/packages/"))
   (add-to-list 'package-archives
                '("melpa" . "http://melpa.milkbox.net/packages/"))
-
-  (unless (file-exists-p package-user-dir)
-    (package-refresh-contents))
-
+  (package-initialize)
+  (package-refresh-contents)
   (require-packages '(browse-kill-ring
                       flycheck
                       geben

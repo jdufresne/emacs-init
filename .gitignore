@@ -12,6 +12,9 @@ url/
 
 # Ignore files produced by emacs.
 ac-comphist.dat
+eshell
+flycheck-init.el*
+geben
 session.*
 tramp
 

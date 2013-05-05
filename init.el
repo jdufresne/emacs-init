@@ -128,7 +128,26 @@
 (global-unset-key (kbd "C-x C-z"))
 
 ;; Insert a tab
-(global-set-key (kbd "<backtab>") (lambda () (interactive) (insert "\t")))
+(defun insert-at-beginning-of-line (string end)
+  "Insert STRING at the beginning of all lines up until END."
+  (when (<= (point) end)
+    (beginning-of-line)
+    (insert string)
+    (forward-line)
+    (insert-at-beginning-of-line string end)))
+
+(global-set-key (kbd "<backtab>")
+                (lambda ()
+                  (interactive)
+                  (save-excursion
+                    (let ((deactivate-mark deactivate-mark))
+                      (if (region-active-p)
+                          (let ((start (region-beginning))
+                                (end (region-end)))
+                            (goto-char start)
+                            (insert-at-beginning-of-line "\t" end))
+                        (insert-at-beginning-of-line "\t" (point)))))))
+
 ;; Auto-indent
 (global-set-key (kbd "RET") 'newline-and-indent)
 ;; Always kill the current buffer without asking
@@ -241,6 +260,7 @@
               (flycheck-mode 1))))
 
 (require 'geben)
+(setq geben-show-breakpoints-debugging-only nil)
 
 (require 'grep-a-lot)
 (grep-a-lot-setup-keys)

@@ -67,8 +67,8 @@
 (delete-selection-mode t)
 (add-hook 'text-mode-hook
           (lambda ()
-            (flyspell-mode)
-            (auto-fill-mode)))
+            (flyspell-mode 1)
+            (auto-fill-mode 1)))
 (add-hook 'prog-mode-hook
           (lambda ()
             (flyspell-prog-mode)
@@ -76,6 +76,9 @@
             (when (> (how-many "^\t" (point-min) (point-max))
                      (how-many "^  " (point-min) (point-max)))
               (setq indent-tabs-mode t))))
+
+;; Disable auto-fill-mode in HTML mode. It is annoying.
+(add-hook 'html-mode-hook (lambda () (auto-fill-mode 0)))
 
 ;; Auto revert mode
 (require 'autorevert)
@@ -121,6 +124,7 @@
 
 (require 'nxml-mode)
 (setq nxml-child-indent 4)
+
 
 ;; Remove annoying keys
 (global-unset-key (kbd "<insert>"))

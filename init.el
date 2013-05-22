@@ -167,26 +167,26 @@
             (linum-mode 0)
             (cd (expand-file-name "~/"))))
 
-(defun smart-beginning-of-line ()
-  "Move point to first non-whitespace or beginning of the line."
+(defun smart-move-beginning-of-line ()
+  "Move point back to indentation or beginning of line."
   (interactive)
-  (let ((pos (point)))
+  (let ((orig-point (point)))
     (back-to-indentation)
-    (when (= pos (point))
+    (when (= orig-point (point))
       (beginning-of-line))))
 
-(defun smart-end-of-line ()
+(defun smart-move-end-of-line ()
   "Move point to last non-whitespace or end of the line."
   (interactive)
-  (let ((pos (point)))
+  (let ((orig-point (point)))
     (end-of-line)
     (re-search-backward "[^ \t]" (line-end-position 0) t)
     (forward-char)
-    (when (= pos (point))
+    (when (= orig-point (point))
       (end-of-line))))
 
-(global-set-key [remap beginning-of-line] 'smart-beginning-of-line)
-(global-set-key [remap end-of-line] 'smart-end-of-line)
+(global-set-key [remap move-beginning-of-line] 'smart-move-beginning-of-line)
+(global-set-key [remap move-end-of-line] 'smart-move-end-of-line)
 
 (defun unfill-paragraph ()
   "Unfill paragraph at or after point."

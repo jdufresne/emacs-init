@@ -22,10 +22,10 @@
 ;;; Code:
 
 ;; Basic config
-(setq inhibit-splash-screen t)
 (menu-bar-mode 0)
 (tool-bar-mode 0)
-(setq initial-scratch-message nil)
+(setq inhibit-splash-screen t)
+
 (setq default-frame-alist '((font . "Inconsolata Medium 12")))
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -52,6 +52,7 @@
 ;; Enable ido mode
 (require 'ido)
 (ido-mode 1)
+(ido-everywhere 1)
 (setq ido-create-new-buffer 'never)
 (setq ido-enable-flex-matching t)
 (setq ido-enable-last-directory-history t)
@@ -184,10 +185,8 @@
     (when (= pos (point))
       (end-of-line))))
 
-(global-set-key (kbd "<home>") 'smart-beginning-of-line)
-(global-set-key (kbd "C-a") 'smart-beginning-of-line)
-(global-set-key (kbd "<end>") 'smart-end-of-line)
-(global-set-key (kbd "C-e") 'smart-end-of-line)
+(global-set-key [remap beginning-of-line] 'smart-beginning-of-line)
+(global-set-key [remap end-of-line] 'smart-end-of-line)
 
 (defun unfill-paragraph ()
   "Unfill paragraph at or after point."

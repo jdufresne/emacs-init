@@ -26,7 +26,9 @@
 (tool-bar-mode 0)
 (setq inhibit-splash-screen t)
 
-(setq default-frame-alist '((font . "Inconsolata Medium 12")))
+(setq default-frame-alist '((width . 120)
+                            (height . 40)
+                            (font . "Inconsolata Medium 12")))
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default truncate-lines t)
@@ -83,15 +85,15 @@
 
 ;; Auto revert mode
 (require 'autorevert)
-(global-auto-revert-mode t)
+(global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
 
 ;; Highlight line mode
-(global-hl-line-mode t)
+(global-hl-line-mode 1)
 
 ;; Line number mode
-(global-linum-mode t)
+(global-linum-mode 1)
 
 ;; Save place mode
 (require 'saveplace)
@@ -243,6 +245,7 @@
   (package-initialize)
   (package-refresh-contents)
   (require-packages '(browse-kill-ring
+                      fill-column-indicator
                       flycheck
                       geben
                       grep-a-lot
@@ -253,6 +256,11 @@
 
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
+
+(require 'fill-column-indicator)
+(setq-default fci-rule-column 80)
+(define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
+(global-fci-mode 1)
 
 (require 'flycheck)
 (setq flycheck-highlighting-mode 'lines)

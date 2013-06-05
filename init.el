@@ -228,6 +228,13 @@
               (buffer-disable-undo)
               (linum-mode 0))))
 
+(defun kill-all-buffers ()
+  "Kill all buffers except global buffers."
+  (interactive)
+  (dolist (buffer (buffer-list))
+    (unless (string-match "^\\*.*\\*$" (buffer-name buffer))
+      (kill-buffer buffer))))
+
 
 ;; libs
 (require 'package)

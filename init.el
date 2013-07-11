@@ -48,6 +48,9 @@
                             "%b")))
             (raise-frame frame)))
 
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
 (eval-and-compile (add-to-list 'load-path "~/.emacs.d/"))
 (require 'project)
 

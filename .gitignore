@@ -8,15 +8,11 @@ TAGS
 # Ignore entire directories produced by emacs.
 auto-save-list/
 elpa/
-url/
 
 # Ignore files produced by emacs.
 ac-comphist.dat
-eshell
 flycheck-init.el*
-geben
 session.*
-tramp
 
 # Ignore files produced by autotools.
 INSTALL

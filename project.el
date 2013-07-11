@@ -27,7 +27,7 @@
   (let ((root (project-root)))
     (when root
       (add-hook 'compilation-finish-functions 'project-visit-tags-table)
-      (compile (format "ctags -e -R --languages=PHP -o %s %s"
+      (compile (format "ctags -e -R --exclude=updates --languages=PHP -o %s %s"
                        (concat root "TAGS") root)))))
 
 (defun project-visit-tags-table (buffer string)

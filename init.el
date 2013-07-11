@@ -71,10 +71,10 @@
 (setq column-number-mode t)
 (show-paren-mode 1)
 (delete-selection-mode t)
+(setq comment-auto-fill-only-comments t)
 (add-hook 'text-mode-hook
           (lambda ()
-            (flyspell-mode 1)
-            (auto-fill-mode 1)))
+            (flyspell-mode 1)))
 (add-hook 'prog-mode-hook
           (lambda ()
             (flyspell-prog-mode)
@@ -82,9 +82,6 @@
             (when (> (how-many "^\t" (point-min) (point-max))
                      (how-many "^  " (point-min) (point-max)))
               (setq indent-tabs-mode t))))
-
-;; Disable auto-fill-mode in HTML mode. It is annoying.
-(add-hook 'html-mode-hook (lambda () (auto-fill-mode 0)))
 
 ;; Auto revert mode
 (require 'autorevert)
@@ -114,6 +111,8 @@
 ;; Fix ibuffer to use ido-find-file
 (require 'ibuffer)
 (define-key ibuffer-mode-map (kbd "C-x C-f") 'ido-find-file)
+;; Always use ibuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; Show in the current window
 (add-to-list 'same-window-regexps "\\*grep\\*\\(?:<[[:digit:]]+>\\)?")
@@ -150,20 +149,19 @@
                 (lambda ()
                   (interactive)
                   (save-excursion
-                    (let ((deactivate-mark deactivate-mark))
+                    (let ((deactivate-mark deactivate-mark)
+                          (to-insert (if indent-tabs-mode "\t" "    ")))
                       (if (region-active-p)
                           (let ((start (region-beginning))
                                 (end (region-end)))
                             (goto-char start)
-                            (insert-at-beginning-of-line "\t" end))
-                        (insert-at-beginning-of-line "\t" (point)))))))
+                            (insert-at-beginning-of-line to-insert end))
+                        (insert-at-beginning-of-line to-insert (point)))))))
 
 ;; Auto-indent
 (global-set-key (kbd "RET") 'newline-and-indent)
 ;; Always kill the current buffer without asking
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
-;; Always use ibuffer
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; Keys to enter common modes
 (global-set-key (kbd "<f12>") 'sql-mysql)
@@ -208,25 +206,10 @@
 (global-set-key (kbd "M-Q") 'unfill-paragraph)
 (global-set-key (kbd "C-M-Q") 'unfill-region)
 
-;; Easily open files as root
-(require 'tramp)
-
-(defun find-file-root()
-  "Open a file as the root user."
-  (interactive)
-  (if buffer-file-name
-      (let ((p (point)))
-        (find-alternate-file (concat "/sudo::" buffer-file-name))
-        (goto-char p))
-    (error "Buffer %s is not visiting a file" (buffer-name))))
-
-(global-set-key (kbd "C-S-x C-S-f") 'find-file-root)
-
 ;; Speed up large files such as SQL backups
 (add-hook 'find-file-hook
           (lambda ()
             (when (> (buffer-size) large-file-warning-threshold)
-              (fundamental-mode)
               (setq buffer-read-only t)
               (buffer-disable-undo)
               (linum-mode 0))))
@@ -239,30 +222,34 @@
       (kill-buffer buffer))))
 
 
-;; libs
+;; Third party libraries.
 (require 'package)
-(eval-and-compile
-  (defun require-packages (packages)
-    "Install each package in PACKAGES unless already installed."
-    (dolist (package packages)
-      (unless (package-installed-p package)
-        (package-install package))))
+(defun require-packages (packages)
+  "Install each package in PACKAGES unless already installed."
+  (dolist (package packages)
+    (unless (package-installed-p package)
+      (package-install package))))
 
-  (add-to-list 'package-archives
-               '("marmalade" . "http://marmalade-repo.org/packages/"))
-  (add-to-list 'package-archives
-               '("melpa" . "http://melpa.milkbox.net/packages/"))
-  (package-initialize)
-  (package-refresh-contents)
-  (require-packages '(browse-kill-ring
-                      fill-column-indicator
-                      flycheck
-                      geben
-                      grep-a-lot
-                      php-mode
-                      rainbow-mode
-                      smart-tabs-mode
-                      undo-tree)))
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/"))
+(package-initialize)
+(package-refresh-contents)
+(require-packages '(apache-mode
+                    browse-kill-ring
+                    fill-column-indicator
+                    flycheck
+                    geben
+                    grep-a-lot
+                    php-mode
+                    rainbow-mode
+                    smart-tabs-mode
+                    undo-tree))
+
+;; Initialize third party libraries.
+
+(require 'apache-mode)
 
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
@@ -276,8 +263,7 @@
 (setq flycheck-highlighting-mode 'lines)
 (add-hook 'find-file-hook
           (lambda ()
-            (unless (or (tramp-tramp-file-p buffer-file-name)
-                        (> (buffer-size) large-file-warning-threshold))
+            (unless (> (buffer-size) large-file-warning-threshold)
               (flycheck-mode 1))))
 
 (require 'geben)

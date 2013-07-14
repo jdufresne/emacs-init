@@ -137,26 +137,16 @@
 (global-unset-key (kbd "C-x C-z"))
 
 ;; Insert a tab
-(defun insert-at-beginning-of-line (string end)
-  "Insert STRING at the beginning of all lines up until END."
-  (when (<= (point) end)
-    (beginning-of-line)
-    (insert string)
-    (forward-line)
-    (insert-at-beginning-of-line string end)))
+(defun indent-tab-rigidly (start end)
+  "Indent lines from START to END rigidly by `tab-width'."
+  (interactive "r")
+  (unless (region-active-p)
+    (setq start (line-beginning-position)
+          end (line-end-position)))
+  (let (deactivate-mark)
+    (indent-rigidly start end tab-width)))
 
-(global-set-key (kbd "<backtab>")
-                (lambda ()
-                  (interactive)
-                  (save-excursion
-                    (let ((deactivate-mark deactivate-mark)
-                          (to-insert (if indent-tabs-mode "\t" "    ")))
-                      (if (region-active-p)
-                          (let ((start (region-beginning))
-                                (end (region-end)))
-                            (goto-char start)
-                            (insert-at-beginning-of-line to-insert end))
-                        (insert-at-beginning-of-line to-insert (point)))))))
+(global-set-key (kbd "<backtab>") 'indent-tab-rigidly)
 
 ;; Auto-indent
 (global-set-key (kbd "RET") 'newline-and-indent)

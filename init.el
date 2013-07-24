@@ -26,8 +26,7 @@
 (tool-bar-mode 0)
 (setq inhibit-splash-screen t)
 
-(setq default-frame-alist '((width . 120)
-                            (height . 40)
+(setq default-frame-alist '((auto-raise . t)
                             (font . "Inconsolata Medium 12")))
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -45,8 +44,7 @@
             (setq frame-title-format
                   '(:eval (if buffer-file-name
                               (abbreviate-file-name buffer-file-name)
-                            "%b")))
-            (raise-frame frame)))
+                            "%b")))))
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)

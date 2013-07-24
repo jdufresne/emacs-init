@@ -44,7 +44,8 @@
             (setq frame-title-format
                   '(:eval (if buffer-file-name
                               (abbreviate-file-name buffer-file-name)
-                            "%b")))))
+                            "%b")))
+            (raise-frame frame)))
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)

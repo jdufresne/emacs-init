@@ -70,7 +70,9 @@
 ;; Global minor modes
 (setq column-number-mode t)
 (show-paren-mode 1)
-(delete-selection-mode t)
+(delete-selection-mode 1)
+(global-hl-line-mode 1)
+(global-linum-mode 1)
 (setq comment-auto-fill-only-comments t)
 (add-hook 'text-mode-hook
           (lambda ()
@@ -88,12 +90,6 @@
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
-
-;; Highlight line mode
-(global-hl-line-mode 1)
-
-;; Line number mode
-(global-linum-mode 1)
 
 ;; Save place mode
 (require 'saveplace)
@@ -214,28 +210,30 @@
 
 ;; Third party libraries.
 (require 'package)
-(defun require-packages (packages)
-  "Install each package in PACKAGES unless already installed."
-  (dolist (package packages)
-    (unless (package-installed-p package)
-      (package-install package))))
+(eval-and-compile
+  (defun require-packages (packages)
+    "Install each package in PACKAGES unless already installed."
+    (dolist (package packages)
+      (unless (package-installed-p package)
+        (package-install package))))
 
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/"))
-(package-initialize)
-(package-refresh-contents)
-(require-packages '(apache-mode
-                    browse-kill-ring
-                    fill-column-indicator
-                    flycheck
-                    geben
-                    grep-a-lot
-                    php-mode
-                    rainbow-mode
-                    smart-tabs-mode
-                    undo-tree))
+
+  (add-to-list 'package-archives
+               '("marmalade" . "http://marmalade-repo.org/packages/"))
+  (add-to-list 'package-archives
+               '("melpa" . "http://melpa.milkbox.net/packages/"))
+  (package-initialize)
+  (package-refresh-contents)
+  (require-packages '(apache-mode
+                      browse-kill-ring
+                      fill-column-indicator
+                      flycheck
+                      geben
+                      grep-a-lot
+                      php-mode
+                      rainbow-mode
+                      smart-tabs-mode
+                      undo-tree)))
 
 ;; Initialize third party libraries.
 
@@ -246,7 +244,9 @@
 
 (require 'fill-column-indicator)
 (setq-default fci-rule-column 80)
-(define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
+(define-globalized-minor-mode global-fci-mode
+  fci-mode
+  (lambda () (fci-mode 1)))
 (global-fci-mode 1)
 
 (require 'flycheck)

@@ -45,7 +45,7 @@
                   '(:eval (if buffer-file-name
                               (abbreviate-file-name buffer-file-name)
                             "%b")))
-            (raise-frame frame)))
+            (select-frame-set-input-focus frame)))
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
@@ -237,6 +237,7 @@
 ;; Initialize third party libraries.
 
 (require 'apache-mode)
+(add-to-list 'auto-mode-alist '("\\.conf$" . apache-mode))
 
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)

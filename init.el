@@ -146,7 +146,13 @@
 ;; Auto-indent
 (global-set-key (kbd "RET") 'newline-and-indent)
 ;; Always kill the current buffer without asking
-(global-set-key (kbd "C-x k") 'kill-this-buffer)
+(defun kill-buffer-now (&optional buffer-or-name)
+  "Kill the buffer specified by BUFFER-OR-NAME without asking."
+  (interactive)
+  (let ((kill-buffer-query-functions nil))
+    (kill-buffer buffer-or-name)))
+(global-set-key (kbd "C-x k") 'kill-buffer-now)
+(global-set-key (kbd "C-x C-k") 'kill-buffer-now)
 
 ;; Keys to enter common modes
 (global-set-key (kbd "<f12>") 'sql-mysql)

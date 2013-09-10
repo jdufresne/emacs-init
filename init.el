@@ -276,7 +276,11 @@
 (add-hook 'css-mode-hook (lambda () (rainbow-mode)))
 
 (require 'smart-tabs-mode)
-(smart-tabs-insinuate 'c 'javascript 'nxml)
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (when indent-tabs-mode
+              (smart-tabs-mode 1)))
+          t)
 
 (require 'undo-tree)
 (global-undo-tree-mode)

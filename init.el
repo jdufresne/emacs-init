@@ -38,6 +38,10 @@
 (setq grep-find-use-xargs 'exec)
 
 (defun init-frame (frame)
+  "Initialize a new FRAME.
+
+Set the FRAME-TITLE-FORMAT to a useful format then raise the
+frame."
   (setq frame-title-format
         '(:eval (if buffer-file-name
                     (abbreviate-file-name buffer-file-name)
@@ -172,7 +176,7 @@ directory to home."
   (interactive)
   (let ((orig-point (point)))
     (end-of-line)
-    (re-search-backward "[^ \t]" (line-end-position 0) t)
+    (re-search-backward "[^[:space:]]" (line-end-position 0) t)
     (forward-char)
     (when (= orig-point (point))
       (end-of-line))))

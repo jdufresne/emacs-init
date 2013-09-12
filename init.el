@@ -37,12 +37,13 @@
 (setq kill-do-not-save-duplicates t)
 (setq grep-find-use-xargs 'exec)
 
-(defun set-frame-title-format (frame)
+(defun init-frame (frame)
   (setq frame-title-format
-       '(:eval (if buffer-file-name
-                   (abbreviate-file-name buffer-file-name)
-                 "%b"))))
-(add-hook 'after-make-frame-functions 'set-frame-title-format)
+        '(:eval (if buffer-file-name
+                    (abbreviate-file-name buffer-file-name)
+                  "%b")))
+  (select-frame-set-input-focus frame))
+(add-hook 'after-make-frame-functions 'init-frame)
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
@@ -259,6 +260,7 @@ directory to home."
 
 (require 'flycheck)
 (setq flycheck-highlighting-mode 'lines)
+(global-flycheck-mode 1)
 
 (require 'grep-a-lot)
 (grep-a-lot-setup-keys)

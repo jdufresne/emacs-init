@@ -72,17 +72,10 @@
 (delete-selection-mode 1)
 (global-hl-line-mode 1)
 (global-linum-mode 1)
+(global-subword-mode 1)
 (setq comment-auto-fill-only-comments t)
-(add-hook 'text-mode-hook
-          (lambda ()
-            (flyspell-mode 1)))
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (flyspell-prog-mode)
-            (subword-mode t)
-            (when (> (how-many "^\t" (point-min) (point-max))
-                     (how-many "^  " (point-min) (point-max)))
-              (setq indent-tabs-mode t))))
+(add-hook 'text-mode-hook 'turn-on-flyspell)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
 ;; Auto revert mode
 (require 'autorevert)
@@ -98,10 +91,12 @@
 (require 'whitespace)
 (prefer-coding-system 'utf-8)
 (setq whitespace-style '(empty trailing))
-(add-hook 'before-save-hook
-          (lambda ()
-            (set-buffer-file-coding-system 'utf-8)
-            (whitespace-cleanup)))
+
+(defun cleanup-buffer ()
+  "Set the preferred style upon save."
+  (set-buffer-file-coding-system 'utf-8)
+  (whitespace-cleanup))
+(add-hook 'before-save-hook 'cleanup-buffer)
 
 ;; Fix ibuffer to use ido-find-file
 (require 'ibuffer)
@@ -156,10 +151,15 @@
 
 ;; Keys to enter common modes
 (global-set-key (kbd "<f12>") 'sql-mysql)
-(add-hook 'sql-interactive-mode-hook
-          (lambda ()
-            (linum-mode 0)
-            (cd (expand-file-name "~/"))))
+
+(defun init-sql-mode ()
+  "Initialize SQL-MODE.
+
+Turn off LINUM-MODE, as the buffer can be extremely large.  Change
+directory to home."
+  (linum-mode 0)
+  (cd (expand-file-name "~/")))
+(add-hook 'sql-interactive-mode-hook 'init-sql-mode)
 
 (defun smart-move-beginning-of-line ()
   "Move point back to indentation or beginning of line."
@@ -198,12 +198,13 @@
 (global-set-key (kbd "C-M-Q") 'unfill-region)
 
 ;; Speed up large files such as SQL backups
-(add-hook 'find-file-hook
-          (lambda ()
-            (when (> (buffer-size) large-file-warning-threshold)
-              (setq buffer-read-only t)
-              (buffer-disable-undo)
-              (linum-mode 0))))
+(defun init-large-buffer ()
+  "Setup large buffers to better handle large buffers."
+  (when (> (buffer-size) large-file-warning-threshold)
+    (setq buffer-read-only t)
+    (buffer-disable-undo)
+    (linum-mode 0)))
+(add-hook 'find-file-hook 'init-large-buffer)
 
 (defun kill-all-buffers ()
   "Kill all buffers except global buffers."
@@ -238,7 +239,8 @@
                     php-mode
                     rainbow-mode
                     smart-tabs-mode
-                    undo-tree))
+                    undo-tree
+                    web-mode))
 
 ;; Initialize third party libraries.
 
@@ -260,10 +262,6 @@
 
 (require 'flycheck)
 (setq flycheck-highlighting-mode 'lines)
-(add-hook 'find-file-hook
-          (lambda ()
-            (unless (> (buffer-size) large-file-warning-threshold)
-              (flycheck-mode 1))))
 
 (require 'grep-a-lot)
 (grep-a-lot-setup-keys)
@@ -273,16 +271,21 @@
 (setq php-mode-warn-if-mumamo-off nil)
 
 (require 'rainbow-mode)
-(add-hook 'css-mode-hook (lambda () (rainbow-mode)))
+(add-hook 'css-mode-hook 'rainbow-turn-on)
 
 (require 'smart-tabs-mode)
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (when indent-tabs-mode
-              (smart-tabs-mode 1)))
-          t)
+(defun guess-tabs-mode ()
+  "Guess tabs style of current buffer."
+  (when (> (how-many "^\t" (point-min) (point-max))
+           (how-many "^  " (point-min) (point-max)))
+    (setq indent-tabs-mode t)
+    (smart-tabs-mode 1)))
+(add-hook 'prog-mode-hook 'guess-tabs-mode)
 
 (require 'undo-tree)
 (global-undo-tree-mode)
+
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.html?$" . web-mode))
 
 ;;; init.el ends here

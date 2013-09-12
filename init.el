@@ -37,15 +37,12 @@
 (setq kill-do-not-save-duplicates t)
 (setq grep-find-use-xargs 'exec)
 
-(add-hook 'after-make-frame-functions
-          (lambda (frame)
-            ;; Set the frame title to the abbreviated path of the
-            ;; visited file.
-            (setq frame-title-format
-                  '(:eval (if buffer-file-name
-                              (abbreviate-file-name buffer-file-name)
-                            "%b")))
-            (select-frame-set-input-focus frame)))
+(defun set-frame-title-format (frame)
+  (setq frame-title-format
+       '(:eval (if buffer-file-name
+                   (abbreviate-file-name buffer-file-name)
+                 "%b"))))
+(add-hook 'after-make-frame-functions 'set-frame-title-format)
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)

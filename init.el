@@ -92,19 +92,19 @@ frame."
 ;; Whitespace mode
 (require 'whitespace)
 (prefer-coding-system 'utf-8)
-(setq whitespace-style '(empty trailing))
 
 (defun cleanup-buffer ()
   "Set the preferred style upon save."
-  (set-buffer-file-coding-system 'utf-8)
-  (whitespace-cleanup))
+  (set-buffer-file-coding-system buffer-file-coding-system)
+  (let ((whitespace-style '(empty trailing)))
+    (whitespace-cleanup)))
 (add-hook 'before-save-hook 'cleanup-buffer)
 
 ;; Fix ibuffer to use ido-find-file
 (require 'ibuffer)
 (define-key ibuffer-mode-map (kbd "C-x C-f") 'ido-find-file)
 ;; Always use ibuffer
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key [remap list-buffers] 'ibuffer)
 
 ;; Show in the current window
 (add-to-list 'same-window-regexps "\\*grep\\*\\(?:<[[:digit:]]+>\\)?")
@@ -264,6 +264,7 @@ directory to home."
 
 (require 'flycheck)
 (setq flycheck-highlighting-mode 'lines)
+(setq flycheck-display-errors-function nil)
 (global-flycheck-mode 1)
 
 (require 'grep-a-lot)

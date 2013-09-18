@@ -225,8 +225,6 @@ directory to home."
       (package-install package))))
 
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/"))
 
 (eval-and-compile
@@ -282,9 +280,23 @@ directory to home."
   "Guess tabs style of current buffer."
   (when (> (how-many "^\t" (point-min) (point-max))
            (how-many "^  " (point-min) (point-max)))
-    (setq indent-tabs-mode t)
-    (smart-tabs-mode 1)))
+    (setq indent-tabs-mode t)))
 (add-hook 'prog-mode-hook 'guess-tabs-mode)
+
+(defun php-enable-smart-tabs-mode ()
+  "Enable smart-tabs-mode for PHP files."
+  (when indent-tabs-mode
+    (smart-tabs-mode-enable)
+    (smart-tabs-advice php-cautious-indent-line c-basic-offset)
+    (smart-tabs-advice php-cautious-indent-region c-basic-offset)))
+(add-hook 'php-mode-hook 'php-enable-smart-tabs-mode)
+
+(defun js-enable-smart-tabs-mode ()
+  "Enable smart-tabs-mode for JavaScript files."
+  (when indent-tabs-mode
+    (smart-tabs-mode-enable)
+    (smart-tabs-advice js-indent-line js-indent-level)))
+(add-hook 'js-mode-hook 'js-enable-smart-tabs-mode)
 
 (require 'undo-tree)
 (global-undo-tree-mode)

@@ -151,8 +151,15 @@ frame."
 (global-set-key (kbd "C-x k") 'kill-buffer-now)
 (global-set-key (kbd "C-x C-k") 'kill-buffer-now)
 
-;; Keys to enter common modes
-(global-set-key (kbd "<f12>") 'sql-mysql)
+;; SQL
+(require 'sql)
+(defun project-sql-mysql ()
+  "Run MySQL with default database for current project."
+  (interactive)
+  (let ((sql-user "root")
+        (sql-database (or (project-name) sql-database)))
+    (sql-mysql)))
+(global-set-key (kbd "<f12>") 'project-sql-mysql)
 
 (defun init-sql-mode ()
   "Initialize SQL-MODE.

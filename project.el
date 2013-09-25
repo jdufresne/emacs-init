@@ -37,8 +37,14 @@
   (remove-hook 'compilation-finish-functions 'project-visit-tags-table))
 
 (defun project-root ()
-  "Return the root directory of the project."
+  "Return the project's root directory."
   (project-locate-first-dominating-file project-root-files))
+
+(defun project-name ()
+  "Return the project name determined by the root directory."
+  (let ((root (project-root)))
+    (when root
+      (file-name-base (directory-file-name root)))))
 
 (defun project-locate-first-dominating-file (files)
   "Return the first directory containing a file in FILES."

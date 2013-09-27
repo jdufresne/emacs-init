@@ -89,13 +89,12 @@ frame."
 (require 'saveplace)
 (setq-default save-place t)
 
-;; Whitespace mode
-(require 'whitespace)
+;; Buffer clean up
 (prefer-coding-system 'utf-8)
-
+(require 'whitespace)
 (defun cleanup-buffer ()
   "Set the preferred style upon save."
-  (set-buffer-file-coding-system buffer-file-coding-system)
+  (set-buffer-file-coding-system 'utf-8)
   (let ((whitespace-style '(empty trailing)))
     (whitespace-cleanup)))
 (add-hook 'before-save-hook 'cleanup-buffer)
@@ -150,6 +149,9 @@ frame."
     (kill-buffer buffer-or-name)))
 (global-set-key (kbd "C-x k") 'kill-buffer-now)
 (global-set-key (kbd "C-x C-k") 'kill-buffer-now)
+
+;; A bit nicer.
+(global-set-key [remap find-tag] 'find-tag-other-window)
 
 ;; SQL
 (require 'sql)

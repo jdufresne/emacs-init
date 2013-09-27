@@ -105,10 +105,6 @@ frame."
 ;; Always use ibuffer
 (global-set-key [remap list-buffers] 'ibuffer)
 
-;; Show in the current window
-(add-to-list 'same-window-regexps "\\*grep\\*\\(?:<[[:digit:]]+>\\)?")
-(add-to-list 'same-window-buffer-names "*SQL*")
-
 ;; Style
 (require 'cc-mode)
 (defconst erez-c-style '((c-basic-offset . 4)

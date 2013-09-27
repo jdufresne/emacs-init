@@ -222,6 +222,31 @@ directory to home."
     (unless (string-match "^\\*.*\\*$" (buffer-name buffer))
       (kill-buffer buffer))))
 
+(defun tidy-json ()
+  "Replace valid JSON buffer with pretty printed JSON.
+
+Returns t if buffer was successfully transformed; nil otherwise."
+  (interactive)
+  (barf-if-buffer-read-only)
+  (let* ((output-file (make-temp-file "scor"))
+         (error-file (make-temp-file "scor"))
+         (exit-status (call-process-region
+                       (point-min) (point-max)
+                       "python"
+                       nil
+                       (list (list :file output-file) error-file)
+                       nil
+                       "-m" "json.tool")))
+    (if (= exit-status 0)
+        (insert-file-contents output-file nil nil nil t)
+      (with-current-buffer (get-buffer-create "*JSON Tidy Error*")
+        (goto-char (point-max))
+        (insert-file-contents error-file)
+        (display-buffer (current-buffer))))
+    (delete-file output-file)
+    (delete-file error-file)
+    (= exit-status 0)))
+
 
 ;; Third party libraries.
 (require 'package)

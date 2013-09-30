@@ -29,7 +29,7 @@
 (setq default-frame-alist '((auto-raise . t)
                             (font . "Inconsolata Medium 12")))
 (setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
+(setq-default tab-width 8)
 (setq-default truncate-lines t)
 (setq next-line-add-newlines nil)
 (setq-default require-final-newline t)
@@ -47,7 +47,7 @@ frame."
                     (abbreviate-file-name buffer-file-name)
                   "%b")))
   (select-frame-set-input-focus frame))
-(add-hook 'after-make-frame-functions 'init-frame)
+(add-hook 'after-make-frame-functions #'init-frame)
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
@@ -76,8 +76,8 @@ frame."
 (global-linum-mode 1)
 (global-subword-mode 1)
 (setq comment-auto-fill-only-comments t)
-(add-hook 'text-mode-hook 'turn-on-flyspell)
-(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+(add-hook 'text-mode-hook #'turn-on-flyspell)
+(add-hook 'prog-mode-hook #'flyspell-prog-mode)
 
 ;; Auto revert mode
 (require 'autorevert)
@@ -97,13 +97,13 @@ frame."
   (set-buffer-file-coding-system 'utf-8)
   (let ((whitespace-style '(empty trailing)))
     (whitespace-cleanup)))
-(add-hook 'before-save-hook 'cleanup-buffer)
+(add-hook 'before-save-hook #'cleanup-buffer)
 
 ;; Fix ibuffer to use ido-find-file
 (require 'ibuffer)
-(define-key ibuffer-mode-map (kbd "C-x C-f") 'ido-find-file)
+(define-key ibuffer-mode-map (kbd "C-x C-f") #'ido-find-file)
 ;; Always use ibuffer
-(global-set-key [remap list-buffers] 'ibuffer)
+(global-set-key [remap list-buffers] #'ibuffer)
 
 ;; Style
 (require 'cc-mode)
@@ -133,21 +133,21 @@ frame."
   (let (deactivate-mark)
     (indent-rigidly start end tab-width)))
 
-(global-set-key (kbd "<backtab>") 'indent-tab-rigidly)
+(global-set-key (kbd "<backtab>") #'indent-tab-rigidly)
 
 ;; Auto-indent
-(global-set-key (kbd "RET") 'newline-and-indent)
+(global-set-key (kbd "RET") #'newline-and-indent)
 ;; Always kill the current buffer without asking
 (defun kill-buffer-now (&optional buffer-or-name)
   "Kill the buffer specified by BUFFER-OR-NAME without asking."
   (interactive)
   (let ((kill-buffer-query-functions nil))
     (kill-buffer buffer-or-name)))
-(global-set-key (kbd "C-x k") 'kill-buffer-now)
-(global-set-key (kbd "C-x C-k") 'kill-buffer-now)
+(global-set-key (kbd "C-x k") #'kill-buffer-now)
+(global-set-key (kbd "C-x C-k") #'kill-buffer-now)
 
 ;; A bit nicer.
-(global-set-key [remap find-tag] 'find-tag-other-window)
+(global-set-key [remap find-tag] #'find-tag-other-window)
 
 ;; SQL
 (require 'sql)
@@ -157,7 +157,7 @@ frame."
   (let ((sql-user "root")
         (sql-database (or (project-name) sql-database)))
     (sql-mysql)))
-(global-set-key (kbd "<f12>") 'project-sql-mysql)
+(global-set-key (kbd "<f12>") #'project-sql-mysql)
 
 (defun init-sql-mode ()
   "Initialize SQL-MODE.
@@ -166,7 +166,7 @@ Turn off LINUM-MODE, as the buffer can be extremely large.  Change
 directory to home."
   (linum-mode 0)
   (cd (expand-file-name "~/")))
-(add-hook 'sql-interactive-mode-hook 'init-sql-mode)
+(add-hook 'sql-interactive-mode-hook #'init-sql-mode)
 
 (defun smart-move-beginning-of-line ()
   "Move point back to indentation or beginning of line."
@@ -186,8 +186,8 @@ directory to home."
     (when (= orig-point (point))
       (end-of-line))))
 
-(global-set-key [remap move-beginning-of-line] 'smart-move-beginning-of-line)
-(global-set-key [remap move-end-of-line] 'smart-move-end-of-line)
+(global-set-key [remap move-beginning-of-line] #'smart-move-beginning-of-line)
+(global-set-key [remap move-end-of-line] #'smart-move-end-of-line)
 
 (defun unfill-paragraph ()
   "Unfill paragraph at or after point."
@@ -201,8 +201,8 @@ directory to home."
   (let ((fill-column (point-max)))
     (fill-region (region-beginning) (region-end) nil)))
 
-(global-set-key (kbd "M-Q") 'unfill-paragraph)
-(global-set-key (kbd "C-M-Q") 'unfill-region)
+(global-set-key (kbd "M-Q") #'unfill-paragraph)
+(global-set-key (kbd "C-M-Q") #'unfill-region)
 
 ;; Speed up large files such as SQL backups
 (defun init-large-buffer ()
@@ -211,7 +211,7 @@ directory to home."
     (setq buffer-read-only t)
     (buffer-disable-undo)
     (linum-mode 0)))
-(add-hook 'find-file-hook 'init-large-buffer)
+(add-hook 'find-file-hook #'init-large-buffer)
 
 (defun kill-all-buffers ()
   "Kill all buffers except global buffers."
@@ -303,15 +303,16 @@ Returns t if buffer was successfully transformed; nil otherwise."
 (setq php-mode-warn-if-mumamo-off nil)
 
 (require 'rainbow-mode)
-(add-hook 'css-mode-hook 'rainbow-turn-on)
+(add-hook 'css-mode-hook #'rainbow-turn-on)
 
 (require 'smart-tabs-mode)
 (defun guess-tabs-mode ()
   "Guess tabs style of current buffer."
   (when (> (how-many "^\t" (point-min) (point-max))
            (how-many "^  " (point-min) (point-max)))
-    (setq indent-tabs-mode t)))
-(add-hook 'prog-mode-hook 'guess-tabs-mode)
+    (setq indent-tabs-mode t)
+    (setq tab-width 4)))
+(add-hook 'prog-mode-hook #'guess-tabs-mode)
 
 (defun php-enable-smart-tabs-mode ()
   "Enable smart-tabs-mode for PHP files."
@@ -319,14 +320,14 @@ Returns t if buffer was successfully transformed; nil otherwise."
     (smart-tabs-mode-enable)
     (smart-tabs-advice php-cautious-indent-line c-basic-offset)
     (smart-tabs-advice php-cautious-indent-region c-basic-offset)))
-(add-hook 'php-mode-hook 'php-enable-smart-tabs-mode)
+(add-hook 'php-mode-hook #'php-enable-smart-tabs-mode)
 
 (defun js-enable-smart-tabs-mode ()
   "Enable smart-tabs-mode for JavaScript files."
   (when indent-tabs-mode
     (smart-tabs-mode-enable)
     (smart-tabs-advice js-indent-line js-indent-level)))
-(add-hook 'js-mode-hook 'js-enable-smart-tabs-mode)
+(add-hook 'js-mode-hook #'js-enable-smart-tabs-mode)
 
 (require 'undo-tree)
 (global-undo-tree-mode)

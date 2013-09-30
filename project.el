@@ -26,7 +26,7 @@
   (interactive)
   (let ((root (project-root)))
     (when root
-      (add-hook 'compilation-finish-functions 'project-visit-tags-table)
+      (add-hook 'compilation-finish-functions #'project-visit-tags-table)
       (compile (format "ctags -e -R --exclude=updates --languages=PHP -o %s %s"
                        (concat root "TAGS") root)))))
 
@@ -34,7 +34,7 @@
   "Tell tags commands to use tags table at the project root."
   (when (string= string "finished\n")
     (visit-tags-table (concat (project-root) "TAGS")))
-  (remove-hook 'compilation-finish-functions 'project-visit-tags-table))
+  (remove-hook 'compilation-finish-functions #'project-visit-tags-table))
 
 (defun project-root ()
   "Return the project's root directory."
@@ -54,7 +54,7 @@
 
 ;;; Key bindings:
 
-(global-set-key (kbd "C-c C-g") 'project-rgrep)
+(global-set-key (kbd "C-c C-g") #'project-rgrep)
 
 (provide 'project)
 ;;; project.el ends here

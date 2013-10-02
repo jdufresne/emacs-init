@@ -44,7 +44,7 @@
   "Return the project name determined by the root directory."
   (let ((root (project-root)))
     (when root
-      (file-name-base (directory-file-name root)))))
+      (file-name-nondirectory (directory-file-name root)))))
 
 (defun project-locate-first-dominating-file (files)
   "Return the first directory containing a file in FILES."

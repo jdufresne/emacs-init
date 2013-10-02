@@ -313,6 +313,7 @@ Returns t if buffer was successfully transformed; nil otherwise."
     (setq indent-tabs-mode t)
     (setq tab-width 4)))
 (add-hook 'prog-mode-hook #'guess-tabs-mode)
+(add-hook 'css-mode #'guess-tabs-mode)
 
 (defun php-enable-smart-tabs-mode ()
   "Enable smart-tabs-mode for PHP files."

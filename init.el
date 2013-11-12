@@ -261,8 +261,10 @@ Returns t if buffer was successfully transformed; nil otherwise."
   (package-initialize))
 
 (package-refresh-contents)
-(require-packages '(apache-mode
+(require-packages '(auto-complete
+                    apache-mode
                     browse-kill-ring
+                    diff-hl
                     fill-column-indicator
                     flycheck
                     grep-a-lot
@@ -273,12 +275,17 @@ Returns t if buffer was successfully transformed; nil otherwise."
                     web-mode))
 
 ;; Initialize third party libraries.
+(require 'auto-complete)
+(global-auto-complete-mode 1)
 
 (require 'apache-mode)
 (add-to-list 'auto-mode-alist '("\\.conf$" . apache-mode))
 
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
+
+(require 'diff-hl)
+(global-diff-hl-mode)
 
 (require 'fill-column-indicator)
 (setq-default fci-rule-column 80)
@@ -313,7 +320,7 @@ Returns t if buffer was successfully transformed; nil otherwise."
     (setq indent-tabs-mode t)
     (setq tab-width 4)))
 (add-hook 'prog-mode-hook #'guess-tabs-mode)
-(add-hook 'css-mode-hook #'guess-tabs-mode)
+(add-hook 'text-mode-hook #'guess-tabs-mode)
 
 (defun php-enable-smart-tabs-mode ()
   "Enable smart-tabs-mode for PHP files."

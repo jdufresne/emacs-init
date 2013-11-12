@@ -10,6 +10,8 @@
 (require 'grep)
 
 (add-to-list 'grep-find-ignored-files "TAGS")
+(add-to-list 'grep-find-ignored-directories "lib")
+(add-to-list 'grep-find-ignored-directories "bower_components")
 
 (defvar project-root-files
   '(".hg")

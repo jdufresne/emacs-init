@@ -19,7 +19,7 @@
 
 (defun project-rgrep (regexp)
   "Recursively grep for REGEXP in the project root directory."
-  (interactive "sSearch for: ")
+  (interactive (list (read-string "Search for: " (thing-at-point 'word))))
   (grep-compute-defaults)
   (rgrep regexp "*" (or (project-root) default-directory)))
 

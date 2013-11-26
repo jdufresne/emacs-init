@@ -17,9 +17,16 @@
   '(".hg")
   "Project files that mark the root of a project.")
 
+(defun strip-text-properties(text)
+  (set-text-properties 0 (length text) nil text)
+  text)
+
 (defun project-rgrep (regexp)
   "Recursively grep for REGEXP in the project root directory."
-  (interactive (list (read-string "Search for: " (thing-at-point 'word))))
+  (interactive (list
+                (read-string "Search for: "
+                             (strip-text-properties (thing-at-point 'word)))))
+
   (grep-compute-defaults)
   (rgrep regexp "*" (or (project-root) default-directory)))
 

@@ -61,9 +61,17 @@
     (or (locate-dominating-file default-directory (car files))
         (project-locate-first-dominating-file (cdr files)))))
 
+(defun goto-django ()
+  "Open dired buffer of the installed Django."
+  (interactive)
+  (dired (concat "~/.virtualenvs/"
+                 (project-name)
+                 "/lib/python2.7/site-packages/django")))
+
 ;;; Key bindings:
 
 (global-set-key (kbd "C-c C-g") #'project-rgrep)
+(global-set-key (kbd "<f11>") #'goto-django)
 
 (provide 'project)
 ;;; project.el ends here

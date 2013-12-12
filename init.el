@@ -78,6 +78,7 @@ frame."
 (setq comment-auto-fill-only-comments t)
 (add-hook 'text-mode-hook #'turn-on-flyspell)
 (add-hook 'prog-mode-hook #'flyspell-prog-mode)
+(windmove-default-keybindings)
 
 ;; Auto revert mode
 (require 'autorevert)
@@ -271,8 +272,7 @@ Returns t if buffer was successfully transformed; nil otherwise."
                     php-mode
                     rainbow-mode
                     smart-tabs-mode
-                    undo-tree
-                    web-mode))
+                    undo-tree))
 
 ;; Initialize third party libraries.
 (require 'auto-complete)
@@ -339,8 +339,5 @@ Returns t if buffer was successfully transformed; nil otherwise."
 
 (require 'undo-tree)
 (global-undo-tree-mode)
-
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.html?$" . web-mode))
 
 ;;; init.el ends here

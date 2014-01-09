@@ -247,6 +247,14 @@ Returns t if buffer was successfully transformed; nil otherwise."
     (= exit-status 0)))
 
 
+(defun python-insert-encoding-comment ()
+  "Insert a UTF-8 coding comment at the beginning of the buffer."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (insert "# -*- coding: utf-8 -*-\n")))
+
+
 ;; Third party libraries.
 (require 'package)
 (defun require-packages (packages)

@@ -59,6 +59,7 @@ frame."
 (require 'ido)
 (ido-mode 1)
 (ido-everywhere 1)
+(setq ido-auto-merge-work-directories-length -1)
 (setq ido-create-new-buffer 'never)
 (setq ido-enable-flex-matching t)
 (setq ido-enable-last-directory-history t)

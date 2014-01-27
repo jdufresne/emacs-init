@@ -33,7 +33,6 @@
 (setq-default truncate-lines t)
 (setq next-line-add-newlines nil)
 (setq-default require-final-newline t)
-(setq sentence-end-double-space nil)
 (setq kill-do-not-save-duplicates t)
 (setq grep-find-use-xargs 'exec)
 
@@ -279,6 +278,7 @@ Returns t if buffer was successfully transformed; nil otherwise."
                     flycheck
                     grep-a-lot
                     php-mode
+                    pony-mode
                     rainbow-mode
                     smart-tabs-mode
                     undo-tree))
@@ -317,6 +317,8 @@ Returns t if buffer was successfully transformed; nil otherwise."
 (require 'php-mode)
 (setq php-mode-coding-style nil)
 (setq php-mode-warn-if-mumamo-off nil)
+
+(require 'pony-mode)
 
 (require 'rainbow-mode)
 (add-hook 'css-mode-hook #'rainbow-turn-on)

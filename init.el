@@ -24,10 +24,14 @@
 ;; Basic config
 (menu-bar-mode 0)
 (tool-bar-mode 0)
+(scroll-bar-mode 0)
 (setq inhibit-splash-screen t)
+(setq initial-scratch-message nil)
 
-(setq default-frame-alist '((auto-raise . t)
-                            (font . "Inconsolata Medium 12")))
+;; Default frame alist
+(add-to-list 'default-frame-alist '(auto-raise . t))
+(add-to-list 'default-frame-alist '(font . "Inconsolata Medium 12"))
+
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 8)
 (setq-default truncate-lines t)
@@ -51,7 +55,8 @@ frame."
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
-(eval-and-compile (add-to-list 'load-path "~/.emacs.d/"))
+(eval-and-compile
+  (add-to-list 'load-path "~/.emacs.d/"))
 (require 'project)
 
 ;; Enable ido mode
@@ -78,7 +83,6 @@ frame."
 (setq comment-auto-fill-only-comments t)
 (add-hook 'text-mode-hook #'turn-on-flyspell)
 (add-hook 'prog-mode-hook #'flyspell-prog-mode)
-(windmove-default-keybindings)
 
 ;; Auto revert mode
 (require 'autorevert)
@@ -108,10 +112,11 @@ frame."
 
 ;; Style
 (require 'cc-mode)
-(defconst erez-c-style '((c-basic-offset . 4)
-                         (c-offsets-alist . ((arglist-close . 0)
-                                             (substatement-open . 0)
-                                             (case-label . +)))))
+(defconst erez-c-style
+  '((c-basic-offset . 4)
+    (c-offsets-alist . ((arglist-close . 0)
+                        (substatement-open . 0)
+                        (case-label . +)))))
 (c-add-style "erez" erez-c-style)
 (setq c-default-style "erez")
 
@@ -132,7 +137,7 @@ frame."
     (setq start (line-beginning-position)
           end (line-end-position)))
   (let (deactivate-mark)
-    (indent-rigidly start end tab-width)))
+    (indent-rigidly start end 4)))
 
 (global-set-key (kbd "<backtab>") #'indent-tab-rigidly)
 

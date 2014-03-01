@@ -73,6 +73,9 @@ frame."
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
+;; Default dictionary
+(setq ispell-dictionary "english")
+
 ;; Global minor modes
 (setq column-number-mode t)
 (show-paren-mode 1)

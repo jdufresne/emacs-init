@@ -18,17 +18,15 @@ Returns t if buffer was successfully transformed; nil otherwise."
   (let ((spec (assoc-regexp (buffer-name) tidy-alist)))
     (if (not spec)
         (error "No tidy spec found for buffer %s" (buffer-name))
-      (let* ((program (cadr spec))
-             (rest (cddr spec))
-             (output-file (make-temp-file "tidy"))
+      (let* ((output-file (make-temp-file "tidy"))
              (error-file (make-temp-file "tidy"))
              (exit-status (apply #'call-process-region
                                  (point-min) (point-max)
-                                 program
+                                 (cadr spec)
                                  nil
                                  (list (list :file output-file) error-file)
                                  nil
-                                 rest)))
+                                 (cddr spec))))
         (if (= exit-status 0)
             (insert-file-contents output-file nil nil nil t)
           (with-current-buffer (get-buffer-create "*Tidy Error*")

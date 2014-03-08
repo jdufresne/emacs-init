@@ -1,4 +1,4 @@
-;;; project.el --- Handle projects
+;;; project.el --- Handle projects -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

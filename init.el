@@ -36,7 +36,7 @@
 (setq-default tab-width 8)
 (setq-default truncate-lines t)
 (setq next-line-add-newlines nil)
-(setq-default require-final-newline t)
+(setq-default require-final-newline 't)
 (setq kill-do-not-save-duplicates t)
 (setq grep-find-use-xargs 'exec)
 
@@ -145,8 +145,6 @@ frame."
 
 (global-set-key (kbd "<backtab>") #'indent-tab-rigidly)
 
-;; Auto-indent
-(global-set-key (kbd "RET") #'newline-and-indent)
 ;; Always kill the current buffer without asking
 (defun kill-buffer-now (&optional buffer-or-name)
   "Kill the buffer specified by BUFFER-OR-NAME without asking."

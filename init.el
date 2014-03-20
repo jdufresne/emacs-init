@@ -30,13 +30,13 @@
 
 ;; Default frame alist
 (add-to-list 'default-frame-alist '(auto-raise . t))
-(add-to-list 'default-frame-alist '(font . "Inconsolata Medium 12"))
+(add-to-list 'default-frame-alist '(font . "Inconsolata Medium 14"))
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 8)
 (setq-default truncate-lines t)
 (setq next-line-add-newlines nil)
-(setq-default require-final-newline 't)
+(setq-default require-final-newline t)
 (setq kill-do-not-save-duplicates t)
 (setq grep-find-use-xargs 'exec)
 
@@ -60,12 +60,13 @@ frame."
 (require 'project)
 (require 'tidy)
 
+;; Default dictionary
+(require 'ispell)
+(setq ispell-dictionary "english")
+
 ;; Enable functions
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
-
-;; Default dictionary
-(setq ispell-dictionary "english")
 
 ;; Global minor modes
 (setq column-number-mode t)

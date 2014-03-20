@@ -11,8 +11,7 @@ elpa/
 
 # Ignore files produced by emacs.
 ac-comphist.dat
-flycheck-init.el*
-session.*
+recentf.el
 
 # Ignore files produced by autotools.
 INSTALL

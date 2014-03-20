@@ -12,6 +12,7 @@
 (add-to-list 'grep-find-ignored-files "TAGS")
 (add-to-list 'grep-find-ignored-directories "lib")
 (add-to-list 'grep-find-ignored-directories "bower_components")
+(add-to-list 'grep-find-ignored-directories "databases")
 
 (defvar project-root-files
   '(".hg")
@@ -26,7 +27,6 @@
   (interactive (list
                 (read-string "Search for: "
                              (strip-text-properties (thing-at-point 'symbol)))))
-
   (grep-compute-defaults)
   (rgrep regexp "*" (or (project-root) default-directory)))
 

@@ -60,16 +60,6 @@ frame."
 (require 'project)
 (require 'tidy)
 
-;; Enable ido mode
-(require 'ido)
-(ido-mode 1)
-(ido-everywhere 1)
-(setq ido-auto-merge-work-directories-length -1)
-(setq ido-create-new-buffer 'never)
-(setq ido-enable-flex-matching t)
-(setq ido-enable-last-directory-history t)
-(setq ido-use-virtual-buffers t)
-
 ;; Enable functions
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
@@ -257,6 +247,7 @@ directory to home."
                     browse-kill-ring
                     diff-hl
                     fill-column-indicator
+                    flx-ido
                     flycheck
                     grep-a-lot
                     php-mode
@@ -287,6 +278,17 @@ directory to home."
   fci-mode
   fci-mode-on)
 (global-fci-mode 1)
+
+(require 'flx-ido)
+(ido-mode 1)
+(ido-everywhere 1)
+(flx-ido-mode 1)
+(setq ido-auto-merge-work-directories-length -1)
+(setq ido-create-new-buffer 'never)
+(setq ido-enable-flex-matching t)
+(setq ido-enable-last-directory-history t)
+(setq ido-use-faces nil)
+(setq ido-use-virtual-buffers t)
 
 (require 'flycheck)
 (setq flycheck-highlighting-mode 'lines)

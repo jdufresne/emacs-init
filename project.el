@@ -25,7 +25,7 @@
   "Recursively grep for REGEXP in the project root directory."
   (interactive (list
                 (read-string "Search for: "
-                             (strip-text-properties (thing-at-point 'word)))))
+                             (strip-text-properties (thing-at-point 'symbol)))))
 
   (grep-compute-defaults)
   (rgrep regexp "*" (or (project-root) default-directory)))

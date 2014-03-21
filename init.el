@@ -289,7 +289,6 @@ directory to home."
 (setq ido-enable-flex-matching t)
 (setq ido-enable-last-directory-history t)
 (setq ido-use-faces nil)
-(setq ido-use-virtual-buffers t)
 
 (require 'flycheck)
 (setq flycheck-highlighting-mode 'lines)

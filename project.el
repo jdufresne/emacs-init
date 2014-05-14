@@ -10,9 +10,11 @@
 (require 'grep)
 
 (add-to-list 'grep-find-ignored-files "TAGS")
-(add-to-list 'grep-find-ignored-directories "lib")
 (add-to-list 'grep-find-ignored-directories "bower_components")
 (add-to-list 'grep-find-ignored-directories "databases")
+(add-to-list 'grep-find-ignored-directories "lib")
+(add-to-list 'grep-find-ignored-directories "node_modules")
+(add-to-list 'grep-find-ignored-directories "venv")
 
 (defvar project-root-files
   '(".hg")

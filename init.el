@@ -245,7 +245,6 @@ directory to home."
 (package-refresh-contents)
 (require-packages '(auto-complete
                     apache-mode
-                    browse-kill-ring
                     diff-hl
                     fill-column-indicator
                     flx-ido
@@ -263,9 +262,6 @@ directory to home."
 
 (require 'apache-mode)
 (add-to-list 'auto-mode-alist '("\\.conf$" . apache-mode))
-
-(require 'browse-kill-ring)
-(browse-kill-ring-default-keybindings)
 
 (require 'diff-hl)
 (global-diff-hl-mode)
@@ -303,6 +299,7 @@ directory to home."
 (setq php-mode-warn-if-mumamo-off nil)
 
 (require 'pony-mode)
+(add-to-list 'pony-indenting-tags "span_icon" "a_icon")
 
 (require 'rainbow-mode)
 (add-hook 'css-mode-hook #'rainbow-turn-on)

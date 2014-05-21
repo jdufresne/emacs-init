@@ -250,6 +250,7 @@ directory to home."
                     flx-ido
                     flycheck
                     grep-a-lot
+                    monokai-theme
                     php-mode
                     pony-mode
                     rainbow-mode
@@ -293,6 +294,8 @@ directory to home."
 
 (require 'grep-a-lot)
 (grep-a-lot-setup-keys)
+
+(load-theme 'monokai t)
 
 (require 'php-mode)
 (setq php-mode-coding-style nil)

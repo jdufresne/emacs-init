@@ -38,8 +38,9 @@
   (let ((root (project-root)))
     (when root
       (add-hook 'compilation-finish-functions #'project-visit-tags-table)
-      (compile (format "ctags -e -R --exclude=updates --languages=PHP -o %s %s"
-                       (concat root "TAGS") root)))))
+      (compile (format
+                "ctags -e -R --exclude=static --exclude=bower_components --exclude=node_modules --exclude=updates --exclude=lib --exclude=venv --exclude=*.bundle.js --exclude=*.min.js -o %s %s"
+                (concat root "TAGS") root)))))
 
 (defun project-visit-tags-table (buffer string)
   "Tell tags commands to use tags table at the project root."

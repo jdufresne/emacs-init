@@ -105,16 +105,6 @@ frame."
 ;; Always use ibuffer
 (global-set-key [remap list-buffers] #'ibuffer)
 
-;; Style
-(require 'cc-mode)
-(defconst erez-c-style
-  '((c-basic-offset . 4)
-    (c-offsets-alist . ((arglist-close . 0)
-                        (substatement-open . 0)
-                        (case-label . +)))))
-(c-add-style "erez" erez-c-style)
-(setq c-default-style "erez")
-
 (require 'nxml-mode)
 (setq nxml-child-indent 4)
 
@@ -298,8 +288,9 @@ directory to home."
 (load-theme 'monokai t)
 
 (require 'php-mode)
-(setq php-mode-coding-style nil)
+(setq php-template-compatibility nil)
 (setq php-mode-warn-if-mumamo-off nil)
+(setq php-mode-coding-style 'psr2)
 
 (require 'pony-mode)
 (add-to-list 'pony-indenting-tags "span_icon" "a_icon")

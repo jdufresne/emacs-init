@@ -37,6 +37,7 @@
 (setq-default truncate-lines t)
 (setq next-line-add-newlines nil)
 (setq-default require-final-newline t)
+(setq mode-require-final-newline t)
 (setq kill-do-not-save-duplicates t)
 (setq grep-find-use-xargs 'exec)
 

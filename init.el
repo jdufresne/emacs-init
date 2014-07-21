@@ -294,6 +294,7 @@ directory to home."
 (setq php-mode-coding-style 'psr2)
 (add-hook 'php-mode-psr2-hook
           (lambda ()
+            (c-set-offset 'arglist-cont-nonempty 'c-lineup-arglist)
             (setq tab-width 8)))
 
 (require 'pony-mode)

@@ -292,6 +292,9 @@ directory to home."
 (setq php-template-compatibility nil)
 (setq php-mode-warn-if-mumamo-off nil)
 (setq php-mode-coding-style 'psr2)
+(add-hook 'php-mode-psr2-hook
+          (lambda ()
+            (setq tab-width 8)))
 
 (require 'pony-mode)
 (add-to-list 'pony-indenting-tags "span_icon" "a_icon")

@@ -281,6 +281,12 @@ directory to home."
 (require 'flycheck)
 (setq flycheck-highlighting-mode 'lines)
 (setq flycheck-display-errors-function nil)
+(setq-default flycheck-javascript-jshint-executable
+              (expand-file-name "~/node_modules/.bin/jshint"))
+(setq-default flycheck-javascript-eslint-executable
+              (expand-file-name "~/node_modules/.bin/eslint"))
+(setq-default flycheck-json-jsonlint-executable
+              (expand-file-name "~/node_modules/.bin/jsonlint"))
 (global-flycheck-mode 1)
 
 (require 'grep-a-lot)

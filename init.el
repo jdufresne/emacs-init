@@ -216,7 +216,8 @@ directory to home."
   (interactive)
   (save-excursion
     (goto-char (point-min))
-    (insert "# -*- coding: utf-8 -*-\n")))
+    (insert "# -*- coding: utf-8 -*-\n")
+    (insert "from __future__ import unicode_literals\n")))
 
 
 ;; Third party libraries.

@@ -235,8 +235,8 @@ directory to home."
   (package-initialize))
 
 (package-refresh-contents)
-(require-packages '(auto-complete
-                    apache-mode
+(require-packages '(apache-mode
+                    company
                     diff-hl
                     fill-column-indicator
                     flx-ido
@@ -249,11 +249,11 @@ directory to home."
                     undo-tree))
 
 ;; Initialize third party libraries.
-(require 'auto-complete)
-(global-auto-complete-mode 1)
-
 (require 'apache-mode)
 (add-to-list 'auto-mode-alist '("\\.conf$" . apache-mode))
+
+(require 'company)
+(global-company-mode)
 
 (require 'diff-hl)
 (global-diff-hl-mode)

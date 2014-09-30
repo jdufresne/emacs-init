@@ -210,7 +210,6 @@ directory to home."
     (unless (string-match "^\\*.*\\*$" (buffer-name buffer))
       (kill-buffer buffer))))
 
-
 (defun python-insert-encoding-comment ()
   "Insert a UTF-8 coding comment at the beginning of the buffer."
   (interactive)
@@ -219,6 +218,10 @@ directory to home."
     (insert "# -*- coding: utf-8 -*-\n")
     (insert "from __future__ import unicode_literals\n")))
 
+(defun python-insert-remote-debugger ()
+  "Insert Python snippet to start the remote debugger."
+  (interactive)
+  (insert "import rpdb2; rpdb2.start_embedded_debugger('password')"))
 
 ;; Third party libraries.
 (require 'package)

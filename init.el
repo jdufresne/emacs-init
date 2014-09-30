@@ -241,6 +241,7 @@ directory to home."
 (require-packages '(apache-mode
                     company
                     diff-hl
+                    discover
                     fill-column-indicator
                     flx-ido
                     flycheck
@@ -260,6 +261,9 @@ directory to home."
 
 (require 'diff-hl)
 (global-diff-hl-mode)
+
+(require 'discover)
+(global-discover-mode 1)
 
 (require 'fill-column-indicator)
 (setq-default fci-rule-column 80)

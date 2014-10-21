@@ -78,12 +78,19 @@
         (compile-command "venv/bin/python manage.py test --noinput"))
     (call-interactively #'compile)))
 
+(defun php-test-extra-args ()
+  "Return default arguments to pass to phpunit."
+  (if (and buffer-file-name
+           (string-match "/\\([[:alnum:]]+Test\\)\.php$" buffer-file-name))
+      (concat " --filter " (match-string 1 buffer-file-name))
+    ""))
+
 (defun project-test-php ()
   "Run PHP tests."
   (interactive)
   (let ((default-directory (concat (project-root) "legacy/"))
         (compilation-scroll-output t)
-        (compile-command "phpunit"))
+        (compile-command (concat "phpunit" (php-test-extra-args))))
     (call-interactively #'compile)))
 
 ;;; Key bindings:

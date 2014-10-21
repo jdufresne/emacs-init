@@ -70,10 +70,24 @@
   (dired (concat (project-root)
                  "venv/lib/python2.7/site-packages/django")))
 
+(defun project-test-django ()
+  "Run Django tests."
+  (interactive)
+  (let ((default-directory (project-root)))
+    (compile "venv/bin/python manage.py test --noinput")))
+
+(defun project-test-php ()
+  "Run PHP tests."
+  (interactive)
+  (let ((default-directory (concat (project-root) "legacy/")))
+    (compile "phpunit")))
+
 ;;; Key bindings:
 
 (global-set-key (kbd "C-c C-g") #'project-rgrep)
 (global-set-key (kbd "<f11>") #'goto-django)
+(global-set-key (kbd "<f6>") #'project-test-django)
+(global-set-key (kbd "<f7>") #'project-test-php)
 
 (provide 'project)
 ;;; project.el ends here

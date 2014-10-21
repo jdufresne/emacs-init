@@ -109,23 +109,10 @@ frame."
 (require 'nxml-mode)
 (setq nxml-child-indent 4)
 
-
 ;; Remove annoying keys
 (global-unset-key (kbd "<insert>"))
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
-
-;; Insert a tab
-(defun indent-tab-rigidly (start end)
-  "Indent lines from START to END rigidly by `tab-width'."
-  (interactive "r")
-  (unless (region-active-p)
-    (setq start (line-beginning-position)
-          end (line-end-position)))
-  (let (deactivate-mark)
-    (indent-rigidly start end 4)))
-
-(global-set-key (kbd "<backtab>") #'indent-tab-rigidly)
 
 ;; Always kill the current buffer without asking
 (defun kill-buffer-now (&optional buffer-or-name)
@@ -244,7 +231,6 @@ directory to home."
 (require-packages '(apache-mode
                     company
                     diff-hl
-                    discover
                     fill-column-indicator
                     flx-ido
                     flycheck
@@ -264,9 +250,6 @@ directory to home."
 
 (require 'diff-hl)
 (global-diff-hl-mode)
-
-(require 'discover)
-(global-discover-mode 1)
 
 (require 'fill-column-indicator)
 (setq-default fci-rule-column 80)
@@ -312,7 +295,8 @@ directory to home."
             (setq tab-width 8)))
 
 (require 'pony-mode)
-(add-to-list 'pony-indenting-tags "span_icon" "a_icon")
+(add-to-list 'pony-indenting-tags "span_icon")
+(add-to-list 'pony-indenting-tags "a_icon")
 
 (require 'rainbow-mode)
 (add-hook 'css-mode-hook #'rainbow-turn-on)

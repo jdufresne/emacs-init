@@ -74,15 +74,17 @@
   "Run Django tests."
   (interactive)
   (let ((default-directory (project-root))
-        (compilation-scroll-output t))
-    (compile "venv/bin/python manage.py test --noinput")))
+        (compilation-scroll-output t)
+        (compile-command "venv/bin/python manage.py test --noinput"))
+    (call-interactively #'compile)))
 
 (defun project-test-php ()
   "Run PHP tests."
   (interactive)
   (let ((default-directory (concat (project-root) "legacy/"))
-        (compilation-scroll-output t))
-    (compile "phpunit")))
+        (compilation-scroll-output t)
+        (compile-command "phpunit"))
+    (call-interactively #'compile)))
 
 ;;; Key bindings:
 

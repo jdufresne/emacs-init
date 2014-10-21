@@ -146,7 +146,7 @@ frame."
   (interactive)
   (let ((sql-user "root")
         (sql-database (or (project-name) sql-database)))
-    (sql-mysql)))
+    (call-interactively #'sql-mysql)))
 (global-set-key (kbd "<f12>") #'project-sql-mysql)
 
 (defun init-sql-mode ()

@@ -67,9 +67,8 @@
 (defun goto-django ()
   "Open dired buffer of the installed Django."
   (interactive)
-  (dired (concat "~/.virtualenvs/"
-                 (project-name)
-                 "/lib/python2.7/site-packages/django")))
+  (dired (concat (project-root)
+                 "venv/lib/python2.7/site-packages/django")))
 
 ;;; Key bindings:
 

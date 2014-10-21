@@ -223,6 +223,9 @@ directory to home."
   (interactive)
   (insert "import rpdb2; rpdb2.start_embedded_debugger('password')"))
 
+(add-hook 'rst-mode-hook
+          (lambda () (setq fill-column 79)))
+
 ;; Third party libraries.
 (require 'package)
 (defun require-packages (packages)

@@ -93,6 +93,10 @@
         (compile-command (concat "phpunit" (php-test-extra-args))))
     (call-interactively #'compile)))
 
+(add-to-list 'compilation-error-regexp-alist 'php)
+(add-to-list 'compilation-error-regexp-alist-alist
+             '(php "^\\([^ \n]+\\):\\([0-9]+\\)$" 1 2))
+
 ;;; Key bindings:
 
 (global-set-key (kbd "C-c C-g") #'project-rgrep)

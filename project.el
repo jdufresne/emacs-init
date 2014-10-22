@@ -90,7 +90,7 @@
   (interactive)
   (let ((default-directory (concat (project-root) "legacy/"))
         (compilation-scroll-output t)
-        (compile-command (concat "phpunit" (php-test-extra-args))))
+        (compile-command (concat "phpunit --debug" (php-test-extra-args))))
     (call-interactively #'compile)))
 
 (add-to-list 'compilation-error-regexp-alist 'php)

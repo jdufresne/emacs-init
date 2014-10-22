@@ -75,7 +75,7 @@
   (interactive)
   (let ((default-directory (project-root))
         (compilation-scroll-output t)
-        (compile-command "venv/bin/python manage.py test --noinput"))
+        (compile-command "venv/bin/python manage.py test -v 2 --noinput"))
     (call-interactively #'compile)))
 
 (defun php-test-extra-args ()

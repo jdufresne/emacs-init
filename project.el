@@ -8,6 +8,7 @@
 ;;; Code:
 
 (require 'grep)
+(require 's)
 
 (add-to-list 'grep-find-ignored-files "TAGS")
 (add-to-list 'grep-find-ignored-directories "bower_components")
@@ -50,7 +51,9 @@
 
 (defun project-root ()
   "Return the project's root directory."
-  (project-locate-first-dominating-file project-root-files))
+  (let ((root (project-locate-first-dominating-file project-root-files)))
+    (when root
+      (expand-file-name root))))
 
 (defun project-name ()
   "Return the project name determined by the root directory."
@@ -70,15 +73,29 @@
   (dired (concat (project-root)
                  "venv/lib/python2.7/site-packages/django")))
 
+(defun file-path-to-python-path (path)
+  (s-join "."
+          (s-split "/"
+                   (s-chop-prefix (project-root) path))))
+
+(defun project-test-django-extra-args ()
+  "Return default arguments to pass to Django tests."
+  (if (and buffer-file-name
+           (string-match "\\(.*tests\\)\.py$" buffer-file-name))
+      (concat " " (file-path-to-python-path (match-string 1 buffer-file-name)))
+    ""))
+
 (defun project-test-django ()
   "Run Django tests."
   (interactive)
   (let ((default-directory (project-root))
         (compilation-scroll-output t)
-        (compile-command "venv/bin/python manage.py test -v 2 --noinput"))
+        (compile-command (concat
+                          "venv/bin/python manage.py test -v 2 --noinput"
+                          (project-test-django-extra-args))))
     (call-interactively #'compile)))
 
-(defun php-test-extra-args ()
+(defun php-test-php-extra-args ()
   "Return default arguments to pass to phpunit."
   (if (and buffer-file-name
            (string-match "/\\([[:alnum:]]+Test\\)\.php$" buffer-file-name))
@@ -90,7 +107,7 @@
   (interactive)
   (let ((default-directory (concat (project-root) "legacy/"))
         (compilation-scroll-output t)
-        (compile-command (concat "phpunit --debug" (php-test-extra-args))))
+        (compile-command (concat "phpunit --debug" (php-test-php-extra-args))))
     (call-interactively #'compile)))
 
 (add-to-list 'compilation-error-regexp-alist 'php)

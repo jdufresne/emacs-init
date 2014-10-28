@@ -56,11 +56,6 @@ frame."
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
-(eval-and-compile
-  (add-to-list 'load-path "~/.emacs.d/"))
-(require 'project)
-(require 'tidy)
-
 ;; Default dictionary
 (require 'ispell)
 (setq ispell-dictionary "english")
@@ -238,6 +233,7 @@ directory to home."
                     php-mode
                     pony-mode
                     rainbow-mode
+                    s
                     smart-tabs-mode
                     undo-tree))
 
@@ -328,5 +324,10 @@ directory to home."
 
 (require 'undo-tree)
 (global-undo-tree-mode)
+
+(eval-and-compile
+  (add-to-list 'load-path "~/.emacs.d/"))
+(require 'project)
+(require 'tidy)
 
 ;;; init.el ends here

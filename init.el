@@ -230,6 +230,7 @@ directory to home."
                     flx-ido
                     flycheck
                     grep-a-lot
+                    less-css-mode
                     php-mode
                     pony-mode
                     rainbow-mode

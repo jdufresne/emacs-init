@@ -219,8 +219,7 @@ directory to home."
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/"))
 
-(eval-and-compile
-  (package-initialize))
+(package-initialize)
 
 (package-refresh-contents)
 (require-packages '(apache-mode
@@ -277,6 +276,8 @@ directory to home."
               (expand-file-name "~/node_modules/.bin/eslint"))
 (setq-default flycheck-json-jsonlint-executable
               (expand-file-name "~/node_modules/.bin/jsonlint"))
+(setq-default flycheck-disabled-checkers
+              '(php-phpmd php-phpcs))
 (global-flycheck-mode 1)
 
 (require 'grep-a-lot)
@@ -325,6 +326,9 @@ directory to home."
 
 (require 'undo-tree)
 (global-undo-tree-mode)
+
+
+;; Additional extensions.
 
 (eval-and-compile
   (add-to-list 'load-path "~/.emacs.d/"))

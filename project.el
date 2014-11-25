@@ -11,11 +11,20 @@
 (require 's)
 
 (add-to-list 'grep-find-ignored-files "TAGS")
+(add-to-list 'grep-find-ignored-files "*.min.*")
+(add-to-list 'grep-find-ignored-files "*.map")
+(add-to-list 'grep-find-ignored-files "*.d")
+(add-to-list 'grep-find-ignored-files "all.css")
+(add-to-list 'grep-find-ignored-files "all.js")
 (add-to-list 'grep-find-ignored-directories "bower_components")
 (add-to-list 'grep-find-ignored-directories "databases")
 (add-to-list 'grep-find-ignored-directories "lib")
 (add-to-list 'grep-find-ignored-directories "node_modules")
 (add-to-list 'grep-find-ignored-directories "venv")
+(grep-apply-setting
+ 'grep-find-template
+ "find . -path ./static -prune -o <X> -type f <F> -exec grep <C> -nH -e <R> {} \\;")
+
 
 (defvar project-root-files
   '(".hg")

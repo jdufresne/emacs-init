@@ -31,6 +31,7 @@
 ;; Default frame alist
 (add-to-list 'default-frame-alist '(auto-raise . t))
 (add-to-list 'default-frame-alist '(font . "Inconsolata Medium 14"))
+(add-to-list 'default-frame-alist '(fullscreen . fullheight))
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 8)

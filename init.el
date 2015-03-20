@@ -231,6 +231,7 @@ directory to home."
                     flycheck
                     grep-a-lot
                     less-css-mode
+                    magit
                     php-mode
                     pony-mode
                     rainbow-mode

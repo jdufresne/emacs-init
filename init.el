@@ -225,6 +225,7 @@ directory to home."
 (package-refresh-contents)
 (require-packages '(apache-mode
                     company
+                    crontab-mode
                     diff-hl
                     fill-column-indicator
                     flx-ido
@@ -245,6 +246,10 @@ directory to home."
 
 (require 'company)
 (global-company-mode)
+
+(require 'crontab-mode)
+(add-to-list 'auto-mode-alist '("\\.cron\\(tab\\)?\\'" . crontab-mode))
+(add-to-list 'auto-mode-alist '("cron\\(tab\\)?\\." . crontab-mode))
 
 (require 'diff-hl)
 (global-diff-hl-mode)

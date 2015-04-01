@@ -132,6 +132,14 @@ frame."
     (call-interactively #'sql-mysql)))
 (global-set-key (kbd "<f12>") #'project-sql-mysql)
 
+(defun project-sql-postgres ()
+  "Run PostgreSQL with default database for current project."
+  (interactive)
+  (let ((sql-database (or (project-name) sql-database)))
+    (call-interactively #'sql-postgres)))
+(global-set-key (kbd "<f9>") #'project-sql-postgres)
+
+
 (defun init-sql-mode ()
   "Initialize SQL-MODE.
 
@@ -191,7 +199,8 @@ directory to home."
   (interactive)
   (dolist (buffer (buffer-list))
     (unless (string-match "^\\*.*\\*$" (buffer-name buffer))
-      (kill-buffer buffer))))
+      (kill-buffer buffer)))
+  (grep-a-lot-clear-stack))
 
 (defun python-insert-encoding-comment ()
   "Insert a UTF-8 coding comment at the beginning of the buffer."

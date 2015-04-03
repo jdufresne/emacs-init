@@ -311,7 +311,6 @@ directory to home."
 (add-to-list 'projectile-globally-ignored-directories "venv")
 (add-to-list 'projectile-globally-ignored-file-suffixes ".min.css")
 (add-to-list 'projectile-globally-ignored-file-suffixes ".min.js")
-(setq projectile-enable-idle-timer t)
 
 (require 'rainbow-mode)
 (add-hook 'css-mode-hook #'rainbow-turn-on)

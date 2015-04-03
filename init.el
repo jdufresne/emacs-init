@@ -236,7 +236,6 @@ directory to home."
                     company
                     crontab-mode
                     diff-hl
-                    fill-column-indicator
                     flx-ido
                     flycheck
                     grep-a-lot
@@ -262,16 +261,6 @@ directory to home."
 
 (require 'diff-hl)
 (global-diff-hl-mode)
-
-(require 'fill-column-indicator)
-(setq-default fci-rule-column 80)
-(defun fci-mode-on ()
-  "Turn fci-mode on."
-  (fci-mode 1))
-(define-globalized-minor-mode global-fci-mode
-  fci-mode
-  fci-mode-on)
-(global-fci-mode 1)
 
 (require 'flx-ido)
 (ido-mode 1)

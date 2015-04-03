@@ -8,12 +8,12 @@
 ;;; Code:
 
 (require 's)
+(require 'projectile)
 
 (defun goto-django ()
   "Open dired buffer of the installed Django."
   (interactive)
-  (dired (concat (projectile-project-root)
-                 "venv/lib/python2.7/site-packages/django")))
+  (dired (projectile-expand-root "venv/lib/python2.7/site-packages/django")))
 
 (defun file-path-to-python-path (path)
   (s-join "."
@@ -47,7 +47,7 @@
 (defun project-test-php ()
   "Run PHP tests."
   (interactive)
-  (let ((default-directory (concat (projectile-project-root) "legacy/"))
+  (let ((default-directory (projectile-expand-root "legacy"))
         (compilation-scroll-output t)
         (compile-command (concat "phpunit --debug" (php-test-php-extra-args))))
     (call-interactively #'compile)))

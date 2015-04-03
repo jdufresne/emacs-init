@@ -255,14 +255,14 @@ directory to home."
 (add-to-list 'auto-mode-alist '("\\.conf$" . apache-mode))
 
 (require 'company)
-(global-company-mode)
+(global-company-mode 1)
 
 (require 'crontab-mode)
 (add-to-list 'auto-mode-alist '("\\.cron\\(tab\\)?\\'" . crontab-mode))
 (add-to-list 'auto-mode-alist '("cron\\(tab\\)?\\." . crontab-mode))
 
 (require 'diff-hl)
-(global-diff-hl-mode)
+(global-diff-hl-mode 1)
 
 (require 'flx-ido)
 (ido-mode 1)
@@ -304,7 +304,7 @@ directory to home."
 (add-to-list 'pony-indenting-tags "a_icon")
 
 (require 'projectile)
-(projectile-global-mode)
+(projectile-global-mode 1)
 (add-to-list 'projectile-globally-ignored-directories "bower_components")
 (add-to-list 'projectile-globally-ignored-directories "lib")
 (add-to-list 'projectile-globally-ignored-directories "node_modules")
@@ -341,7 +341,7 @@ directory to home."
 (add-hook 'js-mode-hook #'js-enable-smart-tabs-mode)
 
 (require 'undo-tree)
-(global-undo-tree-mode)
+(global-undo-tree-mode 1)
 
 
 ;; Additional extensions.

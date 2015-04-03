@@ -248,7 +248,8 @@ directory to home."
                     rainbow-mode
                     s
                     smart-tabs-mode
-                    undo-tree))
+                    undo-tree
+                    web-beautify))
 
 ;; Initialize third party libraries.
 (require 'apache-mode)
@@ -343,12 +344,14 @@ directory to home."
 (require 'undo-tree)
 (global-undo-tree-mode 1)
 
+(require 'web-beautify)
+(setq web-beautify-js-program "~/node_modules/.bin/js-beautify")
+
 
 ;; Additional extensions.
 
 (eval-and-compile
   (add-to-list 'load-path "~/.emacs.d/lisp"))
 (require 'project)
-(require 'tidy)
 
 ;;; init.el ends here

@@ -238,11 +238,13 @@ directory to home."
                     diff-hl
                     flx-ido
                     flycheck
+                    ggtags
                     grep-a-lot
                     less-css-mode
                     magit
                     php-mode
                     pony-mode
+                    projectile
                     rainbow-mode
                     s
                     smart-tabs-mode
@@ -300,6 +302,16 @@ directory to home."
 (require 'pony-mode)
 (add-to-list 'pony-indenting-tags "span_icon")
 (add-to-list 'pony-indenting-tags "a_icon")
+
+(require 'projectile)
+(projectile-global-mode)
+(add-to-list 'projectile-globally-ignored-directories "bower_components")
+(add-to-list 'projectile-globally-ignored-directories "lib")
+(add-to-list 'projectile-globally-ignored-directories "node_modules")
+(add-to-list 'projectile-globally-ignored-directories "venv")
+(add-to-list 'projectile-globally-ignored-file-suffixes ".min.css")
+(add-to-list 'projectile-globally-ignored-file-suffixes ".min.js")
+(setq projectile-enable-idle-timer t)
 
 (require 'rainbow-mode)
 (add-hook 'css-mode-hook #'rainbow-turn-on)

@@ -348,7 +348,7 @@ directory to home."
 ;; Additional extensions.
 
 (eval-and-compile
-  (add-to-list 'load-path "~/.emacs.d/"))
+  (add-to-list 'load-path "~/.emacs.d/lisp"))
 (require 'project)
 (require 'tidy)
 

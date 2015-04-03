@@ -124,29 +124,42 @@ frame."
 
 ;; SQL
 (require 'sql)
-(defun project-sql-mysql ()
-  "Run MySQL with default database for current project."
-  (interactive)
-  (let ((sql-user "root")
-        (sql-database (or (project-name) sql-database)))
-    (call-interactively #'sql-mysql)))
-(global-set-key (kbd "<f12>") #'project-sql-mysql)
+
+(defun project-config ()
+  "Read and return JSON project config."
+  (json-read-file (projectile-expand-root "erezlife/config.json")))
+
+(defun database ()
+  "Return the name of the database for the current project."
+  (let* ((config (project-config))
+         (database-config (cdr (assoc 'database config)))
+         (database (cdr (assoc 'name database-config))))
+    database))
+
+(defun project-sql (product)
+  "Run PRODUCT database with default database for current project."
+  (let ((default-directory (expand-file-name "~"))
+        (sql-database (database)))
+    (sql-product-interactive product)))
 
 (defun project-sql-postgres ()
   "Run PostgreSQL with default database for current project."
   (interactive)
-  (let ((sql-database (or (project-name) sql-database)))
-    (call-interactively #'sql-postgres)))
-(global-set-key (kbd "<f9>") #'project-sql-postgres)
+  (project-sql 'postgres))
+(global-set-key (kbd "<f11>") #'project-sql-postgres)
 
+(defun project-sql-mysql ()
+  "Run MySQL with default database for current project."
+  (interactive)
+  (let ((sql-user "root"))
+    (project-sql 'mysql)))
+(global-set-key (kbd "<f12>") #'project-sql-mysql)
 
 (defun init-sql-mode ()
   "Initialize SQL-MODE.
 
-Turn off LINUM-MODE, as the buffer can be extremely large.  Change
-directory to home."
-  (linum-mode 0)
-  (cd (expand-file-name "~/")))
+Turn off LINUM-MODE, as the buffer can be extremely large."
+  (linum-mode 0))
 (add-hook 'sql-interactive-mode-hook #'init-sql-mode)
 
 (defun smart-move-beginning-of-line ()

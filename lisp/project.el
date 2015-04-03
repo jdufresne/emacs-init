@@ -58,7 +58,7 @@
 
 ;;; Key bindings:
 
-(global-set-key (kbd "<f11>") #'goto-django)
+(global-set-key (kbd "<f10>") #'goto-django)
 (global-set-key (kbd "<f6>") #'project-test-django)
 (global-set-key (kbd "<f7>") #'project-test-php)
 

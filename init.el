@@ -131,10 +131,11 @@ frame."
 
 (defun database ()
   "Return the name of the database for the current project."
-  (let* ((config (project-config))
-         (database-config (cdr (assoc 'database config)))
-         (database (cdr (assoc 'name database-config))))
-    database))
+  (ignore-errors
+    (let* ((config (project-config))
+           (database-config (cdr (assoc 'database config)))
+           (database (cdr (assoc 'name database-config))))
+      database)))
 
 (defun project-sql (product)
   "Run PRODUCT database with default database for current project."

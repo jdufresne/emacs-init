@@ -47,10 +47,10 @@
 (defun project-test-php ()
   "Run PHP tests."
   (interactive)
-  (let ((default-directory (projectile-expand-root "legacy"))
-        (compilation-scroll-output t)
-        (compile-command (concat "phpunit --debug" (php-test-php-extra-args))))
-    (call-interactively #'compile)))
+  (let ((phpunit-xml (projectile-expand-root "legacy/phpunit.xml"))
+        (compilation-scroll-output t))
+    (let ((compile-command (concat "phpunit --debug -c " phpunit-xml (php-test-php-extra-args))))
+      (call-interactively #'compile))))
 
 (add-to-list 'compilation-error-regexp-alist 'php)
 (add-to-list 'compilation-error-regexp-alist-alist

@@ -240,7 +240,6 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
     (unless (package-installed-p package)
       (package-install package))))
 
-(setq package-enable-at-startup nil)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/"))
 (package-initialize)

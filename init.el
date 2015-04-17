@@ -240,11 +240,10 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
     (unless (package-installed-p package)
       (package-install package))))
 
+(setq package-enable-at-startup nil)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/"))
-
 (package-initialize)
-
 (package-refresh-contents)
 (require-packages '(apache-mode
                     company
@@ -255,11 +254,9 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
                     ggtags
                     grep-a-lot
                     less-css-mode
-                    magit
                     php-mode
                     pony-mode
                     projectile
-                    rainbow-mode
                     s
                     smart-tabs-mode
                     undo-tree
@@ -314,10 +311,6 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
             (c-set-offset 'arglist-cont-nonempty 'c-lineup-arglist)
             (setq tab-width 8)))
 
-(require 'pony-mode)
-(add-to-list 'pony-indenting-tags "span_icon")
-(add-to-list 'pony-indenting-tags "a_icon")
-
 (require 'projectile)
 (projectile-global-mode 1)
 (add-to-list 'projectile-globally-ignored-directories "bower_components")
@@ -326,9 +319,6 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 (add-to-list 'projectile-globally-ignored-directories "venv")
 (add-to-list 'projectile-globally-ignored-file-suffixes ".min.css")
 (add-to-list 'projectile-globally-ignored-file-suffixes ".min.js")
-
-(require 'rainbow-mode)
-(add-hook 'css-mode-hook #'rainbow-turn-on)
 
 (require 'smart-tabs-mode)
 (defun guess-tabs-mode ()

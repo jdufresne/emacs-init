@@ -29,9 +29,7 @@
 (setq initial-scratch-message nil)
 
 ;; Default frame alist
-(add-to-list 'default-frame-alist '(auto-raise . t))
 (add-to-list 'default-frame-alist '(font . "Inconsolata Medium 14"))
-(add-to-list 'default-frame-alist '(fullscreen . fullheight))
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 8)
@@ -41,18 +39,6 @@
 (setq mode-require-final-newline t)
 (setq kill-do-not-save-duplicates t)
 (setq grep-find-use-xargs 'exec)
-
-(defun init-frame (frame)
-  "Initialize a new FRAME.
-
-Set the FRAME-TITLE-FORMAT to a useful format then raise the
-frame."
-  (setq frame-title-format
-        '(:eval (if buffer-file-name
-                    (abbreviate-file-name buffer-file-name)
-                  "%b")))
-  (select-frame-set-input-focus frame))
-(add-hook 'after-make-frame-functions #'init-frame)
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)

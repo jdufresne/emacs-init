@@ -306,9 +306,10 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 (require 'projectile)
 (projectile-global-mode 1)
 (add-to-list 'projectile-globally-ignored-directories "bower_components")
-(add-to-list 'projectile-globally-ignored-directories "lib")
+(add-to-list 'projectile-globally-ignored-directories "legacy/lib")
 (add-to-list 'projectile-globally-ignored-directories "node_modules")
 (add-to-list 'projectile-globally-ignored-directories "venv")
+(add-to-list 'projectile-globally-ignored-file-suffixes ".map")
 (add-to-list 'projectile-globally-ignored-file-suffixes ".min.css")
 (add-to-list 'projectile-globally-ignored-file-suffixes ".min.js")
 

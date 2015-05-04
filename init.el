@@ -28,7 +28,7 @@
 (setq inhibit-splash-screen t)
 (setq initial-scratch-message nil)
 
-;; Default frame alist
+;; Default frame.
 (add-to-list 'default-frame-alist '(font . "Inconsolata Medium 14"))
 
 (setq-default indent-tabs-mode nil)

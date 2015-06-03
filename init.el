@@ -133,14 +133,7 @@
   "Run PostgreSQL with default database for current project."
   (interactive)
   (project-sql 'postgres))
-(global-set-key (kbd "<f11>") #'project-sql-postgres)
-
-(defun project-sql-mysql ()
-  "Run MySQL with default database for current project."
-  (interactive)
-  (let ((sql-user "root"))
-    (project-sql 'mysql)))
-(global-set-key (kbd "<f12>") #'project-sql-mysql)
+(global-set-key (kbd "<f12>") #'project-sql-postgres)
 
 (defun init-sql-mode ()
   "Initialize SQL-MODE.

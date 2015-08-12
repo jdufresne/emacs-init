@@ -187,11 +187,15 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
     (linum-mode 0)))
 (add-hook 'find-file-hook #'init-large-buffer)
 
+(defvar kill-all-global-buffers
+  '("*compilation*"))
+
 (defun kill-all-buffers ()
   "Kill all buffers except global buffers."
   (interactive)
   (dolist (buffer (buffer-list))
-    (unless (string-match "^\\*.*\\*$" (buffer-name buffer))
+    (unless (and (string-match "^\\*.*\\*$" (buffer-name buffer))
+                 (not (member (buffer-name buffer) kill-all-global-buffers)))
       (kill-buffer buffer)))
   (grep-a-lot-clear-stack))
 

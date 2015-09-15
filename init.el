@@ -221,11 +221,6 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 (add-hook 'rst-mode-hook
           (lambda () (setq fill-column 79)))
 
-(defun insert-file-name ()
-  "Insert the buffer file name at point."
-  (interactive)
-  (insert (file-name-base (buffer-file-name))))
-
 ;; Third party libraries.
 (require 'package)
 (defun require-packages (packages)

@@ -182,7 +182,7 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
   "Insert the buffer's file name sans final extension at point."
   (interactive)
   (when (buffer-file-name)
-    (insert (file-name-sans-extension (buffer-file-name)))))
+    (insert (file-name-base (buffer-file-name)))))
 
 ;; Speed up large files such as SQL backups
 (defun init-large-buffer ()

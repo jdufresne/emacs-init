@@ -22,6 +22,8 @@
 ;;; Code:
 
 ;; Basic config
+(add-to-list 'load-path "~/.emacs.d/lisp")
+
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
@@ -223,32 +225,28 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 
 ;; Third party libraries.
 (require 'package)
-(defun require-packages (packages)
-  "Install each package in PACKAGES unless already installed."
-  (dolist (package packages)
-    (unless (package-installed-p package)
-      (package-install package))))
-
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/"))
+(setq package-selected-packages
+      '(apache-mode
+        company
+        crontab-mode
+        diff-hl
+        flx-ido
+        flycheck
+        ggtags
+        grep-a-lot
+        less-css-mode
+        php-mode
+        pony-mode
+        projectile
+        s
+        smart-tabs-mode
+        undo-tree
+        web-beautify))
 (package-initialize)
 (package-refresh-contents)
-(require-packages '(apache-mode
-                    company
-                    crontab-mode
-                    diff-hl
-                    flx-ido
-                    flycheck
-                    ggtags
-                    grep-a-lot
-                    less-css-mode
-                    php-mode
-                    pony-mode
-                    projectile
-                    s
-                    smart-tabs-mode
-                    undo-tree
-                    web-beautify))
+(package-install-selected-packages)
 
 ;; Initialize third party libraries.
 (require 'apache-mode)
@@ -344,9 +342,6 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 
 
 ;; Additional extensions.
-
-(eval-and-compile
-  (add-to-list 'load-path "~/.emacs.d/lisp"))
 (require 'project)
 
 ;;; init.el ends here

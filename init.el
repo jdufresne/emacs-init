@@ -42,6 +42,9 @@
 (setq kill-do-not-save-duplicates t)
 (setq grep-find-use-xargs 'exec)
 
+(require 'server)
+(setq server-log t)
+
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 

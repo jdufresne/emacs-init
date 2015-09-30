@@ -140,12 +140,17 @@
   (project-sql 'postgres))
 (global-set-key (kbd "<f12>") #'project-sql-postgres)
 
-(defun init-sql-mode ()
-  "Initialize SQL-MODE.
+(defun init-sqli-mode ()
+  "Initialize SQLi-MODE.
 
 Turn off LINUM-MODE, as the buffer can be extremely large."
   (linum-mode 0))
-(add-hook 'sql-interactive-mode-hook #'init-sql-mode)
+(add-hook 'sql-interactive-mode-hook #'init-sqli-mode)
+
+(defun init-sql-mode ()
+  "Initialize SQL-MODE."
+  (setq sql-buffer (get-buffer "*SQL*")))
+(add-hook 'sql-mode-hook #'init-sql-mode)
 
 (defun smart-move-beginning-of-line ()
   "Move point back to indentation or beginning of line."

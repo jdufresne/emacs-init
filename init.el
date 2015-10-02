@@ -228,6 +228,11 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
   (interactive)
   (insert "import rpdb2; rpdb2.start_embedded_debugger('password')"))
 
+(defun python-insert-debugger ()
+  "Insert Python snippet to start the debugger."
+  (interactive)
+  (insert "import pdb; pdb.set_trace()"))
+
 (add-hook 'rst-mode-hook
           (lambda () (setq fill-column 79)))
 

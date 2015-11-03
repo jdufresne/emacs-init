@@ -238,28 +238,32 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 
 ;; Third party libraries.
 (require 'package)
+(defun require-packages (packages)
+  "Install each package in PACKAGES unless already installed."
+  (dolist (package packages)
+    (unless (package-installed-p package)
+      (package-install package))))
+
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/"))
-(setq package-selected-packages
-      '(apache-mode
-        company
-        crontab-mode
-        diff-hl
-        flx-ido
-        flycheck
-        ggtags
-        grep-a-lot
-        less-css-mode
-        php-mode
-        pony-mode
-        projectile
-        s
-        smart-tabs-mode
-        undo-tree
-        web-beautify))
 (package-initialize)
 (package-refresh-contents)
-(package-install-selected-packages)
+(require-packages '(apache-mode
+                    company
+                    crontab-mode
+                    diff-hl
+                    flx-ido
+                    flycheck
+                    ggtags
+                    grep-a-lot
+                    less-css-mode
+                    php-mode
+                    pony-mode
+                    projectile
+                    s
+                    smart-tabs-mode
+                    undo-tree
+                    web-beautify))
 
 ;; Initialize third party libraries.
 (require 'apache-mode)

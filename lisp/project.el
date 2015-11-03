@@ -13,7 +13,7 @@
 (defun goto-django ()
   "Open dired buffer of the installed Django."
   (interactive)
-  (dired (projectile-expand-root "venv/lib/python2.7/site-packages/django")))
+  (dired (projectile-expand-root "venv/lib/python3.4/site-packages/django")))
 
 (defun file-path-to-python-path (path)
   (s-join "."

@@ -60,7 +60,6 @@
 (setq column-number-mode t)
 (show-paren-mode 1)
 (delete-selection-mode 1)
-(global-hl-line-mode 1)
 (global-linum-mode 1)
 (global-subword-mode 1)
 (setq comment-auto-fill-only-comments t)

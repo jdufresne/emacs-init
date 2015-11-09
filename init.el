@@ -75,6 +75,7 @@
 ;; Save place mode
 (require 'saveplace)
 (setq-default save-place t)
+(savehist-mode 1)
 
 ;; Buffer clean up
 (prefer-coding-system 'utf-8)

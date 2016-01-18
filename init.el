@@ -263,7 +263,8 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
                     s
                     smart-tabs-mode
                     undo-tree
-                    web-beautify))
+                    web-beautify
+                    yaml-mode))
 
 ;; Initialize third party libraries.
 (require 'apache-mode)

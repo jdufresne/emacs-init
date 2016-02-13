@@ -257,6 +257,7 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
                     ggtags
                     grep-a-lot
                     less-css-mode
+                    magit
                     php-mode
                     pony-mode
                     projectile

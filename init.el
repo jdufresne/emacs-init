@@ -324,6 +324,7 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 (add-to-list 'projectile-globally-ignored-directories "legacy/vendor")
 (add-to-list 'projectile-globally-ignored-directories "node_modules")
 (add-to-list 'projectile-globally-ignored-directories "venv")
+(add-to-list 'projectile-globally-ignored-directories "_build")
 (add-to-list 'projectile-globally-ignored-file-suffixes ".map")
 (add-to-list 'projectile-globally-ignored-file-suffixes ".min.css")
 (add-to-list 'projectile-globally-ignored-file-suffixes ".min.js")

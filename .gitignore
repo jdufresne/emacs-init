@@ -13,6 +13,7 @@ elpa/
 ac-comphist.dat
 recentf.el
 projectile-bookmarks.eld
+/history
 
 # Ignore files produced by autotools.
 INSTALL

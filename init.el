@@ -247,8 +247,8 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
   (package-install 'use-package))
 
 (require 'use-package)
-(setq use-package-always-ensure t)
-(setq use-package-verbose t)
+(setq use-package-always-ensure t
+      use-package-verbose t)
 
 (use-package apache-mode
   :mode ("\\.conf\\'" . apache-mode))
@@ -264,12 +264,11 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
   :config (global-diff-hl-mode 1))
 
 (use-package flx-ido
-  :init (progn
-          (setq ido-auto-merge-work-directories-length -1)
-          (setq ido-create-new-buffer 'never)
-          (setq ido-enable-flex-matching t)
-          (setq ido-enable-last-directory-history t)
-          (setq ido-use-faces nil))
+  :init (setq ido-auto-merge-work-directories-length -1
+              ido-create-new-buffer 'never
+              ido-enable-flex-matching t
+              ido-enable-last-directory-history t
+              ido-use-faces nil)
   :config (progn
             (ido-mode 1)
             (ido-everywhere 1)
@@ -277,16 +276,12 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 
 (use-package flycheck
   :init (progn
-          (setq flycheck-highlighting-mode 'lines)
-          (setq flycheck-display-errors-function nil)
-          (setq-default flycheck-javascript-jshint-executable
-                        (expand-file-name "~/node_modules/.bin/jshint"))
-          (setq-default flycheck-javascript-eslint-executable
-                        (expand-file-name "~/node_modules/.bin/eslint"))
-          (setq-default flycheck-json-jsonlint-executable
-                        (expand-file-name "~/node_modules/.bin/jsonlint"))
-          (setq-default flycheck-disabled-checkers
-                        '(php-phpmd php-phpcs)))
+          (setq flycheck-highlighting-mode 'lines
+                flycheck-display-errors-function nil)
+          (setq-default flycheck-javascript-jshint-executable (expand-file-name "~/node_modules/.bin/jshint")
+                        flycheck-javascript-eslint-executable (expand-file-name "~/node_modules/.bin/eslint")
+                        flycheck-json-jsonlint-executable (expand-file-name "~/node_modules/.bin/jsonlint")
+                        flycheck-disabled-checkers '(php-phpmd php-phpcs)))
   :config (global-flycheck-mode 1))
 
 (use-package ggtags)
@@ -299,10 +294,9 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 (use-package magit)
 
 (use-package php-mode
-  :init (progn
-          (setq php-template-compatibility nil)
-          (setq php-mode-warn-if-mumamo-off nil)
-          (setq php-mode-coding-style 'psr2))
+  :init (setq php-template-compatibility nil
+              php-mode-warn-if-mumamo-off nil
+              php-mode-coding-style 'psr2)
   :config (add-hook 'php-mode-psr2-hook
                     (lambda ()
                       (c-set-offset 'arglist-cont-nonempty 'c-lineup-arglist)
@@ -312,7 +306,6 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 
 (use-package projectile
   :config (progn
-            (projectile-global-mode 1)
             (add-to-list 'projectile-globally-ignored-directories "_build")
             (add-to-list 'projectile-globally-ignored-directories "bower_components")
             (add-to-list 'projectile-globally-ignored-directories "legacy/vendor")
@@ -321,7 +314,8 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
             (add-to-list 'projectile-globally-ignored-file-suffixes ".map")
             (add-to-list 'projectile-globally-ignored-file-suffixes ".min.css")
             (add-to-list 'projectile-globally-ignored-file-suffixes ".min.js")
-            (add-to-list 'projectile-globally-ignored-files "ansible.log")))
+            (add-to-list 'projectile-globally-ignored-files "ansible.log")
+            (projectile-global-mode 1)))
 
 (use-package s)
 
@@ -329,8 +323,7 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
   :config (global-undo-tree-mode 1))
 
 (use-package web-beautify
-  :init (setq web-beautify-js-program
-              (expand-file-name "~/node_modules/.bin/js-beautify")))
+  :init (setq web-beautify-js-program (expand-file-name "~/node_modules/.bin/js-beautify")))
 
 (use-package yaml-mode)
 

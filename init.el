@@ -238,129 +238,101 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 
 ;; Third party libraries.
 (require 'package)
-(defun require-packages (packages)
-  "Install each package in PACKAGES unless already installed."
-  (dolist (package packages)
-    (unless (package-installed-p package)
-      (package-install package))))
-
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/"))
+             '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
-(package-refresh-contents)
-(require-packages '(apache-mode
-                    company
-                    crontab-mode
-                    diff-hl
-                    flx-ido
-                    flycheck
-                    ggtags
-                    grep-a-lot
-                    less-css-mode
-                    magit
-                    php-mode
-                    pony-mode
-                    projectile
-                    s
-                    smart-tabs-mode
-                    undo-tree
-                    web-beautify
-                    yaml-mode))
 
-;; Initialize third party libraries.
-(require 'apache-mode)
-(add-to-list 'auto-mode-alist '("\\.conf$" . apache-mode))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-(require 'company)
-(global-company-mode 1)
+(require 'use-package)
+(setq use-package-always-ensure t)
+(setq use-package-verbose t)
 
-(require 'crontab-mode)
-(add-to-list 'auto-mode-alist '("\\.cron\\(tab\\)?\\'" . crontab-mode))
-(add-to-list 'auto-mode-alist '("cron\\(tab\\)?\\." . crontab-mode))
+(use-package apache-mode
+  :mode ("\\.conf\\'" . apache-mode))
 
-(require 'diff-hl)
-(global-diff-hl-mode 1)
+(use-package company
+  :config (global-company-mode 1))
 
-(require 'flx-ido)
-(ido-mode 1)
-(ido-everywhere 1)
-(flx-ido-mode 1)
-(setq ido-auto-merge-work-directories-length -1)
-(setq ido-create-new-buffer 'never)
-(setq ido-enable-flex-matching t)
-(setq ido-enable-last-directory-history t)
-(setq ido-use-faces nil)
+(use-package crontab-mode
+  :mode (("\\.cron\\(tab\\)?\\'" . crontab-mode)
+         ("cron\\(tab\\)?\\." . crontab-mode)))
 
-(require 'flycheck)
-(setq flycheck-highlighting-mode 'lines)
-(setq flycheck-display-errors-function nil)
-(setq-default flycheck-javascript-jshint-executable
-              (expand-file-name "~/node_modules/.bin/jshint"))
-(setq-default flycheck-javascript-eslint-executable
-              (expand-file-name "~/node_modules/.bin/eslint"))
-(setq-default flycheck-json-jsonlint-executable
-              (expand-file-name "~/node_modules/.bin/jsonlint"))
-(setq-default flycheck-disabled-checkers
-              '(php-phpmd php-phpcs))
-(global-flycheck-mode 1)
+(use-package diff-hl
+  :config (global-diff-hl-mode 1))
 
-(require 'grep-a-lot)
-(grep-a-lot-setup-keys)
+(use-package flx-ido
+  :init (progn
+          (setq ido-auto-merge-work-directories-length -1)
+          (setq ido-create-new-buffer 'never)
+          (setq ido-enable-flex-matching t)
+          (setq ido-enable-last-directory-history t)
+          (setq ido-use-faces nil))
+  :config (progn
+            (ido-mode 1)
+            (ido-everywhere 1)
+            (flx-ido-mode 1)))
 
-(require 'php-mode)
-(setq php-template-compatibility nil)
-(setq php-mode-warn-if-mumamo-off nil)
-(setq php-mode-coding-style 'psr2)
-(add-hook 'php-mode-psr2-hook
-          (lambda ()
-            (c-set-offset 'arglist-cont-nonempty 'c-lineup-arglist)
-            (setq tab-width 8)))
+(use-package flycheck
+  :init (progn
+          (setq flycheck-highlighting-mode 'lines)
+          (setq flycheck-display-errors-function nil)
+          (setq-default flycheck-javascript-jshint-executable
+                        (expand-file-name "~/node_modules/.bin/jshint"))
+          (setq-default flycheck-javascript-eslint-executable
+                        (expand-file-name "~/node_modules/.bin/eslint"))
+          (setq-default flycheck-json-jsonlint-executable
+                        (expand-file-name "~/node_modules/.bin/jsonlint"))
+          (setq-default flycheck-disabled-checkers
+                        '(php-phpmd php-phpcs)))
+  :config (global-flycheck-mode 1))
 
-(require 'pony-mode)
+(use-package ggtags)
 
-(require 'projectile)
-(projectile-global-mode 1)
-(add-to-list 'projectile-globally-ignored-directories "_build")
-(add-to-list 'projectile-globally-ignored-directories "bower_components")
-(add-to-list 'projectile-globally-ignored-directories "legacy/vendor")
-(add-to-list 'projectile-globally-ignored-directories "node_modules")
-(add-to-list 'projectile-globally-ignored-directories "venv")
-(add-to-list 'projectile-globally-ignored-file-suffixes ".map")
-(add-to-list 'projectile-globally-ignored-file-suffixes ".min.css")
-(add-to-list 'projectile-globally-ignored-file-suffixes ".min.js")
-(add-to-list 'projectile-globally-ignored-files "ansible.log")
+(use-package grep-a-lot
+  :config (grep-a-lot-setup-keys))
 
-(require 'smart-tabs-mode)
-(defun guess-tabs-mode ()
-  "Guess tabs style of current buffer."
-  (when (> (how-many "^\t" (point-min) (point-max))
-           (how-many "^  " (point-min) (point-max)))
-    (setq indent-tabs-mode t)
-    (setq tab-width 4)))
-(add-hook 'prog-mode-hook #'guess-tabs-mode)
-(add-hook 'text-mode-hook #'guess-tabs-mode)
+(use-package less-css-mode)
 
-(defun php-enable-smart-tabs-mode ()
-  "Enable smart-tabs-mode for PHP files."
-  (when indent-tabs-mode
-    (smart-tabs-mode-enable)
-    (smart-tabs-advice php-cautious-indent-line c-basic-offset)
-    (smart-tabs-advice php-cautious-indent-region c-basic-offset)))
-(add-hook 'php-mode-hook #'php-enable-smart-tabs-mode)
+(use-package magit)
 
-(defun js-enable-smart-tabs-mode ()
-  "Enable smart-tabs-mode for JavaScript files."
-  (when indent-tabs-mode
-    (smart-tabs-mode-enable)
-    (smart-tabs-advice js-indent-line js-indent-level)))
-(add-hook 'js-mode-hook #'js-enable-smart-tabs-mode)
+(use-package php-mode
+  :init (progn
+          (setq php-template-compatibility nil)
+          (setq php-mode-warn-if-mumamo-off nil)
+          (setq php-mode-coding-style 'psr2))
+  :config (add-hook 'php-mode-psr2-hook
+                    (lambda ()
+                      (c-set-offset 'arglist-cont-nonempty 'c-lineup-arglist)
+                      (setq tab-width 8))))
 
-(require 'undo-tree)
-(global-undo-tree-mode 1)
+(use-package pony-mode)
 
-(require 'web-beautify)
-(setq web-beautify-js-program "~/node_modules/.bin/js-beautify")
+(use-package projectile
+  :config (progn
+            (projectile-global-mode 1)
+            (add-to-list 'projectile-globally-ignored-directories "_build")
+            (add-to-list 'projectile-globally-ignored-directories "bower_components")
+            (add-to-list 'projectile-globally-ignored-directories "legacy/vendor")
+            (add-to-list 'projectile-globally-ignored-directories "node_modules")
+            (add-to-list 'projectile-globally-ignored-directories "venv")
+            (add-to-list 'projectile-globally-ignored-file-suffixes ".map")
+            (add-to-list 'projectile-globally-ignored-file-suffixes ".min.css")
+            (add-to-list 'projectile-globally-ignored-file-suffixes ".min.js")
+            (add-to-list 'projectile-globally-ignored-files "ansible.log")))
 
+(use-package s)
+
+(use-package undo-tree
+  :config (global-undo-tree-mode 1))
+
+(use-package web-beautify
+  :init (setq web-beautify-js-program
+              (expand-file-name "~/node_modules/.bin/js-beautify")))
+
+(use-package yaml-mode)
 
 ;; Additional extensions.
 (require 'project)

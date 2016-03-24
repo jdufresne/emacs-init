@@ -11,9 +11,10 @@ elpa/
 
 # Ignore files produced by emacs.
 ac-comphist.dat
-recentf.el
+history
 projectile-bookmarks.eld
-/history
+recentf.el
+tramp
 
 # Ignore files produced by autotools.
 INSTALL

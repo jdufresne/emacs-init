@@ -41,6 +41,7 @@
 (setq mode-require-final-newline t)
 (setq kill-do-not-save-duplicates t)
 (setq grep-find-use-xargs 'exec)
+(setq-default fill-column 79)
 
 (require 'server)
 (setq server-log t)
@@ -232,9 +233,6 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
   "Insert Python snippet to start the debugger."
   (interactive)
   (insert "import pdb; pdb.set_trace()"))
-
-(add-hook 'rst-mode-hook
-          (lambda () (setq fill-column 79)))
 
 ;; Third party libraries.
 (require 'package)

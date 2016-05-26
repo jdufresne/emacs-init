@@ -251,9 +251,6 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 (use-package apache-mode
   :mode ("\\.conf\\'" . apache-mode))
 
-(use-package company
-  :config (global-company-mode 1))
-
 (use-package crontab-mode
   :mode (("\\.cron\\(tab\\)?\\'" . crontab-mode)
          ("cron\\(tab\\)?\\." . crontab-mode)))
@@ -281,8 +278,6 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
                         flycheck-json-jsonlint-executable (expand-file-name "~/node_modules/.bin/jsonlint")
                         flycheck-disabled-checkers '(php-phpmd php-phpcs)))
   :config (global-flycheck-mode 1))
-
-(use-package ggtags)
 
 (use-package grep-a-lot
   :config (grep-a-lot-setup-keys))

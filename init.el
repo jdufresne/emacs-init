@@ -258,6 +258,9 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 (use-package diff-hl
   :config (global-diff-hl-mode 1))
 
+(use-package editorconfig
+  :config (editorconfig-mode 1))
+
 (use-package flx-ido
   :init (setq ido-auto-merge-work-directories-length -1
               ido-create-new-buffer 'never

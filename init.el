@@ -279,6 +279,7 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
           (setq-default flycheck-javascript-jshint-executable (expand-file-name "~/node_modules/.bin/jshint")
                         flycheck-javascript-eslint-executable (expand-file-name "~/node_modules/.bin/eslint")
                         flycheck-json-jsonlint-executable (expand-file-name "~/node_modules/.bin/jsonlint")
+                        flycheck-python-flake8-executable (expand-file-name "~/venv/bin/flake8")
                         flycheck-disabled-checkers '(php-phpmd php-phpcs)))
   :config (global-flycheck-mode 1))
 

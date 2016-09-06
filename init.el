@@ -299,6 +299,8 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
                       (c-set-offset 'arglist-cont-nonempty 'c-lineup-arglist)
                       (setq tab-width 8))))
 
+(use-package pip-requirements)
+
 (use-package pony-mode)
 
 (use-package projectile

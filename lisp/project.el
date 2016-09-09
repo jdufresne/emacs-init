@@ -41,7 +41,7 @@
   "Return default arguments to pass to phpunit."
   (if (and buffer-file-name
            (string-match "/\\([[:alnum:]]+Test\\)\.php$" buffer-file-name))
-      (concat " --filter " (match-string 1 buffer-file-name))
+      (concat " " (match-string 1 buffer-file-name) " " buffer-file-name)
     ""))
 
 (defun project-test-php ()

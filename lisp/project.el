@@ -10,10 +10,17 @@
 (require 's)
 (require 'projectile)
 
+(defun python-version ()
+  (with-temp-buffer
+    (call-process "python3" nil t nil
+                  "-c" "import sys; print('%d.%d' % sys.version_info[:2])")
+    (s-trim (buffer-string))))
+
 (defun goto-django ()
   "Open dired buffer of the installed Django."
   (interactive)
-  (dired (projectile-expand-root "venv/lib/python3.4/site-packages/django")))
+  (dired (projectile-expand-root (concat
+                                  "venv/lib/python" (python-version) "/site-packages/django"))))
 
 (defun file-path-to-python-path (path)
   (s-join "."

@@ -153,27 +153,6 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
   (setq sql-buffer (get-buffer "*SQL*")))
 (add-hook 'sql-mode-hook #'init-sql-mode)
 
-(defun smart-move-beginning-of-line ()
-  "Move point back to indentation or beginning of line."
-  (interactive)
-  (let ((orig-point (point)))
-    (back-to-indentation)
-    (when (= orig-point (point))
-      (beginning-of-line))))
-
-(defun smart-move-end-of-line ()
-  "Move point to last non-whitespace or end of the line."
-  (interactive)
-  (let ((orig-point (point)))
-    (end-of-line)
-    (re-search-backward "[^[:space:]]" (line-end-position 0) t)
-    (forward-char)
-    (when (= orig-point (point))
-      (end-of-line))))
-
-(global-set-key [remap move-beginning-of-line] #'smart-move-beginning-of-line)
-(global-set-key [remap move-end-of-line] #'smart-move-end-of-line)
-
 (defun unfill-paragraph ()
   "Unfill paragraph at or after point."
   (interactive)
@@ -289,6 +268,11 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 (use-package less-css-mode)
 
 (use-package magit)
+
+(use-package mwim
+  :config (progn
+            (global-set-key [remap move-beginning-of-line] #'mwim-beginning-of-code-or-line)
+            (global-set-key [remap move-end-of-line] #'mwim-end-of-code-or-line)))
 
 (use-package php-mode
   :init (setq php-template-compatibility nil

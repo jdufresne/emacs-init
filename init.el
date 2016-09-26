@@ -109,9 +109,6 @@
 (global-set-key (kbd "C-x k") #'kill-buffer-now)
 (global-set-key (kbd "C-x C-k") #'kill-buffer-now)
 
-;; A bit nicer.
-(global-set-key [remap find-tag] #'find-tag-other-window)
-
 ;; SQL
 (require 'sql)
 

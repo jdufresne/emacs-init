@@ -42,6 +42,7 @@
 (setq kill-do-not-save-duplicates t)
 (setq grep-find-use-xargs 'exec)
 (setq-default fill-column 79)
+(setq save-abbrevs 'silently)
 
 (require 'server)
 (setq server-log t)

@@ -44,9 +44,6 @@
 (setq-default fill-column 79)
 (setq save-abbrevs 'silently)
 
-(require 'server)
-(setq server-log t)
-
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 

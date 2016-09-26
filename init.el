@@ -190,24 +190,6 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
       (kill-buffer buffer)))
   (grep-a-lot-clear-stack))
 
-(defun python-insert-encoding-comment ()
-  "Insert a UTF-8 coding comment at the beginning of the buffer."
-  (interactive)
-  (save-excursion
-    (goto-char (point-min))
-    (insert "# -*- coding: utf-8 -*-\n")
-    (insert "from __future__ import unicode_literals\n")))
-
-(defun python-insert-remote-debugger ()
-  "Insert Python snippet to start the remote debugger."
-  (interactive)
-  (insert "import rpdb2; rpdb2.start_embedded_debugger('password')"))
-
-(defun python-insert-debugger ()
-  "Insert Python snippet to start the debugger."
-  (interactive)
-  (insert "import pdb; pdb.set_trace()"))
-
 ;; Third party libraries.
 (require 'package)
 (add-to-list 'package-archives

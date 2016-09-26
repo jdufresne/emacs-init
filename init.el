@@ -214,9 +214,6 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 (use-package diff-hl
   :config (global-diff-hl-mode 1))
 
-(use-package editorconfig
-  :config (editorconfig-mode 1))
-
 (use-package flx-ido
   :init (setq ido-auto-merge-work-directories-length -1
               ido-create-new-buffer 'never
@@ -243,8 +240,6 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
   :config (grep-a-lot-setup-keys))
 
 (use-package less-css-mode)
-
-(use-package magit)
 
 (use-package mwim
   :config (progn
@@ -283,9 +278,6 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 
 (use-package undo-tree
   :config (global-undo-tree-mode 1))
-
-(use-package web-beautify
-  :init (setq web-beautify-js-program (expand-file-name "~/node_modules/.bin/js-beautify")))
 
 (use-package yaml-mode)
 

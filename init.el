@@ -29,7 +29,7 @@
 (scroll-bar-mode 0)
 (setq inhibit-splash-screen t)
 (setq initial-scratch-message nil)
-(setq visible-bell 1)
+(setq ring-bell-function 'ignore)
 
 ;; Default frame.
 (add-to-list 'default-frame-alist '(font . "Inconsolata Medium 14"))

@@ -242,6 +242,8 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 
 (use-package less-css-mode)
 
+(use-package markdown-mode)
+
 (use-package mwim
   :config (progn
             (global-set-key [remap move-beginning-of-line] #'mwim-beginning-of-code-or-line)
@@ -283,6 +285,6 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 (use-package yaml-mode)
 
 ;; Additional extensions.
-(require 'project)
+(require 'myproject)
 
 ;;; init.el ends here

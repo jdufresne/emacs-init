@@ -70,5 +70,5 @@
 (global-set-key (kbd "<f6>") #'project-test-django)
 (global-set-key (kbd "<f7>") #'project-test-php)
 
-(provide 'project)
+(provide 'myproject)
 ;;; project.el ends here

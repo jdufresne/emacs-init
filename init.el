@@ -237,6 +237,9 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
                         flycheck-disabled-checkers '(php-phpmd php-phpcs)))
   :config (global-flycheck-mode 1))
 
+(use-package git-commit
+  :config (global-git-commit-mode 1))
+
 (use-package grep-a-lot
   :config (grep-a-lot-setup-keys))
 
@@ -288,3 +291,17 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 (require 'myproject)
 
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (yaml-mode web-beautify use-package undo-tree s projectile pony-mode pip-requirements php-mode mwim magit less-css-mode grep-a-lot flycheck flx-ido editorconfig diff-hl crontab-mode apache-mode))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

@@ -245,6 +245,8 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 
 (use-package less-css-mode)
 
+(use-package magit)
+
 (use-package markdown-mode)
 
 (use-package mwim

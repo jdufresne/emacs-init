@@ -284,6 +284,8 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 
 (use-package s)
 
+(use-package systemd)
+
 (use-package undo-tree
   :config (global-undo-tree-mode 1))
 

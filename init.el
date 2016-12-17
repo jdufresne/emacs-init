@@ -102,13 +102,8 @@
 (global-unset-key (kbd "C-x C-z"))
 
 ;; Always kill the current buffer without asking
-(defun kill-buffer-now (&optional buffer-or-name)
-  "Kill the buffer specified by BUFFER-OR-NAME without asking."
-  (interactive)
-  (let ((kill-buffer-query-functions nil))
-    (kill-buffer buffer-or-name)))
-(global-set-key (kbd "C-x k") #'kill-buffer-now)
-(global-set-key (kbd "C-x C-k") #'kill-buffer-now)
+(global-set-key (kbd "C-x k") #'kill-this-buffer)
+(global-set-key (kbd "C-x C-k") #'kill-this-buffer)
 
 ;; SQL
 (require 'sql)

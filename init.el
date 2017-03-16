@@ -238,6 +238,8 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 (use-package grep-a-lot
   :config (grep-a-lot-setup-keys))
 
+(use-package groovy-mode)
+
 (use-package less-css-mode)
 
 (use-package magit)
@@ -248,6 +250,8 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
   :config (progn
             (global-set-key [remap move-beginning-of-line] #'mwim-beginning-of-code-or-line)
             (global-set-key [remap move-end-of-line] #'mwim-end-of-code-or-line)))
+
+(use-package nginx-mode)
 
 (use-package php-mode
   :init (setq php-template-compatibility nil

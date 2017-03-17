@@ -239,7 +239,7 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 
 (defun init-git-commit-mode ()
   "Initialize GIT-COMMIT-MODE."
-  (setq-local fill-column 72))
+  (setq fill-column 72))
 
 (use-package git-commit
   :config (progn

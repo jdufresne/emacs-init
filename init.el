@@ -264,14 +264,16 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 
 (use-package nginx-mode)
 
+(defun init-php-mode ()
+  "Initialize PHP-MODE."
+  (c-set-offset 'arglist-cont-nonempty 'c-lineup-arglist)
+  (setq tab-width 8))
+
 (use-package php-mode
   :init (setq php-template-compatibility nil
               php-mode-warn-if-mumamo-off nil
               php-mode-coding-style 'psr2)
-  :config (add-hook 'php-mode-psr2-hook
-                    (lambda ()
-                      (c-set-offset 'arglist-cont-nonempty 'c-lineup-arglist)
-                      (setq tab-width 8))))
+  :config (add-hook 'php-mode-psr2-hook #'init-php-mode))
 
 (use-package pip-requirements)
 

@@ -110,6 +110,11 @@
 (global-set-key (kbd "C-x k") #'kill-buffer-now)
 (global-set-key (kbd "C-x C-k") #'kill-buffer-now)
 
+;; Python
+(require 'python)
+(setq python-shell-interpreter "python3")
+(global-set-key (kbd "<f9>") #'run-python)
+
 ;; SQL
 (require 'sql)
 

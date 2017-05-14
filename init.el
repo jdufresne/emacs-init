@@ -34,16 +34,20 @@
 ;; Default frame.
 (add-to-list 'default-frame-alist '(font . "Inconsolata Medium 14"))
 
+(setq grep-find-use-xargs 'exec)
+(setq kill-do-not-save-duplicates t)
+(setq mode-require-final-newline t)
+(setq next-line-add-newlines nil)
+(setq save-abbrevs 'silently)
+(setq sentence-end-double-space nil)
+(setq-default fill-column 79)
 (setq-default indent-tabs-mode nil)
+(setq-default require-final-newline t)
 (setq-default tab-width 8)
 (setq-default truncate-lines t)
-(setq next-line-add-newlines nil)
-(setq-default require-final-newline t)
-(setq mode-require-final-newline t)
-(setq kill-do-not-save-duplicates t)
-(setq grep-find-use-xargs 'exec)
-(setq-default fill-column 79)
-(setq save-abbrevs 'silently)
+
+(require 'sort)
+(setq sort-fold-case t)
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)

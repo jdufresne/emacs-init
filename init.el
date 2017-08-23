@@ -316,20 +316,3 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 
 ;; Additional extensions.
 (require 'myproject)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (yaml-mode undo-tree systemd projectile pony-mode pip-requirements php-mode nginx-mode mwim markdown-mode magit less-css-mode groovy-mode grep-a-lot git-commit flycheck flx-ido diff-hl crontab-mode apache-mode use-package)))
- '(spice-output-local "Gnucap")
- '(spice-simulator "Gnucap")
- '(spice-waveform-viewer "Gwave"))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

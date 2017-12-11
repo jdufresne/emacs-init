@@ -31,6 +31,10 @@
 (setq initial-scratch-message nil)
 (setq ring-bell-function 'ignore)
 
+;; Keep customize from modifying this file.
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file t)
+
 ;; Default frame.
 (add-to-list 'default-frame-alist '(font . "Inconsolata Medium 14"))
 

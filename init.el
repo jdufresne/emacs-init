@@ -294,7 +294,6 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 
 (use-package projectile
   :config (progn
-            (setq projectile-use-git-grep t)
             (add-to-list 'projectile-globally-ignored-directories "__pycache__")
             (add-to-list 'projectile-globally-ignored-directories "__snapshots__")
             (add-to-list 'projectile-globally-ignored-directories "_build")

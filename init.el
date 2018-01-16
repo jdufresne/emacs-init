@@ -308,6 +308,7 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
             (add-to-list 'projectile-globally-ignored-file-suffixes ".min.js")
             (add-to-list 'projectile-globally-ignored-file-suffixes ".png")
             (add-to-list 'projectile-globally-ignored-file-suffixes ".svg")
+            (add-to-list 'projectile-globally-ignored-file-suffixes ".woff")
             (add-to-list 'projectile-globally-ignored-files "ansible.log")
             (add-to-list 'projectile-globally-ignored-files "urlconf.php")
             (projectile-mode 1)))

@@ -313,6 +313,9 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
             (add-to-list 'projectile-globally-ignored-files "urlconf.php")
             (projectile-mode 1)))
 
+(use-package rjsx-mode
+  :mode "\\.js\\'")
+
 (use-package s)
 
 (use-package systemd)

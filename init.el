@@ -218,7 +218,8 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
 (setq use-package-always-ensure t
       use-package-verbose t)
 
-(use-package atomic-chrome)
+(use-package atomic-chrome
+  :config (atomic-chrome-start-server))
 
 (use-package apache-mode
   :mode ("\\.conf\\'" . apache-mode))

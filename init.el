@@ -306,7 +306,8 @@
             (add-to-list 'projectile-globally-ignored-file-suffixes ".woff")
             (add-to-list 'projectile-globally-ignored-files "ansible.log")
             (add-to-list 'projectile-globally-ignored-files "urlconf.php")
-            (projectile-mode 1)))
+            (projectile-mode 1)
+            (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
 
 (use-package rjsx-mode
   :mode "\\.js\\'")

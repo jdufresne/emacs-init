@@ -68,7 +68,7 @@
 (setq column-number-mode t)
 (show-paren-mode 1)
 (delete-selection-mode 1)
-(global-linum-mode 1)
+(global-display-line-numbers-mode)
 (global-subword-mode 1)
 (setq comment-auto-fill-only-comments t)
 (add-hook 'text-mode-hook #'turn-on-flyspell)
@@ -150,13 +150,6 @@
   (project-sql 'postgres))
 (global-set-key (kbd "<f12>") #'project-sql-postgres)
 
-(defun init-sqli-mode ()
-  "Initialize SQLi-MODE.
-
-Turn off LINUM-MODE, as the buffer can be extremely large."
-  (linum-mode 0))
-(add-hook 'sql-interactive-mode-hook #'init-sqli-mode)
-
 (defun init-sql-mode ()
   "Initialize SQL-MODE."
   (setq sql-buffer (get-buffer "*SQL*")))
@@ -188,8 +181,7 @@ Turn off LINUM-MODE, as the buffer can be extremely large."
   "Setup large buffers to better handle large buffers."
   (when (> (buffer-size) large-file-warning-threshold)
     (setq buffer-read-only t)
-    (buffer-disable-undo)
-    (linum-mode 0)))
+    (buffer-disable-undo)))
 (add-hook 'find-file-hook #'init-large-buffer)
 
 (defvar kill-all-global-buffers

@@ -290,6 +290,7 @@
 
 (use-package projectile
   :config (progn
+            (add-to-list 'projectile-globally-ignored-directories ".mypy_cache")
             (add-to-list 'projectile-globally-ignored-directories "__pycache__")
             (add-to-list 'projectile-globally-ignored-directories "__snapshots__")
             (add-to-list 'projectile-globally-ignored-directories "_build")

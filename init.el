@@ -214,9 +214,6 @@
 (use-package atomic-chrome
   :config (atomic-chrome-start-server))
 
-(use-package apache-mode
-  :mode ("\\.conf\\'" . apache-mode))
-
 (use-package crontab-mode
   :mode (("\\.cron\\(tab\\)?\\'" . crontab-mode)
          ("cron\\(tab\\)?\\." . crontab-mode)))

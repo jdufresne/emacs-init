@@ -292,6 +292,7 @@
             (add-to-list 'projectile-globally-ignored-directories "__snapshots__")
             (add-to-list 'projectile-globally-ignored-directories "_build")
             (add-to-list 'projectile-globally-ignored-directories "bower_components")
+            (add-to-list 'projectile-globally-ignored-directories "build")
             (add-to-list 'projectile-globally-ignored-directories "node_modules")
             (add-to-list 'projectile-globally-ignored-directories "vendor")
             (add-to-list 'projectile-globally-ignored-directories "venv")

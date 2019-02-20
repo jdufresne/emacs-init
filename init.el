@@ -307,6 +307,7 @@
             (add-to-list 'projectile-globally-ignored-file-suffixes ".woff")
             (add-to-list 'projectile-globally-ignored-files ".coverage")
             (add-to-list 'projectile-globally-ignored-files ".php_cs.cache")
+            (add-to-list 'projectile-globally-ignored-files ".phpunit.result.cache")
             (add-to-list 'projectile-globally-ignored-files "ansible.log")
             (add-to-list 'projectile-globally-ignored-files "composer.lock")
             (add-to-list 'projectile-globally-ignored-files "npm-shrinkwrap.json")

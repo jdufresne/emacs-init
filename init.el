@@ -264,9 +264,7 @@
 (use-package markdown-mode)
 
 (use-package mwim
-  :config (progn
-            (global-set-key [remap move-beginning-of-line] #'mwim-beginning-of-code-or-line)
-            (global-set-key [remap move-end-of-line] #'mwim-end-of-code-or-line)))
+  :config (global-set-key [remap move-beginning-of-line] #'mwim-beginning-of-code-or-line))
 
 (use-package nginx-mode)
 

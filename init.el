@@ -126,7 +126,7 @@
 
 (defun project-config ()
   "Read and return JSON project config."
-  (json-read-file (projectile-expand-root "erezlife/config.json")))
+  (json-read-file (projectile-expand-root "config.json")))
 
 (defun database (key)
   "Return the name of the database for the current project."

@@ -1,4 +1,4 @@
-;;; init.el --- Emacs initialization file -*- lexical-binding: t -*-
+;; init.el --- Emacs initialization file -*- lexical-binding: t -*-
 
 ;; Author: Jon Dufresne <jon@jondufresne.org>
 
@@ -38,7 +38,6 @@
 ;; Default frame.
 (add-to-list 'default-frame-alist '(font . "Inconsolata Medium 14"))
 
-(setq grep-find-use-xargs 'exec)
 (setq kill-do-not-save-duplicates t)
 (setq mode-require-final-newline t)
 (setq next-line-add-newlines nil)
@@ -50,15 +49,14 @@
 (setq-default tab-width 8)
 (setq-default truncate-lines t)
 
+(require 'grep)
+(setq grep-find-use-xargs 'exec)
+
 (require 'sort)
 (setq sort-fold-case t)
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
-
-;; Default dictionary
-(require 'ispell)
-(setq ispell-dictionary "english")
 
 ;; Enable functions
 (put 'downcase-region 'disabled nil)
@@ -82,7 +80,7 @@
 
 ;; Save place mode
 (require 'saveplace)
-(setq-default save-place t)
+(save-place-mode t)
 (savehist-mode 1)
 
 ;; Buffer clean up
@@ -130,18 +128,19 @@
   "Read and return JSON project config."
   (json-read-file (projectile-expand-root "erezlife/config.json")))
 
-(defun database ()
+(defun database (key)
   "Return the name of the database for the current project."
   (ignore-errors
     (let* ((config (project-config))
            (database-config (cdr (assoc 'database config)))
-           (database (cdr (assoc 'name database-config))))
+           (database (cdr (assoc key database-config))))
       database)))
 
 (defun project-sql (product)
   "Run PRODUCT database with default database for current project."
   (let ((default-directory (expand-file-name "~"))
-        (sql-database (database)))
+        (sql-database (database 'name))
+        (sql-user (database 'user)))
     (sql-product-interactive product)))
 
 (defun project-sql-postgres ()
@@ -235,11 +234,7 @@
   :init (progn
           (setq flycheck-highlighting-mode 'lines
                 flycheck-display-errors-function nil)
-          (setq-default flycheck-javascript-jshint-executable (expand-file-name "~/node_modules/.bin/jshint")
-                        flycheck-javascript-eslint-executable (expand-file-name "~/node_modules/.bin/eslint")
-                        flycheck-json-jsonlint-executable (expand-file-name "~/node_modules/.bin/jsonlint")
-                        flycheck-python-flake8-executable (executable-find "flake8")
-                        flycheck-disabled-checkers '(php-phpmd php-phpcs)))
+          (setq-default flycheck-javascript-jshint-executable (expand-file-name "~/node_modules/.bin/jshint")))
   :config (global-flycheck-mode 1))
 
 (defun init-git-commit-mode ()
@@ -291,6 +286,7 @@
             (add-to-list 'projectile-globally-ignored-directories "_build")
             (add-to-list 'projectile-globally-ignored-directories "bower_components")
             (add-to-list 'projectile-globally-ignored-directories "build")
+            (add-to-list 'projectile-globally-ignored-directories "dist")
             (add-to-list 'projectile-globally-ignored-directories "node_modules")
             (add-to-list 'projectile-globally-ignored-directories "vendor")
             (add-to-list 'projectile-globally-ignored-directories "venv")
@@ -308,6 +304,7 @@
             (add-to-list 'projectile-globally-ignored-files "ansible.log")
             (add-to-list 'projectile-globally-ignored-files "composer.lock")
             (add-to-list 'projectile-globally-ignored-files "npm-shrinkwrap.json")
+            (add-to-list 'projectile-globally-ignored-files "taskconf.php")
             (add-to-list 'projectile-globally-ignored-files "urlconf.php")
             (projectile-mode 1)
             (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))

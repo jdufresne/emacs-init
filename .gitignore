@@ -9,6 +9,7 @@ TAGS
 # Ignore entire directories produced by emacs.
 auto-save-list/
 elpa/
+transient/
 
 # Ignore files produced by emacs.
 abbrev_defs
@@ -16,6 +17,7 @@ ac-comphist.dat
 custom.el
 history
 ido.last
+places
 projectile-bookmarks.eld
 recentf.el
 tramp

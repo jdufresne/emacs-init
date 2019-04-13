@@ -1,4 +1,4 @@
-;; init.el --- Emacs initialization file -*- lexical-binding: t -*-
+;;; init.el --- Emacs initialization file -*- lexical-binding: t -*-
 
 ;; Author: Jon Dufresne <jon@jondufresne.org>
 
@@ -234,7 +234,9 @@
   :init (progn
           (setq flycheck-highlighting-mode 'lines
                 flycheck-display-errors-function nil)
-          (setq-default flycheck-javascript-jshint-executable (expand-file-name "~/node_modules/.bin/jshint")))
+          (setq-default flycheck-javascript-jshint-executable (expand-file-name "~/node_modules/.bin/jshint")
+                        flycheck-json-python-json-executable "python3"
+                        flycheck-python-flake8-executable "python3"))
   :config (global-flycheck-mode 1))
 
 (defun init-git-commit-mode ()
@@ -250,6 +252,8 @@
   :config (grep-a-lot-setup-keys))
 
 (use-package groovy-mode)
+
+(use-package json-mode)
 
 (use-package less-css-mode)
 

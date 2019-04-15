@@ -73,6 +73,7 @@ appear in buffer BUFFER-NAME."
 
 (global-set-key (kbd "<f10>") #'goto-django)
 (global-set-key (kbd "<f5>") #'run-development-servers)
+(global-set-key (kbd "S-<f5>") #'kill-development-servers)
 
 (provide 'myproject)
 ;;; myproject.el ends here

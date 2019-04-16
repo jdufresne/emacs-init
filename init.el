@@ -301,8 +301,6 @@
             (add-to-list 'projectile-globally-ignored-files "ansible.log")
             (add-to-list 'projectile-globally-ignored-files "composer.lock")
             (add-to-list 'projectile-globally-ignored-files "npm-shrinkwrap.json")
-            (add-to-list 'projectile-globally-ignored-files "taskconf.php")
-            (add-to-list 'projectile-globally-ignored-files "urlconf.php")
             (projectile-mode 1)
             (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
 

@@ -219,6 +219,8 @@
 (use-package diff-hl
   :config (global-diff-hl-mode 1))
 
+(use-package dockerfile-mode)
+
 (use-package flx-ido
   :init (setq ido-auto-merge-work-directories-length -1
               ido-create-new-buffer 'never

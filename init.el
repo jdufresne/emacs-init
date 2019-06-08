@@ -311,6 +311,10 @@
 
 (use-package s)
 
+(use-package spacemacs-theme
+  :no-require t
+  :config (load-theme 'spacemacs-dark t))
+
 (use-package systemd)
 
 (use-package undo-tree

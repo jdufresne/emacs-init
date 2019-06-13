@@ -290,6 +290,7 @@
             (add-to-list 'projectile-globally-ignored-directories "vendor")
             (add-to-list 'projectile-globally-ignored-directories "venv")
             (add-to-list 'projectile-globally-ignored-file-suffixes ".d")
+            (add-to-list 'projectile-globally-ignored-file-suffixes ".egg-info")
             (add-to-list 'projectile-globally-ignored-file-suffixes ".gz")
             (add-to-list 'projectile-globally-ignored-file-suffixes ".map")
             (add-to-list 'projectile-globally-ignored-file-suffixes ".min.css")

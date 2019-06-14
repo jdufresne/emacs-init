@@ -195,6 +195,9 @@
       (kill-buffer buffer)))
   (grep-a-lot-clear-stack))
 
+(require 'rst)
+(setq rst-indent-literal-minimized 4)
+
 ;; Third party libraries.
 (require 'package)
 (add-to-list 'package-archives

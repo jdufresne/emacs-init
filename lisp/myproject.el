@@ -8,7 +8,13 @@
 ;;; Code:
 
 (require 's)
-(require 'projectile)
+(require 'vc-git)
+
+(defun project-root ()
+  (vc-git-root default-directory))
+
+(defun project-expand-root (name)
+  (expand-file-name name (project-root)))
 
 (defun python-version ()
   (with-temp-buffer
@@ -19,8 +25,9 @@
 (defun goto-django ()
   "Open dired buffer of the installed Django."
   (interactive)
-  (dired (projectile-expand-root (concat
-                                  "venv/lib/python" (python-version) "/site-packages/django"))))
+  (dired (project-expand-root (concat "venv/lib/python"
+                                      (python-version)
+                                      "/site-packages/django"))))
 
 (defun run-development-server (buffer-name make-target)
   "Run development server.
@@ -28,7 +35,7 @@
 Server is starting by running make target MAKE-TARGET in the
 project's root directory. The development server's output will
 appear in buffer BUFFER-NAME."
-  (let ((default-directory (projectile-project-root))
+  (let ((default-directory (project-root))
         (compilation-read-command nil)
         (compilation-buffer-name-function (lambda (name-of-mode) buffer-name)))
     (compile (concat "make " make-target) t)))

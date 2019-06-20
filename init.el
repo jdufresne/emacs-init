@@ -126,7 +126,8 @@
 
 (defun project-config ()
   "Read and return JSON project config."
-  (json-read-file (projectile-expand-root "config.json")))
+  (json-read-file (expand-file-name "config.json"
+                                    (vc-git-root (default-directory)))))
 
 (defun database (key)
   "Return the name of the database for the current project."
@@ -219,6 +220,9 @@
   :mode (("\\.cron\\(tab\\)?\\'" . crontab-mode)
          ("cron\\(tab\\)?\\." . crontab-mode)))
 
+(use-package deadgrep
+  :bind ("C-c p s g" . deadgrep))
+
 (use-package diff-hl
   :config (global-diff-hl-mode 1))
 
@@ -278,37 +282,6 @@
 (use-package pip-requirements)
 
 (use-package pony-mode)
-
-(use-package projectile
-  :config (progn
-            (add-to-list 'projectile-globally-ignored-directories ".mypy_cache")
-            (add-to-list 'projectile-globally-ignored-directories ".serverless")
-            (add-to-list 'projectile-globally-ignored-directories "__pycache__")
-            (add-to-list 'projectile-globally-ignored-directories "__snapshots__")
-            (add-to-list 'projectile-globally-ignored-directories "_build")
-            (add-to-list 'projectile-globally-ignored-directories "bower_components")
-            (add-to-list 'projectile-globally-ignored-directories "build")
-            (add-to-list 'projectile-globally-ignored-directories "dist")
-            (add-to-list 'projectile-globally-ignored-directories "node_modules")
-            (add-to-list 'projectile-globally-ignored-directories "vendor")
-            (add-to-list 'projectile-globally-ignored-directories "venv")
-            (add-to-list 'projectile-globally-ignored-file-suffixes ".d")
-            (add-to-list 'projectile-globally-ignored-file-suffixes ".egg-info")
-            (add-to-list 'projectile-globally-ignored-file-suffixes ".gz")
-            (add-to-list 'projectile-globally-ignored-file-suffixes ".map")
-            (add-to-list 'projectile-globally-ignored-file-suffixes ".min.css")
-            (add-to-list 'projectile-globally-ignored-file-suffixes ".min.js")
-            (add-to-list 'projectile-globally-ignored-file-suffixes ".png")
-            (add-to-list 'projectile-globally-ignored-file-suffixes ".svg")
-            (add-to-list 'projectile-globally-ignored-file-suffixes ".woff")
-            (add-to-list 'projectile-globally-ignored-files ".coverage")
-            (add-to-list 'projectile-globally-ignored-files ".php_cs.cache")
-            (add-to-list 'projectile-globally-ignored-files ".phpunit.result.cache")
-            (add-to-list 'projectile-globally-ignored-files "ansible.log")
-            (add-to-list 'projectile-globally-ignored-files "composer.lock")
-            (add-to-list 'projectile-globally-ignored-files "npm-shrinkwrap.json")
-            (projectile-mode 1)
-            (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
 
 (use-package rjsx-mode
   :mode "\\.js\\'")

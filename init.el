@@ -193,8 +193,7 @@
   (dolist (buffer (buffer-list))
     (unless (and (string-match "^\\*.*\\*$" (buffer-name buffer))
                  (not (member (buffer-name buffer) kill-all-global-buffers)))
-      (kill-buffer buffer)))
-  (grep-a-lot-clear-stack))
+      (kill-buffer buffer))))
 
 (require 'rst)
 (setq rst-indent-literal-minimized 4)
@@ -256,9 +255,6 @@
   :config (progn
             (global-git-commit-mode 1)
             (add-hook 'git-commit-mode-hook #'init-git-commit-mode)))
-
-(use-package grep-a-lot
-  :config (grep-a-lot-setup-keys))
 
 (use-package groovy-mode)
 

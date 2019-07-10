@@ -38,7 +38,9 @@ appear in buffer BUFFER-NAME."
   (let ((default-directory (project-root))
         (compilation-read-command nil)
         (compilation-buffer-name-function (lambda (name-of-mode) buffer-name)))
-    (compile (concat "make " make-target) t)))
+    (compile (concat "make " make-target) t))
+  (buffer-disable-undo buffer-name))
+
 
 (defun run-django ()
   "Run Django development server."

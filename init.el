@@ -259,7 +259,8 @@
             (global-git-commit-mode 1)
             (add-hook 'git-commit-mode-hook #'init-git-commit-mode)))
 
-(use-package groovy-mode)
+(use-package groovy-mode
+  :init (setq-default groovy-indent-offset 2))
 
 (use-package json-mode)
 

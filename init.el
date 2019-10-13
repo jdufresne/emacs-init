@@ -185,15 +185,18 @@
 (add-hook 'find-file-hook #'init-large-buffer)
 
 (defvar kill-all-global-buffers
-  '("*compilation*"))
+  '("^\\*compilation\\*$"
+    "^\\*deadgrep "))
 
 (defun kill-all-buffers ()
   "Kill all buffers except global buffers."
   (interactive)
   (dolist (buffer (buffer-list))
-    (unless (and (string-match "^\\*.*\\*$" (buffer-name buffer))
-                 (not (member (buffer-name buffer) kill-all-global-buffers)))
-      (kill-buffer buffer))))
+    (let ((name (buffer-name buffer)))
+      (unless (and (string-match "^\\*.*\\*$" name)
+                   (not (some (lambda (regex) (string-match regex name))
+                              kill-all-global-buffers)))
+        (kill-buffer buffer)))))
 
 (require 'rst)
 (setq rst-indent-literal-minimized 4)

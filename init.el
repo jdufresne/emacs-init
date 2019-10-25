@@ -222,6 +222,13 @@
 (use-package atomic-chrome
   :config (atomic-chrome-start-server))
 
+(use-package company
+  :init (add-hook 'after-init-hook #'global-company-mode))
+
+(use-package company-php)
+
+(use-package company-shell)
+
 (use-package crontab-mode
   :mode (("\\.cron\\(tab\\)?\\'" . crontab-mode)
          ("cron\\(tab\\)?\\." . crontab-mode)))

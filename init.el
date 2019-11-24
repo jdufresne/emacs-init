@@ -200,6 +200,7 @@
 
 (require 'rst)
 (setq rst-indent-literal-minimized 4)
+(add-to-list 'auto-mode-alist '("/docs/.*\\.txt\\'" . rst-mode))
 
 ;; Third party libraries.
 

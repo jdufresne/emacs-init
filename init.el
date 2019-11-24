@@ -232,7 +232,7 @@
 
 (use-package crontab-mode
   :mode (("\\.cron\\(tab\\)?\\'" . crontab-mode)
-         ("cron\\(tab\\)?\\." . crontab-mode)))
+         ("/cron\\(tab\\)?\\'" . crontab-mode)))
 
 (use-package deadgrep
   :bind ("C-c p s g" . deadgrep))

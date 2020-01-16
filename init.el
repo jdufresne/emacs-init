@@ -35,6 +35,9 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file t)
 
+;; Default frame.
+(add-to-list 'default-frame-alist '(font . "Fira Mono 14"))
+
 (setq kill-do-not-save-duplicates t)
 (setq mode-require-final-newline t)
 (setq next-line-add-newlines nil)

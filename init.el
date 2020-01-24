@@ -300,9 +300,12 @@
 
 (use-package s)
 
-(use-package spacemacs-theme
-  :no-require t
-  :config (load-theme 'spacemacs-dark t))
+(use-package doom-themes
+  :init (setq doom-themes-enable-bold t
+              doom-themes-enable-italic t)
+  :config (progn
+            (load-theme 'doom-one t)
+            (doom-themes-visual-bell-config)))
 
 (use-package systemd)
 

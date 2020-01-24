@@ -93,9 +93,6 @@
     (whitespace-cleanup)))
 (add-hook 'before-save-hook #'cleanup-buffer)
 
-;; Fix ibuffer to use ido-find-file
-(require 'ibuffer)
-(define-key ibuffer-mode-map (kbd "C-x C-f") #'ido-find-file)
 ;; Always use ibuffer
 (global-set-key [remap list-buffers] #'ibuffer)
 
@@ -232,6 +229,7 @@
 
 (use-package crontab-mode
   :mode (("\\.cron\\(tab\\)?\\'" . crontab-mode)
+
          ("/cron\\(tab\\)?\\'" . crontab-mode)))
 
 (use-package deadgrep
@@ -241,17 +239,6 @@
   :config (global-diff-hl-mode 1))
 
 (use-package dockerfile-mode)
-
-(use-package flx-ido
-  :init (setq ido-auto-merge-work-directories-length -1
-              ido-create-new-buffer 'never
-              ido-enable-flex-matching t
-              ido-enable-last-directory-history t
-              ido-use-faces nil)
-  :config (progn
-            (ido-mode 1)
-            (ido-everywhere 1)
-            (flx-ido-mode 1)))
 
 (use-package flycheck
   :init (progn
@@ -273,6 +260,14 @@
 
 (use-package groovy-mode
   :init (setq-default groovy-indent-offset 2))
+
+(use-package helm
+  :init (setq-default helm-M-x-fuzzy-match t)
+  :config (progn
+            (global-set-key [remap bookmark-jump] #'helm-filtered-bookmarks)
+            (global-set-key [remap execute-extended-command] #'helm-M-x)
+            (global-set-key [remap find-file] #'helm-find-files)
+            (helm-mode 1)))
 
 (use-package json-mode)
 

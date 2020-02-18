@@ -43,6 +43,7 @@
 (setq next-line-add-newlines nil)
 (setq save-abbrevs 'silently)
 (setq sentence-end-double-space nil)
+(setq-default c-basic-offset 4)
 (setq-default fill-column 79)
 (setq-default indent-tabs-mode nil)
 (setq-default require-final-newline t)

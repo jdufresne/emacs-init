@@ -38,7 +38,7 @@ appear in buffer BUFFER-NAME."
   (let ((default-directory (project-root))
         (compilation-read-command nil)
         (compilation-buffer-name-function (lambda (name-of-mode) buffer-name))
-        (project-name (file-name-nondirectory (directory-file-name default-directory))))
+        (project-name (file-name-nondirectory (directory-file-name (project-root)))))
     (compile (concat "make EREZLIFE_CONFIG_HOST=localhost EREZLIFE_CONFIG_KEY=" project-name " " make-target) t))
   (buffer-disable-undo buffer-name))
 

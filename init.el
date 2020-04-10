@@ -311,4 +311,5 @@
 (use-package yaml-mode)
 
 ;; Additional extensions.
+(require 'espeak)
 (require 'myproject)

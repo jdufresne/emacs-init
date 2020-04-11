@@ -25,7 +25,8 @@
   "Start the espeak process with STRING."
   (make-process
    :name "espeak"
-   :command `("espeak-ng" ,string)))
+   :command `("espeak-ng" ,string)
+   :noquery t))
 
 (defun espeak-buffer ()
   "Read buffer aloud."

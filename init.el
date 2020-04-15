@@ -245,8 +245,8 @@
   :init (progn
           (setq flycheck-highlighting-mode 'lines
                 flycheck-display-errors-function nil)
-          (setq-default flycheck-javascript-jshint-executable (expand-file-name "~/node_modules/.bin/jshint"))
-          (add-to-list 'flycheck-disabled-checkers 'python-mypy))
+          (setq-default flycheck-javascript-jshint-executable (expand-file-name "~/node_modules/.bin/jshint")
+                        flycheck-disabled-checkers '(python-mypy)))
   :config (global-flycheck-mode 1))
 
 (defun init-git-commit-mode ()

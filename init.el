@@ -116,7 +116,7 @@
 
 ;; Python
 (require 'python)
-(setq python-shell-interpreter "python3")
+(setq python-fill-docstring-style 'django)
 (global-set-key (kbd "<f9>") #'run-python)
 
 ;; SQL

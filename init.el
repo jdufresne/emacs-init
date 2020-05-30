@@ -183,12 +183,12 @@
 (add-hook 'find-file-hook #'init-large-buffer)
 
 (defvar kill-all-global-buffers
-  '("^\\*compilation\\*$"
-    "^\\*deadgrep "))
+  '("^\\*compilation\\*$")
 
 (defun kill-all-buffers ()
   "Kill all buffers except global buffers."
   (interactive)
+  (call-interactively #'deadgrep-kill-all-buffers)
   (dolist (buffer (buffer-list))
     (let ((name (buffer-name buffer)))
       (unless (and (string-match "^\\*.*\\*$" name)

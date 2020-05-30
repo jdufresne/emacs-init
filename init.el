@@ -183,7 +183,7 @@
 (add-hook 'find-file-hook #'init-large-buffer)
 
 (defvar kill-all-global-buffers
-  '("^\\*compilation\\*$")
+  '("^\\*compilation\\*$"))
 
 (defun kill-all-buffers ()
   "Kill all buffers except global buffers."

@@ -202,9 +202,6 @@
 
 ;; Third party libraries.
 
-(require 'gnutls)
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
@@ -297,9 +294,6 @@
 (use-package pip-requirements)
 
 (use-package pony-mode)
-
-(use-package rjsx-mode
-  :mode "\\.js\\'")
 
 (use-package s)
 

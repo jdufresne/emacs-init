@@ -7,6 +7,7 @@
 
 ;;; Code:
 
+(require 'python)
 (require 's)
 (require 'vc-git)
 
@@ -18,7 +19,7 @@
 
 (defun python-version ()
   (with-temp-buffer
-    (call-process "python3" nil t nil
+    (call-process python-shell-interpreter nil t nil
                   "-c" "import sys; print('%d.%d' % sys.version_info[:2])")
     (s-trim (buffer-string))))
 

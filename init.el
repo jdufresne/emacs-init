@@ -239,14 +239,6 @@
 
 (use-package less-css-mode)
 
-(use-package lsp-mode
-  :hook (css-mode
-         elisp-mode
-         javascript-mode
-         less-css-mode
-         php-mode
-         pthon-mode))
-
 (use-package magit)
 
 (use-package markdown-mode)

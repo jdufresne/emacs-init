@@ -50,9 +50,6 @@
 (setq-default tab-width 8)
 (setq-default truncate-lines t)
 
-(require 'grep)
-(setq grep-find-use-xargs 'exec)
-
 (require 'sort)
 (setq sort-fold-case t)
 
@@ -215,45 +212,19 @@
 (setq use-package-always-ensure t
       use-package-verbose t)
 
-(use-package atomic-chrome
-  :config (atomic-chrome-start-server))
-
-(use-package company
-  :init (add-hook 'after-init-hook #'global-company-mode))
-
-(use-package company-php)
-
-(use-package company-shell)
-
 (use-package crontab-mode
   :mode (("\\.cron\\(tab\\)?\\'" . crontab-mode)
-
          ("/cron\\(tab\\)?\\'" . crontab-mode)))
 
 (use-package deadgrep
   :bind ("C-c p s g" . deadgrep))
 
-(use-package diff-hl
-  :config (global-diff-hl-mode 1))
-
 (use-package dockerfile-mode)
 
 (use-package flycheck
-  :init (progn
-          (setq flycheck-highlighting-mode 'lines
-                flycheck-display-errors-function nil)
-          (setq-default flycheck-javascript-jshint-executable (expand-file-name "~/node_modules/.bin/jshint")
-                        flycheck-disabled-checkers '(python-mypy)))
+  :init (setq flycheck-highlighting-mode 'lines
+              flycheck-display-errors-function nil)
   :config (global-flycheck-mode 1))
-
-(defun init-git-commit-mode ()
-  "Initialize GIT-COMMIT-MODE."
-  (setq fill-column 72))
-
-(use-package git-commit
-  :config (progn
-            (global-git-commit-mode 1)
-            (add-hook 'git-commit-mode-hook #'init-git-commit-mode)))
 
 (use-package groovy-mode
   :init (setq-default groovy-indent-offset 2))
@@ -265,8 +236,6 @@
             (global-set-key [remap execute-extended-command] #'helm-M-x)
             (global-set-key [remap find-file] #'helm-find-files)
             (helm-mode 1)))
-
-(use-package json-mode)
 
 (use-package less-css-mode)
 
@@ -292,8 +261,6 @@
               php-mode-coding-style 'psr2))
 
 (use-package pip-requirements)
-
-(use-package pony-mode)
 
 (use-package s)
 

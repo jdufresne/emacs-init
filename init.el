@@ -222,8 +222,10 @@
 (use-package dockerfile-mode)
 
 (use-package flycheck
-  :init (setq flycheck-highlighting-mode 'lines
-              flycheck-display-errors-function nil)
+  :init (progn
+          (setq flycheck-highlighting-mode 'lines
+                flycheck-display-errors-function nil)
+          (setq-default flycheck-disabled-checkers '(python-mypy)))
   :config (global-flycheck-mode 1))
 
 (use-package groovy-mode

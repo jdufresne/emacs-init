@@ -241,7 +241,8 @@
 
 (use-package less-css-mode)
 
-(use-package magit)
+(use-package magit
+  :hook (git-commit-setup . (lambda () (setq fill-column 72))))
 
 (use-package markdown-mode)
 

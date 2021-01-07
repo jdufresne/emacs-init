@@ -117,6 +117,10 @@
 (setq python-fill-docstring-style 'django)
 (global-set-key (kbd "<f9>") #'run-python)
 
+;; Ruby
+(require 'ruby-mode)
+(setq ruby-insert-encoding-magic-comment nil)
+
 ;; SQL
 (require 'sql)
 

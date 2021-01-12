@@ -226,6 +226,9 @@
 
 (use-package dockerfile-mode)
 
+(use-package editorconfig
+  :config (editorconfig-mode 1))
+
 (use-package flycheck
   :init (progn
           (setq flycheck-highlighting-mode 'lines

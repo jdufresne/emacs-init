@@ -218,11 +218,11 @@
       use-package-verbose t)
 
 (use-package crontab-mode
-  :mode (("\\.cron\\(tab\\)?\\'" . crontab-mode)
-         ("/cron\\(tab\\)?\\'" . crontab-mode)))
+	     :mode (("\\.cron\\(tab\\)?\\'" . crontab-mode)
+		    ("/cron\\(tab\\)?\\'" . crontab-mode)))
 
 (use-package deadgrep
-  :bind ("C-c p s g" . deadgrep))
+	     :bind ("C-c p s g" . deadgrep))
 
 (use-package dockerfile-mode)
 
@@ -230,54 +230,54 @@
   :config (editorconfig-mode 1))
 
 (use-package flycheck
-  :init (progn
-          (setq flycheck-highlighting-mode 'lines
-                flycheck-display-errors-function nil)
-          (setq-default flycheck-disabled-checkers '(python-mypy)))
-  :config (global-flycheck-mode 1))
+	     :init (progn
+		     (setq flycheck-highlighting-mode 'lines
+			   flycheck-display-errors-function nil)
+		     (setq-default flycheck-disabled-checkers '(python-mypy)))
+	     :config (global-flycheck-mode 1))
 
 (use-package groovy-mode
-  :init (setq-default groovy-indent-offset 2))
+	     :init (setq-default groovy-indent-offset 2))
 
 (use-package helm
-  :init (setq-default helm-M-x-fuzzy-match t)
-  :config (progn
-            (global-set-key [remap bookmark-jump] #'helm-filtered-bookmarks)
-            (global-set-key [remap execute-extended-command] #'helm-M-x)
-            (global-set-key [remap find-file] #'helm-find-files)
-            (helm-mode 1)))
+	     :init (setq-default helm-M-x-fuzzy-match t)
+	     :config (progn
+		       (global-set-key [remap bookmark-jump] #'helm-filtered-bookmarks)
+		       (global-set-key [remap execute-extended-command] #'helm-M-x)
+		       (global-set-key [remap find-file] #'helm-find-files)
+		       (helm-mode 1)))
 
 (use-package less-css-mode)
 
 (use-package magit
-  :hook (git-commit-setup . (lambda () (setq fill-column 72))))
+	     :hook (git-commit-setup . (lambda () (setq fill-column 72))))
 
 (use-package markdown-mode)
 
 (use-package mwim
-  :config (global-set-key [remap move-beginning-of-line] #'mwim-beginning-of-code-or-line))
+	     :config (global-set-key [remap move-beginning-of-line] #'mwim-beginning-of-code-or-line))
 
 (use-package nginx-mode)
 
 (use-package php-mode
-  :init (setq php-mode-warn-if-mumamo-off nil
-              php-mode-coding-style 'psr2))
+	     :init (setq php-mode-warn-if-mumamo-off nil
+			 php-mode-coding-style 'psr2))
 
 (use-package pip-requirements)
 
 (use-package s)
 
 (use-package doom-themes
-  :init (setq doom-themes-enable-bold t
-              doom-themes-enable-italic t)
-  :config (progn
-            (load-theme 'doom-one t)
-            (doom-themes-visual-bell-config)))
+	     :init (setq doom-themes-enable-bold t
+			 doom-themes-enable-italic t)
+	     :config (progn
+		       (load-theme 'doom-one t)
+		       (doom-themes-visual-bell-config)))
 
 (use-package systemd)
 
 (use-package undo-tree
-  :config (global-undo-tree-mode 1))
+	     :config (global-undo-tree-mode 1))
 
 (use-package yaml-mode)
 

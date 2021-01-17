@@ -200,8 +200,7 @@
       use-package-verbose t)
 
 (use-package crontab-mode
-	     :mode (("\\.cron\\(tab\\)?\\'" . crontab-mode)
-		    ("/cron\\(tab\\)?\\'" . crontab-mode)))
+             :mode "\\(?:\\.\\|/\\)\\(?:cron\\(?:tab\\)?\\)\\'")
 
 (use-package deadgrep
 	     :bind ("C-c p s g" . deadgrep))

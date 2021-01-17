@@ -22,7 +22,6 @@
 ;;; Code:
 
 ;; Basic config
-(add-to-list 'load-path "~/.emacs.d/lisp")
 
 (menu-bar-mode 0)
 (tool-bar-mode 0)
@@ -95,9 +94,6 @@
 ;; Always use ibuffer
 (global-set-key [remap list-buffers] #'ibuffer)
 
-(require 'nxml-mode)
-(setq nxml-child-indent 4)
-
 ;; Remove annoying keys
 (global-unset-key (kbd "<insert>"))
 (global-unset-key (kbd "C-z"))
@@ -124,31 +120,21 @@
 ;; SQL
 (require 'sql)
 
-(defun project-config ()
-  "Read and return JSON project config."
-  (json-read-file (expand-file-name "config.json"
-                                    (vc-git-root (default-directory)))))
-
-(defun database (key)
-  "Return the name of the database for the current project."
-  (ignore-errors
-    (let* ((config (project-config))
-           (database-config (cdr (assoc 'database config)))
-           (database (cdr (assoc key database-config))))
-      database)))
-
 (defun project-sql (product)
   "Run PRODUCT database with default database for current project."
-  (let ((default-directory (expand-file-name "~"))
-        (sql-database (database 'name))
-        (sql-user (database 'user)))
+  (let ((default-directory (expand-file-name "~")))
     (sql-product-interactive product)))
+
+(defun project-sql-mysql ()
+  "Run PostgreSQL with default database for current project."
+  (interactive)
+  (project-sql 'mysql))
 
 (defun project-sql-postgres ()
   "Run PostgreSQL with default database for current project."
   (interactive)
   (project-sql 'postgres))
-(global-set-key (kbd "<f12>") #'project-sql-postgres)
+(global-set-key (kbd "<f12>") #'project-sql-mysql)
 
 (defun init-sql-mode ()
   "Initialize SQL-MODE."
@@ -247,8 +233,6 @@
 		       (global-set-key [remap find-file] #'helm-find-files)
 		       (helm-mode 1)))
 
-(use-package less-css-mode)
-
 (use-package magit
 	     :hook (git-commit-setup . (lambda () (setq fill-column 72))))
 
@@ -259,13 +243,7 @@
 
 (use-package nginx-mode)
 
-(use-package php-mode
-	     :init (setq php-mode-warn-if-mumamo-off nil
-			 php-mode-coding-style 'psr2))
-
 (use-package pip-requirements)
-
-(use-package s)
 
 (use-package doom-themes
 	     :init (setq doom-themes-enable-bold t
@@ -281,6 +259,6 @@
 
 (use-package yaml-mode)
 
-;; Additional extensions.
-(require 'espeak)
-(require 'myproject)
+(provide 'init)
+
+;;; init.el ends here

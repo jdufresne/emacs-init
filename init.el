@@ -247,6 +247,10 @@
 
 (use-package pip-requirements)
 
+(use-package projectile
+  :bind-keymap ("C-c p" . projectile-command-map)
+  :config (projectile-mode 1))
+
 (use-package doom-themes
   :init (setq doom-themes-enable-bold t
 	      doom-themes-enable-italic t)

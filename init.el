@@ -121,16 +121,20 @@
   (let ((default-directory (expand-file-name "~")))
     (sql-product-interactive product)))
 
-(defun project-sql-mysql ()
-  "Run PostgreSQL with default database for current project."
+(setq sql-mysql-login-params ()
+      sql-postgres-login-params ())
+
+(defun project-sql-mariadb ()
+  "Run MySQL with default database for current project."
   (interactive)
-  (project-sql 'mysql))
+  (project-sql 'mariadb))
 
 (defun project-sql-postgres ()
   "Run PostgreSQL with default database for current project."
   (interactive)
   (project-sql 'postgres))
-(global-set-key (kbd "<f12>") #'project-sql-mysql)
+
+(global-set-key (kbd "<f12>") #'project-sql-mariadb)
 
 (defun init-sql-mode ()
   "Initialize SQL-MODE."

@@ -206,8 +206,7 @@
 (use-package crontab-mode
   :mode "\\(?:\\.\\|/\\)\\(?:cron\\(?:tab\\)?\\)\\'")
 
-(use-package deadgrep
-  :bind ("C-c p s g" . deadgrep))
+(use-package deadgrep)
 
 (use-package dockerfile-mode)
 
@@ -268,6 +267,8 @@
 ;; Project convenience fucntions
 
 (require 'projectile)
+
+(global-set-key [remap projectile-grep] #'deadgrep)
 
 (defun project-run-server ()
   "Run the development server."

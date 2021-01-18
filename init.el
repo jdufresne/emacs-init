@@ -265,6 +265,25 @@
 
 (use-package yaml-mode)
 
+;; Project convenience fucntions
+
+(require 'projectile)
+
+(defun project-run-server ()
+  "Run the development server."
+  (interactive)
+  (let ((default-directory (projectile-acquire-root)))
+    (compile "bundle exec rails server")))
+
+(defun project-run-tests ()
+  "Test the project."
+  (interactive)
+  (let ((default-directory (projectile-acquire-root)))
+    (compile "bundle exec rails spec")))
+
+(global-set-key (kbd "<f5>") #'project-run-server)
+(global-set-key (kbd "<f6>") #'project-run-tests)
+
 (provide 'init)
 
 ;;; init.el ends here

@@ -188,15 +188,6 @@
 (setq rst-indent-literal-minimized 4)
 (add-to-list 'auto-mode-alist '("/docs/.*\\.txt\\'" . rst-mode))
 
-;; Colorize compilation buffers.
-(require 'ansi-color)
-(defun colorize-compilation ()
-  "Colorize from `compilation-filter-start' to `point'."
-  (let ((inhibit-read-only t))
-    (ansi-color-apply-on-region
-     compilation-filter-start (point))))
-(add-hook 'compilation-filter-hook #'colorize-compilation)
-
 ;; Third party libraries.
 
 (require 'package)
@@ -279,18 +270,38 @@
 
 (global-set-key [remap projectile-grep] #'deadgrep)
 
+(defconst server-buffer-name "*server*")
+
+(defun buffer-name-function (buffer-name)
+  "Make a function that return BUFFER-NAME."
+  (lambda (_name-of-mode) buffer-name))
+
+(defun kill-server ()
+  "Kill development server buffer."
+  (interactive)
+  (let ((kill-buffer-query-functions nil)
+        (buffer (get-buffer server-buffer-name)))
+    (when buffer
+      (kill-buffer buffer))))
+
 (defun project-run-server ()
   "Run the development server."
   (interactive)
-  (let ((default-directory (projectile-acquire-root)))
-    (compile "bundle exec rails server")))
+  (kill-server)
+  (let ((default-directory (projectile-acquire-root))
+        (compilation-buffer-name-function (buffer-name-function server-buffer-name)))
+    (compile "bundle exec rails server" t)))
 
 (defun project-run-tests ()
   "Test the project."
   (interactive)
-  (let ((default-directory (projectile-acquire-root)))
-    (compile "bundle exec rails spec")))
+  (let ((default-directory (projectile-acquire-root))
+        (compilation-buffer-name-function (buffer-name-function "*tests*"))
+        (compile-command "bundle exec rspec")
+        (current-prefix-arg '(1)))
+    (call-interactively #'compile)))
 
+(global-set-key (kbd "S-<f5>") #'kill-server)
 (global-set-key (kbd "<f5>") #'project-run-server)
 (global-set-key (kbd "<f6>") #'project-run-tests)
 

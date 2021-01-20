@@ -285,15 +285,22 @@
     (when buffer
       (kill-buffer buffer))))
 
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  "Colorize compilation buffer."
+  (when (member (buffer-name) (list server-buffer-name tests-buffer-name))
+    (let ((buffer-read-only nil))
+      (ansi-color-apply-on-region compilation-filter-start (point)))))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
 (defun project-run-server ()
   "Run the development server."
   (interactive)
   (kill-server)
   (let ((default-directory (projectile-acquire-root))
         (compilation-buffer-name-function (buffer-name-function server-buffer-name)))
-    (compile "bundle exec rails server" t))
+    (compile "bundle exec rails server"))
   (with-current-buffer server-buffer-name
-    (setq buffer-read-only t)
     (dolist (window (get-buffer-window-list))
       (set-window-point window (point-max)))))
 
@@ -302,11 +309,9 @@
   (interactive)
   (let ((default-directory (projectile-acquire-root))
         (compilation-buffer-name-function (buffer-name-function tests-buffer-name))
-        (compile-command "bundle exec rspec")
-        (current-prefix-arg '(1)))
+        (compile-command "bundle exec rspec"))
     (call-interactively #'compile))
   (with-current-buffer tests-buffer-name
-    (setq buffer-read-only t)
     (dolist (window (get-buffer-window-list))
       (set-window-point window (point-max)))))
 

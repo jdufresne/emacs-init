@@ -273,6 +273,19 @@
 (defconst server-buffer-name "*server*")
 (defconst tests-buffer-name "*tests*")
 
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  "Colorize compilation buffer."
+  (when (member (buffer-name) (list server-buffer-name tests-buffer-name))
+    (ansi-color-apply-on-region compilation-filter-start (point))))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
+(defun goto-buffer-end-in-windows (buffer-name)
+  "Set point to end in BUFFER-NAME."
+  (with-current-buffer buffer-name
+    (dolist (window (get-buffer-window-list))
+      (set-window-point window (point-max)))))
+
 (defun buffer-name-function (buffer-name)
   "Make a function that return BUFFER-NAME."
   (lambda (_name-of-mode) buffer-name))
@@ -285,14 +298,6 @@
     (when buffer
       (kill-buffer buffer))))
 
-(require 'ansi-color)
-(defun colorize-compilation-buffer ()
-  "Colorize compilation buffer."
-  (when (member (buffer-name) (list server-buffer-name tests-buffer-name))
-    (let ((buffer-read-only nil))
-      (ansi-color-apply-on-region compilation-filter-start (point)))))
-(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
-
 (defun project-run-server ()
   "Run the development server."
   (interactive)
@@ -300,9 +305,7 @@
   (let ((default-directory (projectile-acquire-root))
         (compilation-buffer-name-function (buffer-name-function server-buffer-name)))
     (compile "bundle exec rails server"))
-  (with-current-buffer server-buffer-name
-    (dolist (window (get-buffer-window-list))
-      (set-window-point window (point-max)))))
+  (goto-buffer-end-in-windows server-buffer-name))
 
 (defun project-run-tests ()
   "Test the project."
@@ -311,9 +314,7 @@
         (compilation-buffer-name-function (buffer-name-function tests-buffer-name))
         (compile-command "bundle exec rspec"))
     (call-interactively #'compile))
-  (with-current-buffer tests-buffer-name
-    (dolist (window (get-buffer-window-list))
-      (set-window-point window (point-max)))))
+  (goto-buffer-end-in-windows tests-buffer-name))
 
 (global-set-key (kbd "S-<f5>") #'kill-server)
 (global-set-key (kbd "<f5>") #'project-run-server)

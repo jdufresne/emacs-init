@@ -271,6 +271,7 @@
 (global-set-key [remap projectile-grep] #'deadgrep)
 
 (defconst server-buffer-name "*server*")
+(defconst tests-buffer-name "*tests*")
 
 (defun buffer-name-function (buffer-name)
   "Make a function that return BUFFER-NAME."
@@ -290,16 +291,24 @@
   (kill-server)
   (let ((default-directory (projectile-acquire-root))
         (compilation-buffer-name-function (buffer-name-function server-buffer-name)))
-    (compile "bundle exec rails server" t)))
+    (compile "bundle exec rails server" t))
+  (with-current-buffer server-buffer-name
+    (setq buffer-read-only t)
+    (dolist (window (get-buffer-window-list))
+      (set-window-point window (point-max)))))
 
 (defun project-run-tests ()
   "Test the project."
   (interactive)
   (let ((default-directory (projectile-acquire-root))
-        (compilation-buffer-name-function (buffer-name-function "*tests*"))
+        (compilation-buffer-name-function (buffer-name-function tests-buffer-name))
         (compile-command "bundle exec rspec")
         (current-prefix-arg '(1)))
-    (call-interactively #'compile)))
+    (call-interactively #'compile))
+  (with-current-buffer tests-buffer-name
+    (setq buffer-read-only t)
+    (dolist (window (get-buffer-window-list))
+      (set-window-point window (point-max)))))
 
 (global-set-key (kbd "S-<f5>") #'kill-server)
 (global-set-key (kbd "<f5>") #'project-run-server)

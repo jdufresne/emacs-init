@@ -307,13 +307,21 @@
     (compile "bundle exec rails server"))
   (goto-buffer-end-in-windows server-buffer-name))
 
+(defun test-command ()
+  "Return the default test command."
+  (let ((command '("bundle" "exec" "rspec"))
+        (file-name (buffer-file-name)))
+    (when (and file-name (string-match "^.*/spec/.*_spec.rb$"  file-name))
+      (nconc command (list (file-relative-name file-name))))
+    (string-join command " ")))
+
 (defun project-run-tests ()
   "Test the project."
   (interactive)
   (let ((default-directory (projectile-acquire-root))
-        (compilation-buffer-name-function (buffer-name-function tests-buffer-name))
-        (compile-command "bundle exec rspec"))
-    (call-interactively #'compile))
+        (compilation-buffer-name-function (buffer-name-function tests-buffer-name)))
+    (let ((compile-command (test-command)))
+      (call-interactively #'compile)))
   (goto-buffer-end-in-windows tests-buffer-name))
 
 (global-set-key (kbd "S-<f5>") #'kill-server)

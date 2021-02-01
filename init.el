@@ -119,7 +119,8 @@
 (defun project-sql (product)
   "Run PRODUCT database with default database for current project."
   (let ((default-directory (expand-file-name "~")))
-    (sql-product-interactive product)))
+    (sql-product-interactive product))
+  (pop-to-buffer (sql-find-sqli-buffer product)))
 
 (setq sql-mysql-login-params ()
       sql-postgres-login-params ())

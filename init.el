@@ -324,7 +324,8 @@
         (compilation-buffer-name-function (buffer-name-function tests-buffer-name)))
     (let ((compile-command (test-command)))
       (call-interactively #'compile)))
-  (goto-buffer-end-in-windows tests-buffer-name))
+  (goto-buffer-end-in-windows tests-buffer-name)
+  (pop-to-buffer tests-buffer-name))
 
 (defun project-routes ()
   "Test the project."

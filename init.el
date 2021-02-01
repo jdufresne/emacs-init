@@ -273,6 +273,7 @@
 
 (defconst server-buffer-name "*server*")
 (defconst tests-buffer-name "*tests*")
+(defconst routes-buffer-name "*routes*")
 
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
@@ -325,9 +326,19 @@
       (call-interactively #'compile)))
   (goto-buffer-end-in-windows tests-buffer-name))
 
+(defun project-routes ()
+  "Test the project."
+  (interactive)
+  (let ((default-directory (projectile-acquire-root))
+        (compilation-buffer-name-function (buffer-name-function routes-buffer-name)))
+    (compile "bundle exec rails routes"))
+  (goto-buffer-end-in-windows routes-buffer-name)
+  (pop-to-buffer routes-buffer-name))
+
 (global-set-key (kbd "S-<f5>") #'kill-server)
 (global-set-key (kbd "<f5>") #'project-run-server)
 (global-set-key (kbd "<f6>") #'project-run-tests)
+(global-set-key (kbd "<f7>") #'project-routes)
 
 (provide 'init)
 

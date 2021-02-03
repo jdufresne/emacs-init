@@ -311,7 +311,7 @@
 
 (defun test-command ()
   "Return the default test command."
-  (let ((command '("bundle" "exec" "rspec"))
+  (let ((command (list "bundle" "exec" "rspec"))
         (file-name (buffer-file-name)))
     (when (and file-name (string-match "^.*/spec/.*_spec.rb$"  file-name))
       (nconc command (list (file-relative-name file-name))))

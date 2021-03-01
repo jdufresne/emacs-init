@@ -224,8 +224,7 @@
 	  (setq-default flycheck-disabled-checkers '(python-mypy)))
   :config (global-flycheck-mode 1))
 
-(use-package groovy-mode
-  :init (setq-default groovy-indent-offset 2))
+(use-package groovy-mode)
 
 (use-package helm
   :init (setq-default helm-M-x-fuzzy-match t)

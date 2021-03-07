@@ -277,8 +277,7 @@
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
   "Colorize compilation buffer."
-  (when (member (buffer-name) (list server-buffer-name tests-buffer-name))
-    (ansi-color-apply-on-region compilation-filter-start (point))))
+  (ansi-color-apply-on-region compilation-filter-start (point)))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
 (defun goto-buffer-end-in-windows (buffer-name)

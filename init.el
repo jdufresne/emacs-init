@@ -262,6 +262,14 @@
 (use-package undo-tree
   :config (global-undo-tree-mode 1))
 
+(use-package web-mode
+  :config (setq web-mode-enable-auto-indentation nil
+                web-mode-enable-auto-closing nil
+                web-mode-enable-auto-pairing nil
+                web-mode-enable-auto-opening nil
+                web-mode-enable-auto-quoting nil)
+  :mode "\\.html.erb\\'")
+
 (use-package yaml-mode)
 
 ;; Project convenience fucntions

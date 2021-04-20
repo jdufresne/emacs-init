@@ -312,7 +312,7 @@
   (kill-server)
   (let ((default-directory (projectile-acquire-root))
         (compilation-buffer-name-function (buffer-name-function server-buffer-name)))
-    (compile "bundle exec rails server"))
+    (compile "bundle exec rails server -p 4000"))
   (goto-buffer-end-in-windows server-buffer-name))
 
 (defun test-command ()

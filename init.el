@@ -279,6 +279,8 @@
 (global-set-key [remap projectile-grep] #'deadgrep)
 
 (defconst server-buffer-name "*server*")
+(defconst webpack-buffer-name "*webpack*")
+
 (defconst tests-buffer-name "*tests*")
 (defconst routes-buffer-name "*routes*")
 
@@ -298,22 +300,32 @@
   "Make a function that return BUFFER-NAME."
   (lambda (_name-of-mode) buffer-name))
 
+(defun kill-buffer-if-exists (buffer-name)
+  "Kill the buffer specified by BUFFER-NAME."
+  (let ((kill-buffer-query-functions nil)
+        (buffer (get-buffer buffer-name)))
+    (when buffer
+      (kill-buffer buffer))))
+
 (defun kill-server ()
   "Kill development server buffer."
   (interactive)
-  (let ((kill-buffer-query-functions nil)
-        (buffer (get-buffer server-buffer-name)))
-    (when buffer
-      (kill-buffer buffer))))
+  (kill-buffer-if-exists server-buffer-name)
+  (kill-buffer-if-exists webpack-buffer-name))
+
+(defun compile-to-buffer (buffer-name command)
+  "Run the COMMAND and send output to BUFFER-NAME."
+  (let ((compilation-buffer-name-function (buffer-name-function buffer-name)))
+    (compile command))
+  (goto-buffer-end-in-windows buffer-name))
 
 (defun project-run-server ()
   "Run the development server."
   (interactive)
   (kill-server)
-  (let ((default-directory (projectile-acquire-root))
-        (compilation-buffer-name-function (buffer-name-function server-buffer-name)))
-    (compile "bundle exec rails server -p 4000"))
-  (goto-buffer-end-in-windows server-buffer-name))
+  (let ((default-directory (projectile-acquire-root)))
+    (compile-to-buffer webpack-buffer-name "bundle exec bin/webpack-dev-server")
+    (compile-to-buffer server-buffer-name "bundle exec rails server -p 4000")))
 
 (defun test-command ()
   "Return the default test command."

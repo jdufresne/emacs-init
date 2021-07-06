@@ -212,6 +212,13 @@
 
 (use-package dockerfile-mode)
 
+(use-package doom-themes
+  :init (setq doom-themes-enable-bold t
+	      doom-themes-enable-italic t)
+  :config (progn
+	    (load-theme 'doom-one t)
+	    (doom-themes-visual-bell-config)))
+
 (use-package editorconfig
   :config (editorconfig-mode 1))
 
@@ -250,13 +257,6 @@
 (use-package projectile
   :bind-keymap ("C-c p" . projectile-command-map)
   :config (projectile-mode 1))
-
-(use-package doom-themes
-  :init (setq doom-themes-enable-bold t
-	      doom-themes-enable-italic t)
-  :config (progn
-	    (load-theme 'doom-one t)
-	    (doom-themes-visual-bell-config)))
 
 (use-package systemd)
 

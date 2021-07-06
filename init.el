@@ -260,6 +260,8 @@
 
 (use-package systemd)
 
+(use-package terraform-mode)
+
 (use-package undo-tree
   :config (global-undo-tree-mode 1))
 

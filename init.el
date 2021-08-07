@@ -123,11 +123,11 @@
     (sql-product-interactive product))
   (pop-to-buffer (sql-find-sqli-buffer product)))
 
-(setq sql-mysql-login-params ()
+(setq sql-mariadb-login-params ()
       sql-postgres-login-params ())
 
 (defun project-sql-mariadb ()
-  "Run MySQL with default database for current project."
+  "Run MariaDB with default database for current project."
   (interactive)
   (project-sql 'mariadb))
 

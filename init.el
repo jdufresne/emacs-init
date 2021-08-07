@@ -123,7 +123,7 @@
     (sql-product-interactive product))
   (pop-to-buffer (sql-find-sqli-buffer product)))
 
-(setq sql-mariadb-login-params ()
+(setq sql-mariadb-login-params '((database :default "literacyfootprints"))
       sql-postgres-login-params ())
 
 (defun project-sql-mariadb ()

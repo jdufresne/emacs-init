@@ -123,20 +123,20 @@
     (sql-product-interactive product))
   (pop-to-buffer (sql-find-sqli-buffer product)))
 
-(setq sql-mariadb-login-params '((database :default "literacyfootprints"))
+(setq sql-mysql-login-params '((database :default "literacyfootprints"))
       sql-postgres-login-params ())
 
-(defun project-sql-mariadb ()
-  "Run MariaDB with default database for current project."
+(defun project-sql-mysql ()
+  "Run MySQL with default database for current project."
   (interactive)
-  (project-sql 'mariadb))
+  (project-sql 'mysql))
 
 (defun project-sql-postgres ()
   "Run PostgreSQL with default database for current project."
   (interactive)
   (project-sql 'postgres))
 
-(global-set-key (kbd "<f12>") #'project-sql-mariadb)
+(global-set-key (kbd "<f12>") #'project-sql-mysql)
 
 (defun init-sql-mode ()
   "Initialize SQL-MODE."

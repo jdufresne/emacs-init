@@ -263,6 +263,8 @@
 
 (use-package systemd)
 
+(use-package sql-indent)
+
 (use-package terraform-mode)
 
 (use-package undo-tree

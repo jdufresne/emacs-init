@@ -358,7 +358,7 @@
   (interactive)
   (let ((default-directory (projectile-acquire-root))
         (compilation-buffer-name-function (buffer-name-function routes-buffer-name)))
-    (compile "bundle exec rails routes"))
+    (compile "chruby-exec 2.7.4 -- bundle exec rails routes"))
   (goto-buffer-end-in-windows routes-buffer-name)
   (pop-to-buffer routes-buffer-name))
 

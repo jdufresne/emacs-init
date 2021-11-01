@@ -332,12 +332,12 @@
   (interactive)
   (kill-server)
   (let ((default-directory (projectile-acquire-root)))
-    (compile-to-buffer webpack-buffer-name "chruby-exec 2.7.4 -- bundle exec bin/webpack-dev-server")
-    (compile-to-buffer server-buffer-name "chruby-exec 2.7.4 -- bundle exec rails server -p 4000")))
+    (compile-to-buffer webpack-buffer-name "chruby-exec 3.0.2 -- bundle exec bin/webpack-dev-server")
+    (compile-to-buffer server-buffer-name "chruby-exec 3.0.2 -- bundle exec rails server -p 4000")))
 
 (defun test-command ()
   "Return the default test command."
-  (let ((command (list "chruby-exec" "2.7.4" "--" "bundle" "exec" "rspec"))
+  (let ((command (list "chruby-exec" "3.0.2" "--" "bundle" "exec" "rspec"))
         (file-name (buffer-file-name)))
     (when (and file-name (string-match "^.*/spec/.*_spec.rb$"  file-name))
       (nconc command (list (file-relative-name file-name))))
@@ -358,7 +358,7 @@
   (interactive)
   (let ((default-directory (projectile-acquire-root))
         (compilation-buffer-name-function (buffer-name-function routes-buffer-name)))
-    (compile "chruby-exec 2.7.4 -- bundle exec rails routes"))
+    (compile "chruby-exec 3.0.2 -- bundle exec rails routes"))
   (goto-buffer-end-in-windows routes-buffer-name)
   (pop-to-buffer routes-buffer-name))
 

@@ -239,6 +239,8 @@
 	    (global-set-key [remap find-file] #'helm-find-files)
 	    (helm-mode 1)))
 
+(use-package jenkinsfile-mode)
+
 (use-package magit
   :hook (git-commit-setup . (lambda () (setq fill-column 72))))
 

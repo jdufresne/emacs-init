@@ -323,6 +323,10 @@
     (compile command))
   (goto-buffer-end-in-windows buffer-name))
 
+(defun bundle-exec-command (command)
+  "Format bundler exec COMMAND with the project's Ruby version."
+  (format "bash -l -c 'bundle exec %s'" command))
+
 (defun project-run-server ()
   "Run the development server."
   (interactive)
@@ -330,18 +334,18 @@
   (let ((default-directory (projectile-acquire-root)))
     (if (file-exists-p "bin/webpack-dev-server")
         ;; TODO: Remove old webpack-dev-server.
-        (compile-to-buffer webpack-buffer-name "bundle exec bin/webpack-dev-server")
+        (compile-to-buffer webpack-buffer-name (bundle-exec-command "bin/webpack-dev-server"))
       (compile-to-buffer webpack-buffer-name "npx webpack s"))
     (let ((compilation-environment '("AWS_REGION=us-east-1")))
-      (compile-to-buffer server-buffer-name "bundle exec rails s -p 4000"))))
+      (compile-to-buffer server-buffer-name (bundle-exec-command "rails s -p 4000")))))
 
 (defun test-command ()
   "Return the default test command."
-  (let ((command (list "bundle" "exec" "rspec"))
+  (let ((command "rspec")
         (file-name (buffer-file-name)))
     (when (and file-name (string-match "^.*/spec/.*_spec.rb$"  file-name))
-      (nconc command (list (file-relative-name file-name))))
-    (string-join command " ")))
+      (setq command (concat command " " (file-relative-name file-name))))
+    (bundle-exec-command command)))
 
 (defun project-run-tests ()
   "Test the project."
@@ -358,7 +362,7 @@
   (interactive)
   (let ((default-directory (projectile-acquire-root))
         (compilation-buffer-name-function (buffer-name-function routes-buffer-name)))
-    (compile "bundle exec rails routes"))
+    (compile (bundle-exec-command "rails routes")))
   (goto-buffer-end-in-windows routes-buffer-name)
   (pop-to-buffer routes-buffer-name))
 

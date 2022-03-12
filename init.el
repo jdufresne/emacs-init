@@ -328,9 +328,12 @@
   (interactive)
   (kill-server)
   (let ((default-directory (projectile-acquire-root)))
-    (compile-to-buffer webpack-buffer-name "bundle exec bin/webpack-dev-server")
+    (if (file-exists-p "bin/webpack-dev-server")
+        ;; TODO: Remove old webpack-dev-server.
+        (compile-to-buffer webpack-buffer-name "bundle exec bin/webpack-dev-server")
+      (compile-to-buffer webpack-buffer-name "npx webpack s"))
     (let ((compilation-environment '("AWS_REGION=us-east-1")))
-      (compile-to-buffer server-buffer-name "bundle exec rails server -p 4000"))))
+      (compile-to-buffer server-buffer-name "bundle exec rails s -p 4000"))))
 
 (defun test-command ()
   "Return the default test command."

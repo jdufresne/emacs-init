@@ -325,7 +325,7 @@
 
 (defun bundle-exec-command (command)
   "Format bundler exec COMMAND with the project's Ruby version."
-  (format "bash -l -c 'bundle exec %s'" command))
+  (format "be %s" command))
 
 (defun project-run-server ()
   "Run the development server."

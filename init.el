@@ -32,6 +32,11 @@
 (setq initial-scratch-message nil)
 (setq ring-bell-function 'ignore)
 
+(let ((local-bin (expand-file-name "~/.local/bin")))
+  (unless (member local-bin exec-path)
+    (add-to-list 'exec-path local-bin)
+    (setenv "PATH" (concat local-bin path-separator (getenv "PATH")))))
+
 ;; Keep customize from modifying this file.
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file t)

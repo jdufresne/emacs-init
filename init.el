@@ -287,7 +287,7 @@
 
 (global-set-key [remap projectile-grep] #'deadgrep)
 
-(defconst server-buffer-name "*server*")
+(defconst rails-buffer-name "*rails*")
 (defconst webpack-buffer-name "*webpack*")
 
 (defconst tests-buffer-name "*tests*")
@@ -317,9 +317,9 @@
       (kill-buffer buffer))))
 
 (defun kill-server ()
-  "Kill development server buffer."
+  "Kill development server buffers."
   (interactive)
-  (kill-buffer-if-exists server-buffer-name)
+  (kill-buffer-if-exists rails-buffer-name)
   (kill-buffer-if-exists webpack-buffer-name))
 
 (defun compile-to-buffer (buffer-name command)
@@ -340,9 +340,9 @@
     (if (file-exists-p "bin/webpack-dev-server")
         ;; TODO: Remove old webpack-dev-server.
         (compile-to-buffer webpack-buffer-name (bundle-exec-command "bin/webpack-dev-server"))
-      (compile-to-buffer webpack-buffer-name "npx webpack s"))
+      (compile-to-buffer webpack-buffer-name "npx webpack serve"))
     (let ((compilation-environment '("AWS_REGION=us-east-1")))
-      (compile-to-buffer server-buffer-name (bundle-exec-command "rails s -p 4000")))))
+      (compile-to-buffer rails-buffer-name (bundle-exec-command "rails server")))))
 
 (defun test-command ()
   "Return the default test command."

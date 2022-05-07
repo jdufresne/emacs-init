@@ -225,6 +225,7 @@
   :config (editorconfig-mode 1))
 
 (use-package enh-ruby-mode
+  :config (setq enh-ruby-program (expand-file-name "~/.rubies/ruby-3.1.1/bin/ruby"))
   :mode "\\(?:\\.\\(?:axlsx\\|rbw?\\|ru\\|rake\\|thor\\|jbuilder\\|rabl\\|gemspec\\|podspec\\)\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Puppet\\|Berks\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'")
 
 (use-package flycheck

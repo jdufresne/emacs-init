@@ -272,6 +272,8 @@
               ("C-d" . nil)
               (">" . nil)))
 
+(use-package rvm)
+
 (use-package systemd)
 
 (use-package sql-indent)

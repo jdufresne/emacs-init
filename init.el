@@ -350,8 +350,7 @@
   (kill-server)
   (let ((default-directory (projectile-acquire-root)))
     (compile-to-buffer webpack-buffer-name "npx webpack serve")
-    (let ((compilation-environment '("AWS_REGION=us-east-1")))
-      (compile-to-buffer rails-buffer-name (bundle-exec-command "rails server")))))
+    (compile-to-buffer rails-buffer-name (bundle-exec-command "rails server"))))
 
 (defun test-command ()
   "Return the default test command."

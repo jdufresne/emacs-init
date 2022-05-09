@@ -272,7 +272,8 @@
               ("C-d" . nil)
               (">" . nil)))
 
-(use-package rvm)
+(use-package rvm
+  :config (rvm-use-default))
 
 (use-package systemd)
 

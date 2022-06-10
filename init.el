@@ -114,6 +114,16 @@
 (global-set-key (kbd "C-x k") #'kill-buffer-now)
 (global-set-key (kbd "C-x C-k") #'kill-buffer-now)
 
+(defun copy-file-name-as-kill ()
+  "Copy the current buffer file name to the kill ring."
+  (interactive)
+  (let ((file-name (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name))))
+    (when file-name
+      (kill-new file-name)
+      (message "Copied buffer file name '%s' to the clipboard." file-name))))
+
 ;; Python
 (require 'python)
 (setq python-fill-docstring-style 'django)

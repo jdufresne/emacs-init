@@ -22,3 +22,6 @@ places
 projectile-bookmarks.eld
 recentf.el
 tramp
+
+# Ignore private files
+env

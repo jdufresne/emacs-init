@@ -199,6 +199,8 @@
 (setq rst-indent-literal-minimized 4)
 (add-to-list 'auto-mode-alist '("/docs/.*\\.txt\\'" . rst-mode))
 
+(load "~/.emacs.d/env" t)
+
 ;; Third party libraries.
 
 (require 'package)

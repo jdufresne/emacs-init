@@ -8,6 +8,7 @@ TAGS
 
 # Ignore entire directories produced by emacs.
 auto-save-list/
+eln-cache/
 elpa/
 transient/
 

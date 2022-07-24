@@ -346,7 +346,8 @@
 
 (defun compile-to-buffer (buffer-name command)
   "Run the COMMAND and send output to BUFFER-NAME."
-  (let ((compilation-buffer-name-function (buffer-name-function buffer-name)))
+  (let ((compilation-buffer-name-function (buffer-name-function buffer-name))
+        (compilation-save-buffers-predicate #'ignore))
     (compile command))
   (goto-buffer-end-in-windows buffer-name))
 

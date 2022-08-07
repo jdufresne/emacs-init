@@ -283,6 +283,9 @@
               ("C-d" . nil)
               (">" . nil)))
 
+(use-package rspec-mode
+  :config (setq rspec-use-rvm t))
+
 (use-package rvm
   :config (rvm-use-default))
 
@@ -313,8 +316,6 @@
 
 (defconst rails-buffer-name "*rails*")
 (defconst webpack-buffer-name "*webpack*")
-
-(defconst tests-buffer-name "*tests*")
 (defconst routes-buffer-name "*routes*")
 
 (require 'ansi-color)
@@ -365,24 +366,6 @@
     (compile-to-buffer webpack-buffer-name "npx webpack serve")
     (compile-to-buffer rails-buffer-name (bundle-exec-command "rails server"))))
 
-(defun test-command ()
-  "Return the default test command."
-  (let ((command "rspec")
-        (file-name (buffer-file-name)))
-    (when (and file-name (string-match "^.*/spec/.*_spec.rb$"  file-name))
-      (setq command (concat command " " (file-relative-name file-name))))
-    (bundle-exec-command command)))
-
-(defun project-run-tests ()
-  "Test the project."
-  (interactive)
-  (let ((default-directory (projectile-acquire-root))
-        (compilation-buffer-name-function (buffer-name-function tests-buffer-name)))
-    (let ((compile-command (test-command)))
-      (call-interactively #'compile)))
-  (goto-buffer-end-in-windows tests-buffer-name)
-  (pop-to-buffer tests-buffer-name))
-
 (defun project-routes ()
   "Test the project."
   (interactive)
@@ -394,7 +377,6 @@
 
 (global-set-key (kbd "S-<f5>") #'kill-server)
 (global-set-key (kbd "<f5>") #'project-run-server)
-(global-set-key (kbd "<f6>") #'project-run-tests)
 (global-set-key (kbd "<f7>") #'project-routes)
 
 (provide 'init)

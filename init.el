@@ -296,6 +296,7 @@
 (use-package terraform-mode)
 
 (use-package undo-tree
+  :init (setq-default undo-tree-auto-save-history nil)
   :config (global-undo-tree-mode 1))
 
 (use-package web-mode

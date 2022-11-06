@@ -217,7 +217,7 @@
       use-package-verbose t)
 
 (use-package company
-  :hook (after-init-hook . global-company-mode))
+  :hook (after-init . global-company-mode))
 
 (use-package crontab-mode
   :mode "\\(?:\\.\\|/\\)\\(?:cron\\(?:tab\\)?\\)\\'")
@@ -237,7 +237,7 @@
   :config (editorconfig-mode 1))
 
 (use-package eglot
-  :hook (sh-mode-hook . eglot-ensure))
+  :hook (sh-mode . eglot-ensure))
 
 (use-package enh-ruby-mode
   :mode "\\(?:\\.\\(?:axlsx\\|rbw?\\|ru\\|rake\\|thor\\|jbuilder\\|rabl\\|gemspec\\|podspec\\)\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Puppet\\|Berks\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'")

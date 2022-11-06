@@ -236,7 +236,8 @@
 (use-package editorconfig
   :config (editorconfig-mode 1))
 
-(use-package eglot)
+(use-package eglot
+  :hook (sh-mode-hook . eglot-ensure))
 
 (use-package enh-ruby-mode
   :mode "\\(?:\\.\\(?:axlsx\\|rbw?\\|ru\\|rake\\|thor\\|jbuilder\\|rabl\\|gemspec\\|podspec\\)\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Puppet\\|Berks\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'")

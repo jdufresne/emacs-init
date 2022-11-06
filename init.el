@@ -217,7 +217,7 @@
       use-package-verbose t)
 
 (use-package company
-  :init (add-hook 'after-init-hook #'global-company-mode))
+  :hook (after-init-hook . global-company-mode))
 
 (use-package crontab-mode
   :mode "\\(?:\\.\\|/\\)\\(?:cron\\(?:tab\\)?\\)\\'")

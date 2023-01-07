@@ -360,7 +360,7 @@
 
 (defun bundle-exec-command (command)
   "Format bundler exec COMMAND with the project's Ruby version."
-  (format "bundle exec %s" command))
+  (format "chruby-exec 3.1.3 -- bundle exec %s" command))
 
 (defun project-run-server ()
   "Run the development server."

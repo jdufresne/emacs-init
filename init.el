@@ -358,9 +358,20 @@
     (compile command))
   (goto-buffer-end-in-windows buffer-name))
 
+(defun ruby-version ()
+  "Return the Ruby version used by Bundler."
+  (with-temp-buffer
+    (call-process "bundler" nil t nil "platform" "--ruby")
+    (let ((output (buffer-string)))
+      (string-match "\\`ruby \\([[:digit:]]+\\.[[:digit:]]+\\)\\.[[:digit:]]+\n\\'" output)
+      (let ((match (match-string 1 output)))
+        (unless match
+          (error "Failed to parse Ruby version: %s" output))
+        match))))
+
 (defun bundle-exec-command (command)
   "Format bundler exec COMMAND with the project's Ruby version."
-  (format "chruby-exec 3.1.3 -- bundle exec %s" command))
+  (format "chruby-exec %s -- bundle exec %s" (ruby-version) command))
 
 (defun project-run-server ()
   "Run the development server."

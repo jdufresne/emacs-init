@@ -298,7 +298,11 @@
 
 (use-package terraform-mode)
 
-(use-package typescript-mode)
+(use-package tree-sitter
+  :config (global-tree-sitter-mode)
+  :hook (tree-sitter-after-on-hook . #'tree-sitter-hl-mode))
+
+(use-package tree-sitter-langs)
 
 (use-package undo-tree
   :init (setq-default undo-tree-auto-save-history nil)

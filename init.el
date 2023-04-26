@@ -222,6 +222,9 @@
 (use-package crontab-mode
   :mode "\\(?:\\.\\|/\\)\\(?:cron\\(?:tab\\)?\\)\\'")
 
+(use-package csv-mode
+  :hook (csv-mode . csv-align-mode))
+
 (use-package deadgrep)
 
 (use-package dockerfile-mode)

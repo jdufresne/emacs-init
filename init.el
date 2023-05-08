@@ -42,7 +42,8 @@
 (load custom-file t)
 
 ;; Default frame.
-(add-to-list 'default-frame-alist '(font . "Fira Mono 14"))
+(add-hook 'after-make-frame-functions
+          (lambda (frame) (set-frame-font "Fira Mono 14" nil (list frame) t)))
 
 (setq kill-do-not-save-duplicates t)
 (setq mode-require-final-newline t)

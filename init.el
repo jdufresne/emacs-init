@@ -223,7 +223,11 @@
 (use-package crontab-mode
   :mode "\\(?:\\.\\|/\\)\\(?:cron\\(?:tab\\)?\\)\\'")
 
-(use-package deadgrep)
+(use-package deadgrep
+  :config (progn
+            (defun deadgrep--custom-arguments (rg-args)
+              (push "--hidden" rg-args))
+            (advice-add #'deadgrep--arguments :filter-return #'deadgrep--custom-arguments)))
 
 (use-package dockerfile-mode)
 

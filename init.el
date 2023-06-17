@@ -122,8 +122,17 @@
                       default-directory
                     (buffer-file-name))))
     (when file-name
-      (kill-new file-name)
-      (message "Copied buffer file name '%s' to the clipboard." file-name))))
+      (kill-new file-name))))
+
+(defun copy-relative-file-name-as-kill ()
+  "Copy the current buffer file name relative to root to the kill ring."
+  (interactive)
+  (let ((file-name (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name))))
+    (when file-name
+      (let ((project-root (projectile-acquire-root)))
+        (kill-new (file-relative-name file-name project-root))))))
 
 ;; Python
 (require 'python)

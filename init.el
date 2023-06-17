@@ -341,8 +341,9 @@
 (global-set-key [remap projectile-grep] #'deadgrep)
 
 (defconst rails-buffer-name "*rails*")
-(defconst webpack-buffer-name "*webpack*")
 (defconst routes-buffer-name "*routes*")
+(defconst tsc-buffer-name "*tsc*")
+(defconst webpack-buffer-name "*webpack*")
 
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
@@ -371,6 +372,7 @@
   "Kill development server buffers."
   (interactive)
   (kill-buffer-if-exists rails-buffer-name)
+  (kill-buffer-if-exists tsc-buffer-name)
   (kill-buffer-if-exists webpack-buffer-name))
 
 (defun compile-to-buffer (buffer-name command)
@@ -400,8 +402,9 @@
   (interactive)
   (kill-server)
   (let ((default-directory (projectile-acquire-root)))
-    (compile-to-buffer webpack-buffer-name "npx webpack serve")
-    (compile-to-buffer rails-buffer-name (bundle-exec-command "rails server"))))
+    (compile-to-buffer rails-buffer-name (bundle-exec-command "rails server"))
+    (compile-to-buffer tsc-buffer-name "npx tsc --watch")
+    (compile-to-buffer webpack-buffer-name "npx webpack serve")))
 
 (defun project-routes ()
   "Test the project."

@@ -410,7 +410,6 @@
   (kill-server)
   (let ((default-directory (projectile-acquire-root)))
     (compile-to-buffer rails-buffer-name (bundle-exec-command "rails server"))
-    (compile-to-buffer tsc-buffer-name "npx tsc --watch")
     (compile-to-buffer webpack-buffer-name "npx webpack serve")))
 
 (defun project-routes ()

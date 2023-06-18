@@ -397,6 +397,13 @@
   "Format bundler exec COMMAND with the project's Ruby version."
   (format "chruby-exec %s -- bundle exec %s" (ruby-version) command))
 
+(defun project-tsc-watch ()
+  "Run the TypeScript compiler in watch mode."
+  (interactive)
+  (kill-buffer-if-exists tsc-buffer-name)
+  (let ((default-directory (projectile-acquire-root)))
+    (compile-to-buffer tsc-buffer-name "npx tsc --watch")))
+
 (defun project-run-server ()
   "Run the development server."
   (interactive)

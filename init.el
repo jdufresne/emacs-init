@@ -250,9 +250,6 @@
 (use-package editorconfig
   :config (editorconfig-mode 1))
 
-(use-package eglot
-  :hook (sh-mode . eglot-ensure))
-
 (use-package enh-ruby-mode
   :mode "\\(?:\\.\\(?:axlsx\\|rbw?\\|ru\\|rake\\|thor\\|jbuilder\\|rabl\\|gemspec\\|podspec\\)\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Puppet\\|Berks\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'")
 
@@ -283,10 +280,6 @@
 (use-package mwim
   :config (global-set-key [remap move-beginning-of-line] #'mwim-beginning-of-code-or-line))
 
-(use-package nginx-mode)
-
-(use-package pip-requirements)
-
 (use-package project)
 
 (use-package projectile
@@ -300,23 +293,11 @@
               ("C-d" . nil)
               (">" . nil)))
 
-(use-package rspec-mode
-  :config (setq rspec-use-rvm t))
-
-(use-package rvm
-  :config (rvm-use-default))
-
 (use-package systemd)
 
 (use-package sql-indent)
 
 (use-package terraform-mode)
-
-(use-package tree-sitter
-  :config (global-tree-sitter-mode)
-  :hook (tree-sitter-after-on-hook . #'tree-sitter-hl-mode))
-
-(use-package tree-sitter-langs)
 
 (use-package typescript-mode)
 

@@ -286,13 +286,6 @@
   :bind-keymap ("C-c p" . projectile-command-map)
   :config (projectile-mode 1))
 
-(use-package rjsx-mode
-  :mode "\\.\(cjs|js|jsx|mjs\)\\'"
-  :bind (:map rjsx-mode-map
-              ("<" . nil)
-              ("C-d" . nil)
-              (">" . nil)))
-
 (use-package systemd)
 
 (use-package sql-indent)

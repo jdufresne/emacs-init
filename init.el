@@ -205,33 +205,7 @@
                               kill-all-global-buffers)))
         (kill-buffer buffer)))))
 
-(require 'rst)
-(setq rst-indent-literal-minimized 4)
-(add-to-list 'auto-mode-alist '("/docs/.*\\.txt\\'" . rst-mode))
-
 (load "~/.emacs.d/env" t)
-
-;; tree-sitter
-
-(setq treesit-language-source-alist
-      '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-        (css "https://github.com/tree-sitter/tree-sitter-css")
-        (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-        (json "https://github.com/tree-sitter/tree-sitter-json")
-        (python "https://github.com/tree-sitter/tree-sitter-python")))
-
-(dolist (item treesit-language-source-alist)
-  (let ((lang (car item)))
-    (unless (treesit-language-available-p 'python)
-      (treesit-install-language-grammar lang))))
-
-(setq major-mode-remap-alist
-      '((css-mode . css-ts-mode)
-        (javascript-mode . js-ts-mode)
-        (js-json-mode . json-ts-mode)
-        (python-mode . python-ts-mode)
-        (sh-mode . bash-ts-mode)))
-
 
 ;; Third party libraries.
 
@@ -311,7 +285,11 @@
 
 (use-package terraform-mode)
 
-(use-package typescript-mode)
+(use-package treesit-auto
+  :config (progn
+            (setq treesit-auto-install t)
+            (treesit-auto-add-to-auto-mode-alist 'all)
+            (global-treesit-auto-mode)))
 
 (use-package undo-tree
   :init (setq-default undo-tree-auto-save-history nil)
@@ -389,13 +367,6 @@
 (defun bundle-exec-command (command)
   "Format bundler exec COMMAND with the project's Ruby version."
   (format "chruby-exec %s -- bundle exec %s" (ruby-version) command))
-
-(defun project-tsc-watch ()
-  "Run the TypeScript compiler in watch mode."
-  (interactive)
-  (kill-buffer-if-exists tsc-buffer-name)
-  (let ((default-directory (projectile-acquire-root)))
-    (compile-to-buffer tsc-buffer-name "npx tsc --watch")))
 
 (defun project-run-server ()
   "Run the development server."

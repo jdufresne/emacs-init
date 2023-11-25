@@ -11,6 +11,7 @@ auto-save-list/
 eln-cache/
 elpa/
 transient/
+tree-sitter/
 
 # Ignore files produced by emacs.
 abbrev_defs

@@ -216,23 +216,22 @@
 (setq treesit-language-source-alist
       '((bash "https://github.com/tree-sitter/tree-sitter-bash")
         (css "https://github.com/tree-sitter/tree-sitter-css")
-        (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-        (html "https://github.com/tree-sitter/tree-sitter-html")
         (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
         (json "https://github.com/tree-sitter/tree-sitter-json")
-        (make "https://github.com/alemuller/tree-sitter-make")
-        (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-        (python "https://github.com/tree-sitter/tree-sitter-python")
-        (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
-        (toml "https://github.com/tree-sitter/tree-sitter-toml")
-        (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-        (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-        (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+        (python "https://github.com/tree-sitter/tree-sitter-python")))
 
 (dolist (item treesit-language-source-alist)
   (let ((lang (car item)))
     (unless (treesit-language-available-p 'python)
       (treesit-install-language-grammar lang))))
+
+(setq major-mode-remap-alist
+      '((css-mode . css-ts-mode)
+        (javascript-mode . js-ts-mode)
+        (js-json-mode . json-ts-mode)
+        (python-mode . python-ts-mode)
+        (sh-mode . bash-ts-mode)))
+
 
 ;; Third party libraries.
 
@@ -272,9 +271,6 @@
 
 (use-package editorconfig
   :config (editorconfig-mode 1))
-
-(use-package enh-ruby-mode
-  :mode "\\(?:\\.\\(?:axlsx\\|rbw?\\|ru\\|rake\\|thor\\|jbuilder\\|rabl\\|gemspec\\|podspec\\)\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Puppet\\|Berks\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'")
 
 (use-package flycheck
   :init (progn

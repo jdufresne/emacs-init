@@ -1,6 +1,6 @@
 ;;; init.el --- Emacs initialization file -*- lexical-binding: t -*-
 
-;; Author: Jon Dufresne <jon@jondufresne.org>
+;; Author: Jon Dufresne <jon.dufresne@gmail.com>
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

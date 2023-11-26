@@ -234,8 +234,6 @@
               (push "--hidden" rg-args))
             (advice-add #'deadgrep--arguments :filter-return #'deadgrep--custom-arguments)))
 
-(use-package dockerfile-mode)
-
 (use-package doom-themes
   :init (setq doom-themes-enable-bold t
 	      doom-themes-enable-italic t)

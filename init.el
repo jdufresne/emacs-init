@@ -266,8 +266,6 @@
 (use-package magit
   :hook (git-commit-setup . (lambda () (setq fill-column 72))))
 
-(use-package markdown-mode)
-
 (use-package mwim
   :config (global-set-key [remap move-beginning-of-line] #'mwim-beginning-of-code-or-line))
 

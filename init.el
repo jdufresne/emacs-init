@@ -222,58 +222,63 @@
 (setq use-package-always-ensure t
       use-package-verbose t)
 
-(use-package company
-  :hook (after-init . global-company-mode))
-
 (use-package crontab-mode
   :mode "\\(?:\\.\\|/\\)\\(?:cron\\(?:tab\\)?\\)\\'")
 
+(defun deadgrep--custom-arguments (rg-args)
+  (push "--hidden" rg-args))
+
 (use-package deadgrep
-  :config (progn
-            (defun deadgrep--custom-arguments (rg-args)
-              (push "--hidden" rg-args))
-            (advice-add #'deadgrep--arguments :filter-return #'deadgrep--custom-arguments)))
+  :config
+  (advice-add #'deadgrep--arguments :filter-return #'deadgrep--custom-arguments))
 
 (use-package doom-themes
-  :init (setq doom-themes-enable-bold t
-	      doom-themes-enable-italic t)
-  :config (progn
-	    (load-theme 'doom-one t)
-	    (doom-themes-visual-bell-config)))
+  :custom
+  (doom-themes-enable-bold t)
+  (doom-themes-enable-italic t)
+  :config
+  (load-theme 'doom-one t)
+  (doom-themes-visual-bell-config))
 
 (use-package editorconfig
-  :config (editorconfig-mode 1))
+  :config
+  (editorconfig-mode 1))
 
 (use-package flycheck
-  :init (progn
-	  (setq flycheck-highlighting-mode 'lines
-		flycheck-display-errors-function nil)
-	  (setq-default flycheck-disabled-checkers '(python-mypy)))
-  :config (global-flycheck-mode 1))
+  :custom
+  (flycheck-highlighting-mode 'lines)
+  (flycheck-display-errors-function nil)
+  :config
+  (global-flycheck-mode 1))
 
 (use-package groovy-mode)
 
 (use-package helm
-  :init (setq-default helm-M-x-fuzzy-match t)
-  :config (progn
-	    (global-set-key [remap bookmark-jump] #'helm-filtered-bookmarks)
-	    (global-set-key [remap execute-extended-command] #'helm-M-x)
-	    (global-set-key [remap find-file] #'helm-find-files)
-	    (helm-mode 1)))
+  :init
+  (setq-default helm-M-x-fuzzy-match t)
+  :config
+  (global-set-key [remap bookmark-jump] #'helm-filtered-bookmarks)
+  (global-set-key [remap execute-extended-command] #'helm-M-x)
+  (global-set-key [remap find-file] #'helm-find-files)
+  (helm-mode 1))
 
 (use-package jenkinsfile-mode)
 
 (use-package magit
-  :hook (git-commit-setup . (lambda () (setq fill-column 72))))
+  :hook
+  (git-commit-setup . (lambda () (setq fill-column 72))))
 
 (use-package mwim
-  :config (global-set-key [remap move-beginning-of-line] #'mwim-beginning-of-code-or-line))
+  :config
+  (global-set-key [remap move-beginning-of-line] #'mwim-beginning-of-code-or-line))
 
 (use-package project)
 
 (use-package projectile
-  :bind-keymap ("C-c p" . projectile-command-map)
-  :config (projectile-mode 1))
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+  :config
+  (projectile-mode 1))
 
 (use-package systemd)
 
@@ -282,24 +287,17 @@
 (use-package terraform-mode)
 
 (use-package treesit-auto
-  :config (progn
-            (setq treesit-auto-install t)
-            (treesit-auto-add-to-auto-mode-alist 'all)
-            (global-treesit-auto-mode)))
+  :custom
+  (treesit-auto-install t)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
 
 (use-package undo-tree
-  :init (setq-default undo-tree-auto-save-history nil)
-  :config (global-undo-tree-mode 1))
-
-(use-package web-mode
-  :config (setq web-mode-enable-auto-indentation nil
-                web-mode-enable-auto-closing nil
-                web-mode-enable-auto-pairing nil
-                web-mode-enable-auto-opening nil
-                web-mode-enable-auto-quoting nil)
-  :mode "\\.html.erb\\'")
-
-(use-package yaml-mode)
+  :custom
+  (undo-tree-auto-save-history nil)
+  :config
+  (global-undo-tree-mode 1))
 
 ;; Project convenience fucntions
 

@@ -134,6 +134,9 @@
       (let ((project-root (projectile-acquire-root)))
         (kill-new (file-relative-name file-name project-root))))))
 
+;; JavaScript
+(add-to-list 'auto-mode-alist '("\\.[cm]js\\'" . javascript-mode))
+
 ;; Python
 (require 'python)
 (setq python-fill-docstring-style 'django)

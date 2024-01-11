@@ -151,7 +151,8 @@
     (sql-product-interactive product))
   (pop-to-buffer (sql-find-sqli-buffer product)))
 
-(setq sql-postgres-login-params '((database :default "literacyfootprints")))
+(setq sql-postgres-login-params '((server :default "localhost")
+                                  (database :default "literacyfootprints")))
 
 (defun project-sql-postgres ()
   "Run PostgreSQL with default database for current project."

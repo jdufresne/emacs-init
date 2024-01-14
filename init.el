@@ -211,8 +211,6 @@
 
 (setq-default js-indent-level 2)
 
-(load "~/.emacs.d/env" t)
-
 ;; Third party libraries.
 
 (require 'package)

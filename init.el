@@ -24,8 +24,8 @@
 ;; Basic config
 
 (menu-bar-mode 0)
-(if (functionp 'tool-bar-mode)
-    (tool-bar-mode 0))
+(when (functionp 'tool-bar-mode)
+  (tool-bar-mode 0))
 (scroll-bar-mode 0)
 (setq create-lockfiles nil)
 (setq inhibit-splash-screen t)

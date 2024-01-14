@@ -315,7 +315,6 @@
 
 (defconst rails-buffer-name "*rails*")
 (defconst routes-buffer-name "*routes*")
-(defconst tsc-buffer-name "*tsc*")
 (defconst webpack-buffer-name "*webpack*")
 
 (require 'ansi-color)
@@ -345,7 +344,6 @@
   "Kill development server buffers."
   (interactive)
   (kill-buffer-if-exists rails-buffer-name)
-  (kill-buffer-if-exists tsc-buffer-name)
   (kill-buffer-if-exists webpack-buffer-name))
 
 (defun compile-to-buffer (buffer-name command)

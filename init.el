@@ -248,13 +248,6 @@
   :config
   (editorconfig-mode 1))
 
-(use-package flycheck
-  :custom
-  (flycheck-highlighting-mode 'lines)
-  (flycheck-display-errors-function nil)
-  :config
-  (global-flycheck-mode 1))
-
 (use-package groovy-mode)
 
 (use-package helm

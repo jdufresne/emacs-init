@@ -232,6 +232,8 @@
               ("<tab>" . copilot-accept-completion)
               ("TAB" . copilot-accept-completion)))
 
+(use-package copilot-chat)
+
 (use-package crontab-mode
   :mode "\\(?:\\.\\|/\\)\\(?:cron\\(?:tab\\)?\\)\\'")
 

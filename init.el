@@ -230,7 +230,9 @@
   :hook (prog-mode . copilot-mode)
   :bind (:map copilot-completion-map
               ("<tab>" . copilot-accept-completion)
-              ("TAB" . copilot-accept-completion)))
+              ("TAB" . copilot-accept-completion)
+              ("C-<right>" . copilot-accept-completion-by-word)
+              ("C-S-<right>" . copilot-accept-completion-by-line)))
 
 (use-package copilot-chat
   :config

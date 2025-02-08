@@ -232,7 +232,9 @@
               ("<tab>" . copilot-accept-completion)
               ("TAB" . copilot-accept-completion)))
 
-(use-package copilot-chat)
+(use-package copilot-chat
+  :config
+  (global-set-key (kbd "C-M-S-i") #'copilot-chat-display))
 
 (use-package crontab-mode
   :mode "\\(?:\\.\\|/\\)\\(?:cron\\(?:tab\\)?\\)\\'")

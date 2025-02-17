@@ -236,7 +236,11 @@
 
 (use-package copilot-chat
   :config
-  (global-set-key (kbd "C-M-S-i") #'copilot-chat-display))
+  (global-set-key (kbd "C-M-S-i") #'copilot-chat-display)
+  :hook
+  (copilot-chat-mode . (lambda ()
+                         (setq truncate-lines nil)
+                         (visual-line-mode 1))))
 
 (use-package crontab-mode
   :mode "\\(?:\\.\\|/\\)\\(?:cron\\(?:tab\\)?\\)\\'")

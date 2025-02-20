@@ -307,12 +307,14 @@
               ("C-S-<right>" . copilot-accept-completion-by-line)))
 
 (use-package copilot-chat
+  :init
+  (copilot-install-server)
   :config
   (global-set-key (kbd "C-M-S-i") #'copilot-chat-display)
   :hook
-  (copilot-chat-mode . (lambda ()
-                         (setq truncate-lines nil)
-                         (visual-line-mode 1))))
+  (copilot-chat-org-prompt-mode . (lambda ()
+                                    (setq truncate-lines nil)
+                                    (visual-line-mode 1))))
 
 ;; Project convenience fucntions
 

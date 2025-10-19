@@ -365,15 +365,12 @@
   (goto-buffer-end-in-windows buffer-name))
 
 (defun ruby-version ()
-  "Return the Ruby version used by Bundler."
+  "Get the project Ruby version from the `.ruby-version` file."
   (with-temp-buffer
-    (call-process "bundler" nil t nil "platform" "--ruby")
-    (let ((output (buffer-string)))
-      (string-match "\\`ruby \\([[:digit:]]+\\.[[:digit:]]+\\)\\.[[:digit:]]+\n\\'" output)
-      (let ((match (match-string 1 output)))
-        (unless match
-          (error "Failed to parse Ruby version: %s" output))
-        match))))
+    (insert-file-contents ".ruby-version")
+    (let ((ruby-version (buffer-string)))
+      (string-match "\\`ruby-?\\(.*\\)\n\\'" ruby-version)
+      (match-string 1 ruby-version))))
 
 (defun bundle-exec-command (command)
   "Format bundler exec COMMAND with the project's Ruby version."

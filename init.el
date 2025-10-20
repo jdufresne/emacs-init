@@ -246,9 +246,6 @@
                                     (setq truncate-lines nil)
                                     (visual-line-mode 1))))
 
-(use-package crontab-mode
-  :mode "\\(?:\\.\\|/\\)\\(?:cron\\(?:tab\\)?\\)\\'")
-
 (defun deadgrep--custom-arguments (rg-args)
   (push "--hidden" rg-args))
 

@@ -213,10 +213,6 @@
 
 ;; Third party libraries.
 
-(let ((copilot-install-dir (concat user-emacs-directory ".cache/copilot")))
-  (make-directory copilot-install-dir 'parents)
-  (call-process "npm" nil nil nil "--global" "--prefix" copilot-install-dir "install" "@github/copilot-language-server"))
-
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
@@ -229,22 +225,6 @@
 (require 'use-package)
 (setq use-package-always-ensure t
       use-package-verbose t)
-
-(use-package copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-              ("<tab>" . copilot-accept-completion)
-              ("TAB" . copilot-accept-completion)
-              ("C-<right>" . copilot-accept-completion-by-word)
-              ("C-S-<right>" . copilot-accept-completion-by-line)))
-
-(use-package copilot-chat
-  :config
-  (global-set-key (kbd "C-M-S-i") #'copilot-chat-display)
-  :hook
-  (copilot-chat-org-prompt-mode . (lambda ()
-                                    (setq truncate-lines nil)
-                                    (visual-line-mode 1))))
 
 (defun deadgrep--custom-arguments (rg-args)
   (push "--hidden" rg-args))

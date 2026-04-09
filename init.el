@@ -222,6 +222,14 @@
 (setq use-package-always-ensure t
       use-package-verbose t)
 
+(use-package copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . copilot-accept-completion)
+              ("TAB" . copilot-accept-completion)
+              ("C-<right>" . copilot-accept-completion-by-word)
+              ("C-S-<right>" . copilot-accept-completion-by-line)))
+
 (defun deadgrep--custom-arguments (rg-args)
   (push "--hidden" rg-args))
 

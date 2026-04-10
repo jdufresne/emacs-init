@@ -227,8 +227,10 @@
   :bind (:map copilot-completion-map
               ("<tab>" . copilot-accept-completion)
               ("TAB" . copilot-accept-completion)
-              ("C-<right>" . copilot-accept-completion-by-word)
-              ("C-S-<right>" . copilot-accept-completion-by-line)))
+              ("C-<tab>" . copilot-accept-completion-by-word)
+              ("C-TAB" . copilot-accept-completion-by-word)
+              ("C-n" . copilot-next-completion)
+              ("C-p" . copilot-previous-completion)))
 
 (defun deadgrep--custom-arguments (rg-args)
   (push "--hidden" rg-args))

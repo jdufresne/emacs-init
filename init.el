@@ -239,8 +239,27 @@
 (setq use-package-always-ensure t
       use-package-verbose t)
 
+(defvar copilot--install-attempted nil
+  "Non-nil once this session has tried to install the Copilot server.")
+
+(defun copilot-server-installed-p ()
+  "Return non-nil when the Copilot language server is installed."
+  (ignore-errors (copilot-server-executable)))
+
+(defun copilot-mode-maybe ()
+  "Turn on `copilot-mode' when the Copilot language server is installed."
+  (require 'copilot)
+  (cond
+   ((copilot-server-installed-p)
+    (copilot-mode 1))
+   (copilot--install-attempted)
+   (t
+    (setq copilot--install-attempted t)
+    (message "Copilot: installing the language server...")
+    (copilot-install-server))))
+
 (use-package copilot
-  :hook (prog-mode . copilot-mode)
+  :hook (prog-mode . copilot-mode-maybe)
   :bind (:map copilot-completion-map
               ("<tab>" . copilot-accept-completion)
               ("TAB" . copilot-accept-completion)

@@ -32,6 +32,15 @@
 (setq initial-scratch-message nil)
 (setq ring-bell-function 'ignore)
 
+;; Performance
+(setq gc-cons-threshold (* 32 1024 1024))
+(setq gc-cons-percentage 0.2)
+(setq redisplay-skip-fontification-on-input t)
+(setq fast-but-imprecise-scrolling t)
+(setq bidi-inhibit-bpa t)
+(setq-default bidi-paragraph-direction 'left-to-right)
+(setq read-process-output-max (* 1024 1024))
+
 (let ((local-bin (expand-file-name "~/.local/bin")))
   (unless (member local-bin exec-path)
     (add-to-list 'exec-path local-bin)
@@ -67,9 +76,15 @@
 (setq column-number-mode t)
 (show-paren-mode 1)
 (delete-selection-mode 1)
-(global-display-line-numbers-mode)
+(require 'display-line-numbers)
+(setq display-line-numbers-grow-only t)
+(dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
+  (add-hook hook #'display-line-numbers-mode))
 (global-subword-mode 1)
 (setq comment-auto-fill-only-comments t)
+(require 'flyspell)
+(setq flyspell-issue-message-flag nil)
+(setq flyspell-issue-welcome-flag nil)
 (add-hook 'text-mode-hook #'turn-on-flyspell)
 (add-hook 'prog-mode-hook #'flyspell-prog-mode)
 
@@ -77,6 +92,7 @@
 (require 'autorevert)
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
+(setq auto-revert-avoid-polling t)
 (global-auto-revert-mode 1)
 
 ;; Save place mode
@@ -190,6 +206,7 @@
     (setq buffer-read-only t)
     (buffer-disable-undo)))
 (add-hook 'find-file-hook #'init-large-buffer)
+(global-so-long-mode 1)
 
 (defvar kill-all-global-buffers
   '("^\\*compilation\\*$"))
@@ -279,6 +296,8 @@
 (use-package projectile
   :bind-keymap
   ("C-c p" . projectile-command-map)
+  :custom
+  (projectile-dynamic-mode-line nil)
   :config
   (projectile-mode 1))
 
@@ -312,10 +331,7 @@
 (defconst webpack-buffer-name "*webpack*")
 
 (require 'ansi-color)
-(defun colorize-compilation-buffer ()
-  "Colorize compilation buffer."
-  (ansi-color-apply-on-region compilation-filter-start (point)))
-(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+(add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
 
 (defun goto-buffer-end-in-windows (buffer-name)
   "Set point to end in BUFFER-NAME."
